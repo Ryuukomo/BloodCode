@@ -34,9 +34,17 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
           \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
            \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
 " };
-        static int selecionado = 0;
-   
+        static int selecionado = 0 ;
 
+
+        static string[] seletor = { @"---------------------------------
+                                     |               /|               |
+                                     |                |               |
+                                     |                |               |
+                                     |                |               |
+                                     |              __|__             |
+                                     |________________________________|", " ", " "};
+   
         static int largura = 20;           // Define a largura do mapa
         static int altura = 29;            // Define a altura do mapa
 
@@ -85,6 +93,13 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                     {
                         mapa[x, y] = '|';  // Define como parede
                     }
+                    
+                      else if (x == 1 || x == largura - 1)
+                    {
+                        mapa[x, y] = '|';  // Define como parede
+                    }
+                    
+                    
                     else
                     {
                         mapa[x, y] = ' ';  // Espaço vazio
@@ -165,6 +180,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             switch (tecla2)  // Verifica qual tecla foi pressionada
             {
                 case ConsoleKey.Enter: layout1 = false; break;
+                    
             }
         }
         static void dig2()
@@ -227,8 +243,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
 
         }
-    
-    
+ 
     }
 }
 
