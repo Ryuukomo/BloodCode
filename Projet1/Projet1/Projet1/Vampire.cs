@@ -35,14 +35,23 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
            \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
 " };
         static int selecionado = 0;
-   
+
+        static string[] SeletorDeMapa = {@"
+                                     ---------------------------------------
+                                                       /|
+                                                        |
+                                                        |
+                                                        |
+                                                      __|__
+                                     _______________________________________
+                                                      "};
 
         static int largura = 20;           // Define a largura do mapa
         static int altura = 29;            // Define a altura do mapa
 
         static int playerX = 1;            // Posição X inicial do jogador
         static int playerY = 10;            // Posição Y inicial do jogador
-
+        
         static bool jogando = true;  // Controla se o jogo ainda está rodando
         static bool layout1 = true;
 
