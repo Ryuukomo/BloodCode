@@ -44,7 +44,23 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                                                         |
                                                       __|__
                                      _______________________________________
-                                                      ", " ", " " };
+                                                      ", @"
+                                     ---------------------------------------
+                                                       __                                                       
+                                                      /  \
+                                                         /
+                                                        /
+                                                       /
+                                                      /____
+                                     _______________________________________ ", @"
+                                     ---------------------------------------
+                                                       __
+                                                      /  \
+                                                         /
+                                                        |
+                                                         \
+                                                      \__/
+                                     _______________________________________ " };
         static int ativo = 0;
 
         static int largura = 20;           // Define a largura do mapa
@@ -55,11 +71,11 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         
         static bool jogando = true;  // Controla se o jogo ainda está rodando
         static bool layout1 = true;
+        static bool layout2 = true;
 
         static void Main()  // Método principal onde o jogo começa
         {
-            menuInicial();
-            jogar(); // Chama o método que inicia o jogo
+            jogointeiro();// Chama o método que inicia o jogo
         }
         static void jogar()  // Método principal da lógica do jogo
         {
@@ -146,7 +162,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             }
 
         }
-        static void menuInicial()
+        static void jogointeiro()
         {
 
             /*
@@ -163,13 +179,8 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             moveset();
        
 
-            while (layout1)
-            {
-
-                dig2();
-
-            }
         }
+      
         static void atualizetecla2(ConsoleKey tecla2)
         {
             switch (tecla2)  // Verifica qual tecla foi pressionada
@@ -181,6 +192,20 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         {
             var tecla2 = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
             atualizetecla2(tecla2);
+
+        }
+
+        static void atualizetecla5(ConsoleKey tecla5)
+        {
+            switch (tecla5)  // Verifica qual tecla foi pressionada
+            {
+                case ConsoleKey.Enter: layout2 = false; break;
+            }
+        }
+        static void dig5()
+        {
+            var tecla5 = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
+            atualizetecla5(tecla5);
 
         }
         static void MostrarMenu()
@@ -240,15 +265,44 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             } 
             while (tecla3 != ConsoleKey.Enter);
             Console.Clear();
-           
-         Console.WriteLine("Arte escolhida:");
+      
 
             if(selecionado == 0) {
                 
                 
                 layout1 = false;
-            }
 
+               
+
+            }
+ while (layout1)
+                {
+
+                    dig2();
+                    escolhemapa();
+                }
+            if(selecionado == 1)
+            {
+                layout1 = false;
+              
+            }  while (layout1)
+                {
+
+                    dig2();
+                    Console.Write("Alô");
+                }
+
+            if (selecionado == 2)
+            {
+                layout1 = false;
+                
+
+            }                while (layout1)
+                {
+
+                    dig2();
+                    Console.Write("Hi");
+                }
 
         }
 
@@ -269,25 +323,57 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
                 if (tecla4 == ConsoleKey.UpArrow)
                 {
-                    selecionado = (selecionado2 - 1 + opcoes.Length) % opcoes.Length;
+                    selecionado = (ativo - 1 + opcoes.Length) % opcoes.Length;
                 }
                 else if (tecla4 == ConsoleKey.DownArrow)
                 {
-                    selecionado = (selecionado2 + 1) % opcoes.Length;
+                    selecionado = (ativo + 1) % opcoes.Length;
                 }
-                MostrarMenu();
+                MostrarMenumap();
             }
-            while (tecla3 != ConsoleKey.Enter);
+            while (tecla4 != ConsoleKey.Enter);
             Console.Clear();
 
-            Console.WriteLine("Arte escolhida:");
+            while (layout2) 
+            { 
 
-            if (selecionado == 0)
+                if (ativo == 0)
+                {
+
+
+                    layout2 = false;
+
+
+                }
+
+dig5();
+                    jogar();                
+
+
+                if (ativo == 1)
+                {
+                    layout2 = false;
+
+ 
+                }
+dig5();
+
+            Console.Write(" oi ");
+               
+
+            if (ativo == 2)
             {
 
+                layout2 = false;
 
-                layout1 = false;
+ 
             }
+
+dig5();
+            Console.Write(" olá ");
+           
+        }
+            
 
 
         }
