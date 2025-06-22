@@ -36,7 +36,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 " };
         static int selecionado = 0;
 
-        static string[] SeletorDeMapa = {@"
+        static string[] SeletorDeMapa = { @"
                                      ---------------------------------------
                                                        /|
                                                         |
@@ -44,7 +44,8 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                                                         |
                                                       __|__
                                      _______________________________________
-                                                      "};
+                                                      ", " ", " " };
+        static int ativo = 0;
 
         static int largura = 20;           // Define a largura do mapa
         static int altura = 29;            // Define a altura do mapa
@@ -197,7 +198,21 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                 Console.WriteLine(linhas[i].TrimEnd());
             }
         }
+        static void MostrarMenumap()
+        {
 
+            Console.Clear();
+            string[] linhas = SeletorDeMapa[ativo].Split('\n');
+
+            int topo = 5; // ou centralizado
+            int esquerda = 10;
+
+            for (int i = 0; i < linhas.Length; i++)
+            {
+                Console.SetCursorPosition(esquerda, topo + i);
+                Console.WriteLine(linhas[i].TrimEnd());
+            }
+        }
         static void moveset()
         {
 
@@ -236,8 +251,47 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
 
         }
-    
-    
+
+        static void escolhemapa()
+        {
+
+            Console.CursorVisible = false;
+
+            Console.Clear();
+            MostrarMenumap();
+            ConsoleKey tecla4;
+
+            do
+            {
+
+
+                tecla4 = Console.ReadKey(true).Key;
+
+                if (tecla4 == ConsoleKey.UpArrow)
+                {
+                    selecionado = (selecionado2 - 1 + opcoes.Length) % opcoes.Length;
+                }
+                else if (tecla4 == ConsoleKey.DownArrow)
+                {
+                    selecionado = (selecionado2 + 1) % opcoes.Length;
+                }
+                MostrarMenu();
+            }
+            while (tecla3 != ConsoleKey.Enter);
+            Console.Clear();
+
+            Console.WriteLine("Arte escolhida:");
+
+            if (selecionado == 0)
+            {
+
+
+                layout1 = false;
+            }
+
+
+        }
+
     }
 }
 
