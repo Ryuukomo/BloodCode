@@ -38,7 +38,8 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
         static string[] SeletorDeMapa = { @"
                                      ---------------------------------------
-                                                       /|
+                                                       __
+                                                      / |
                                                         |
                                                         |
                                                         |
@@ -333,11 +334,11 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
                 if (tecla4 == ConsoleKey.UpArrow)
                 {
-                    selecionado = (ativo - 1 + opcoes.Length) % opcoes.Length;
+                    ativo = (ativo - 1 + opcoes.Length) % opcoes.Length;
                 }
                 else if (tecla4 == ConsoleKey.DownArrow)
                 {
-                    selecionado = (ativo + 1) % opcoes.Length;
+                   ativo = (ativo + 1) % opcoes.Length;
                 }
                 MostrarMenumap();
             }
