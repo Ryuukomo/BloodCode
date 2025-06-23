@@ -246,10 +246,10 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             Console.Clear();
             MostrarMenu();
             ConsoleKey tecla3;
- 
+
             do
             {
-               
+
 
                 tecla3 = Console.ReadKey(true).Key;
 
@@ -261,49 +261,59 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                 {
                     selecionado = (selecionado + 1) % opcoes.Length;
                 }
-              MostrarMenu();
-            } 
+                MostrarMenu();
+            }
             while (tecla3 != ConsoleKey.Enter);
             Console.Clear();
-      
 
-            if(selecionado == 0) {
-                
-                
+           
+ 
                 layout1 = false;
-
-               
-
-            }
- while (layout1)
+                if (selecionado == 0) 
                 {
 
+
+                while (layout1)
+                {
                     dig2();
-                    escolhemapa();
                 }
-            if(selecionado == 1)
-            {
-                layout1 = false;
               
-            }  while (layout1)
-                {
+                    escolhemapa();
 
-                    dig2();
-                    Console.Write("Alô");
                 }
+ 
 
-            if (selecionado == 2)
-            {
-                layout1 = false;
+                 
                 
+                    if(selecionado == 1)
+                    {
 
-            }                while (layout1)
-                {
+                    
 
-                    dig2();
-                    Console.Write("Hi");
-                }
+                    while (layout1)
+                    {
+                        dig2();
+                    }
 
+                        Console.Write("Alô");
+                    } 
+
+                
+ 
+                    if (selecionado == 2)
+                    {
+
+                      
+
+                        while (layout1)
+                        {
+                            dig2();
+                        }
+
+                            Console.Write("Hi");
+                    }               
+
+                    
         }
 
         static void escolhemapa()
@@ -334,45 +344,51 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             while (tecla4 != ConsoleKey.Enter);
             Console.Clear();
 
-            while (layout2) 
-            { 
+          
 
                 if (ativo == 0)
                 {
 
-
-                    layout2 = false;
-
-
+                layout2 = false;
+            while (layout2)
+            {
+                dig5();
+            }
+                    jogar();
                 }
 
-dig5();
-                    jogar();                
 
+           
 
                 if (ativo == 1)
                 {
-                    layout2 = false;
 
- 
+                layout2 = false;
+                while (layout2)
+                {
+                    dig5();
                 }
-dig5();
 
-            Console.Write(" oi ");
+                Console.Write(" oi ");
+                }
+
                
 
             if (ativo == 2)
             {
-
                 layout2 = false;
+                while (layout2)
+                {
+                    dig5();
+                }
 
- 
+
+                Console.Write(" olá ");
             }
 
-dig5();
-            Console.Write(" olá ");
+
            
-        }
+        
             
 
 
