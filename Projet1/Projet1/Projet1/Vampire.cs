@@ -72,7 +72,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         
         static bool jogando = true;  // Controla se o jogo ainda está rodando
         static bool layout1 = true;
-        static bool layout2 = true;
+      
 
         static void Main()  // Método principal onde o jogo começa
         {
@@ -94,6 +94,23 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
             }
         }
+
+        static void jogar2()  // Método principal da lógica do jogo
+        {
+            iniciarMapa2();                // Inicializa o mapa com paredes e espaço vazio
+
+            while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
+            {
+                Console.Clear();          // Limpa a tela a cada frame
+
+
+                desenhaMapa();            // Redesenha o mapa com a nova posição do jogador
+
+                var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
+                atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
+
+            }
+        }
         static void iniciarMapa()  // Método para criar e configurar o mapa do jogo
         {
             mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
@@ -105,7 +122,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                     if (y == 0 || y == altura - 1) // Se estiver na borda sul ou norte do mapa (primeira ou última linha/coluna)
 
                     {
-                        mapa[x, y] = '-';  // Define como parede
+                        mapa[x, y] = '-';  // Define como chão
                     }
 
                     else if (x == 0 || x == largura - 1)
@@ -120,7 +137,45 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             }
 
             mapa[playerX, playerY] = '@';  // Coloca o personagem '@' na posição inicial
+
+
         }
+
+        static void iniciarMapa2()  // Método para criar e configurar o mapa do jogo
+        {
+            mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
+            mapa2 = new char[largura,]
+            for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
+            {
+                for (int x = 0; x < largura; x++)  // Loop para cada coluna do mapa
+                {
+                    if (y == 0 || y == altura - 1) // Se estiver na borda sul ou norte do mapa (primeira ou última linha/coluna)
+
+                    {
+                        mapa[x, y] = '-';  // Define como chão
+                    }
+
+                    else if (x == 0 || x == largura - 1)
+                    {
+                        mapa[x, y] = '|';  // Define como parede
+                    }
+                    else if(y == 1 || y == altura - 1)
+                    {
+                        mapa[x, y] = '|';
+                    }
+
+                    else
+                    {
+                        mapa[x, y] = ' ';  // Espaço vazio
+                    }
+                }
+            }
+
+            mapa[playerX, playerY] = '@';  // Coloca o personagem '@' na posição inicial
+
+
+        }
+
         static void desenhaMapa()  // Método para desenhar o mapa na tela
         {
             for (int y = 0; y < altura; y++)  // Para cada linha do mapa
@@ -196,19 +251,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
         }
 
-        static void atualizetecla5(ConsoleKey tecla5)
-        {
-            switch (tecla5)  // Verifica qual tecla foi pressionada
-            {
-                case ConsoleKey.Enter: layout2 = false; break;
-            }
-        }
-        static void dig5()
-        {
-            var tecla5 = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
-            atualizetecla5(tecla5);
-
-        }
         static void MostrarMenu()
         {
 
@@ -241,7 +283,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         }
         static void moveset()
         {
-
             Console.CursorVisible = false;
 
             Console.Clear();
@@ -250,8 +291,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
             do
             {
-
-
                 tecla3 = Console.ReadKey(true).Key;
 
                 if (tecla3 == ConsoleKey.UpArrow)
@@ -266,55 +305,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             }
             while (tecla3 != ConsoleKey.Enter);
             Console.Clear();
-
-           
- 
-                layout1 = false;
-                if (selecionado == 0) 
-                {
-
-
-                while (layout1)
-                {
-                    dig2();
-                }
-              
-                    escolhemapa();
-
-                }
- 
-
-                 
-                
-                    if(selecionado == 1)
-                    {
-
-                    
-
-                    while (layout1)
-                    {
-                        dig2();
-                    }
-
-                        Console.Write("Alô");
-                    } 
-
-                
- 
-                    if (selecionado == 2)
-                    {
-
-                      
-
-                        while (layout1)
-                        {
-                            dig2();
-                        }
-
-                            Console.Write("Hi");
-                    }               
-
-                    
+            caminho1();      
         }
 
         static void escolhemapa()
@@ -338,63 +329,105 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                 }
                 else if (tecla4 == ConsoleKey.DownArrow)
                 {
-                   ativo = (ativo + 1) % opcoes.Length;
+                    ativo = (ativo + 1) % opcoes.Length;
                 }
                 MostrarMenumap();
             }
-            while (tecla4 != ConsoleKey.Enter);
+            while (tecla4 != ConsoleKey.Enter) ;
             Console.Clear();
+            caminho2();
+        
+        }
 
-          
-
-                if (ativo == 0)
-                {
-
-                layout2 = false;
-            while (layout2)
-            {
-                dig5();
-            }
-                    jogar();
-                }
-
-
+        static void caminho2()
+        {
+            layout1 = false;
            
+            if (ativo == 0)
+            {
 
-                if (ativo == 1)
-                {
 
-                layout2 = false;
-                while (layout2)
+                while (layout1)
                 {
-                    dig5();
+                    dig2();
+                }
+                jogar();
+            }
+
+            if (ativo == 1)
+            {
+
+
+                while (layout1)
+                {
+                    dig2();
                 }
 
-                Console.Write(" oi ");
-                }
+                jogar2();
+            }
 
-               
+
 
             if (ativo == 2)
             {
-                layout2 = false;
-                while (layout2)
+
+                while (layout1)
                 {
-                    dig5();
+                    dig2();
                 }
 
 
                 Console.Write(" olá ");
             }
-
-
-           
+        }
+        static void caminho1() 
         
-            
+        {
 
+            layout1 = false;
+            if (selecionado == 0)
+            {
+
+
+                while (layout1)
+                {
+                    dig2();
+                }
+
+                escolhemapa();
+
+            }
+
+
+            if (selecionado == 1)
+            {
+
+
+
+                while (layout1)
+                {
+                    dig2();
+                }
+
+                Console.Write("Alô");
+            }
+
+
+
+            if (selecionado == 2)
+            {
+
+
+
+                while (layout1)
+                {
+                    dig2();
+                }
+
+                Console.Write("Hi");
+            }
 
         }
-
     }
 }
 

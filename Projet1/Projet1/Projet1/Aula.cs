@@ -50,7 +50,7 @@ namespace JogR
         blue: "azul",
         green: "verde"
         };
-        return IAsyncResult[data] || "Não é uma cor";
+        return result[data] || "Não é uma cor";
     }
     console.log(isColor("red")); */
         } } }
