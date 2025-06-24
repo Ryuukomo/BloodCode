@@ -11,9 +11,10 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         static char[,] mapa;// Declara uma matriz de caracteres que representa o mapa do jogo
         
         static string[] layer = {@" ____________________", @" aa", @"aaa "};
+        
         static int sobre = 0;
 
-
+static char[,] funciona;
 
 
 
@@ -102,7 +103,9 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
       
         static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do jogo
         {
-            mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
+           
+          while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
+            { mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
 
             for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
             {       
@@ -144,14 +147,15 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
             mapa[playerX, playerY] = '@';  // Coloca o personagem '@' na posição inicial
 
-          while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
-            {
                 Console.Clear();          // Limpa a tela a cada frame
 
 
                    // Redesenha o mapa com a nova posição do jogador
                 desenhaMapa(); 
+               
                 desenhaMapapor();
+               
+                  desenhaMapa2();
                 var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
                 atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
 
@@ -166,13 +170,14 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
             string[] linhas =  layer[sobre].Split('\n');
 
-            int topo = 5; // ou centralizado
+            int top = 5; // ou centralizado
             int esquerda = 20;
 
             for (int i = 0; i < linhas.Length; i++)
             {
                 Console.SetCursorPosition(esquerda, topo + i);
                 Console.WriteLine(linhas[i].TrimEnd());
+
             };  // Escreve o caractere na tela
             
         }
@@ -184,6 +189,22 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                 for (int x = 0; x < largura; x++)  // Para cada coluna
                 {
                     Console.Write(mapa[x, y]);  // Escreve o caractere na tela
+                }
+
+                Console.WriteLine();  // Pula para a próxima linha
+
+            }
+        }
+
+
+
+        static void desenhaMapa2()  // Método para desenhar o mapa na tela
+        {
+            for (int y = 0; y < altura; y++)  // Para cada linha do mapa
+            {
+                for (int x = 0; x < largura; x++)  // Para cada coluna
+                {
+                    Console.Write(funciona[x, y]);  // Escreve o caractere na tela
                 }
 
                 Console.WriteLine();  // Pula para a próxima linha
