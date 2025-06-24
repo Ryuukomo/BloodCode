@@ -5,7 +5,19 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 {
     class Vampire  // Define a classe principal do jogo, chamada Vampire
     {
+
+        // mapa[x, y] = layer[x + y * largura];
+        
         static char[,] mapa;// Declara uma matriz de caracteres que representa o mapa do jogo
+        
+        static string[] layer = {@" ____________________", @" aa", @"aaa "};
+        static int sobre = 0;
+
+
+
+
+
+
         static string[] opcoes = { @" 
                          ________       ________         __            ________       ________  
                         / ______ \     |__    __|       /  \          |   ____ \     |__    __|
@@ -64,23 +76,17 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                                      _______________________________________ " };
         static int ativo = 0;
 
-        static string[] seletor = { @"---------------------------------
-                                     |               /|               |
-                                     |                |               |
-                                     |                |               |
-                                     |                |               |
-                                     |              __|__             |
-                                     |________________________________|", " ", " "};
-   
-        static int largura = 20;           // Define a largura do mapa
+
+
+        static int largura = 100;           // Define a largura do mapa
         static int altura = 29;            // Define a altura do mapa
 
         static int playerX = 1;            // Posição X inicial do jogador
         static int playerY = 10;            // Posição Y inicial do jogador
-        
+
         static bool jogando = true;  // Controla se o jogo ainda está rodando
         static bool layout1 = true;
-      
+
 
         static void Main()  // Método principal onde o jogo começa
         {
@@ -88,45 +94,23 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         }
         static void jogar()  // Método principal da lógica do jogo
         {
-            iniciarMapa();                // Inicializa o mapa com paredes e espaço vazio
 
-            while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
-            {
-                Console.Clear();          // Limpa a tela a cada frame
-                
-                
-                desenhaMapa();            // Redesenha o mapa com a nova posição do jogador
-
-                var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
-                atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
-
-            }
+            iniciarMapaEstatico();// Inicializa o mapa com paredes e espaço vazio
+   
         }
 
-        static void jogar2()  // Método principal da lógica do jogo
-        {
-            iniciarMapa2();                // Inicializa o mapa com paredes e espaço vazio
-
-            while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
-            {
-                Console.Clear();          // Limpa a tela a cada frame
-
-
-                desenhaMapa();            // Redesenha o mapa com a nova posição do jogador
-
-                var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
-                atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
-
-            }
-        }
-        static void iniciarMapa()  // Método para criar e configurar o mapa do jogo
+      
+        static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do jogo
         {
             mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
 
             for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
-            {
+            {       
                 for (int x = 0; x < largura; x++)  // Loop para cada coluna do mapa
                 {
+
+
+
                     if (y == 0 || y == altura - 1) // Se estiver na borda sul ou norte do mapa (primeira ou última linha/coluna)
 
                     {
@@ -137,58 +121,60 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                     {
                         mapa[x, y] = '|';  // Define como parede
                     }
-                    
-                      else if (x == 1 || x == largura - 1)
-                    {
-                        mapa[x, y] = '|';  // Define como parede
-                    }
-                    
-                    
+                       
                     else
                     {
                         mapa[x, y] = ' ';  // Espaço vazio
                     }
+
+
+                   
+
+    
                 }
+                
+      
+
+
+
+               
+   
             }
+           
 
             mapa[playerX, playerY] = '@';  // Coloca o personagem '@' na posição inicial
+
+          while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
+            {
+                Console.Clear();          // Limpa a tela a cada frame
+
+
+                   // Redesenha o mapa com a nova posição do jogador
+                desenhaMapa(); 
+                desenhaMapapor();
+                var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
+                atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
+
+            }
+
 
 
         }
 
-        static void iniciarMapa2()  // Método para criar e configurar o mapa do jogo
+        static void desenhaMapapor()  // Método para desenhar o mapa na tela
         {
-            mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
-            mapa2 = new char[largura,]
-            for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
+
+            string[] linhas =  layer[sobre].Split('\n');
+
+            int topo = 5; // ou centralizado
+            int esquerda = 20;
+
+            for (int i = 0; i < linhas.Length; i++)
             {
-                for (int x = 0; x < largura; x++)  // Loop para cada coluna do mapa
-                {
-                    if (y == 0 || y == altura - 1) // Se estiver na borda sul ou norte do mapa (primeira ou última linha/coluna)
-
-                    {
-                        mapa[x, y] = '-';  // Define como chão
-                    }
-
-                    else if (x == 0 || x == largura - 1)
-                    {
-                        mapa[x, y] = '|';  // Define como parede
-                    }
-                    else if(y == 1 || y == altura - 1)
-                    {
-                        mapa[x, y] = '|';
-                    }
-
-                    else
-                    {
-                        mapa[x, y] = ' ';  // Espaço vazio
-                    }
-                }
-            }
-
-            mapa[playerX, playerY] = '@';  // Coloca o personagem '@' na posição inicial
-
-
+                Console.SetCursorPosition(esquerda, topo + i);
+                Console.WriteLine(linhas[i].TrimEnd());
+            };  // Escreve o caractere na tela
+            
         }
 
         static void desenhaMapa()  // Método para desenhar o mapa na tela
@@ -379,7 +365,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                     dig2();
                 }
 
-                jogar2();
+               //r2();
             }
 
 
