@@ -7,16 +7,10 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
     {
 
         // mapa[x, y] = layer[x + y * largura];
-        
+
         static char[,] mapa;// Declara uma matriz de caracteres que representa o mapa do jogo
-        
-        static string[] layer = {@" ____________________", @" aa", @"aaa "};
-        
-        static int sobre = 0;
 
-static char[,] funciona;
-
-
+      
 
 
         static string[] opcoes = { @" 
@@ -86,104 +80,89 @@ static char[,] funciona;
         static int playerY = 10;            // Posição Y inicial do jogador
 
         static bool jogando = true;  // Controla se o jogo ainda está rodando
-        static bool layout1 = true;
+
 
 
         static void Main()  // Método principal onde o jogo começa
         {
-            jogointeiro();// Chama o método que inicia o jogo
+            moveset();
         }
         static void jogar()  // Método principal da lógica do jogo
         {
 
             iniciarMapaEstatico();// Inicializa o mapa com paredes e espaço vazio
-   
-        }
 
-      
-        static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do jogo
-        {
-           
-          while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
-            { mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
-
-            for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
-            {       
-                for (int x = 0; x < largura; x++)  // Loop para cada coluna do mapa
-                {
+            while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
+            {
 
 
+                desenhaMapa();
 
-                    if (y == 0 || y == altura - 1) // Se estiver na borda sul ou norte do mapa (primeira ou última linha/coluna)
-
-                    {
-                        mapa[x, y] = '-';  // Define como chão
-                    }
-
-                    else if (x == 0 || x == largura - 1)
-                    {
-                        mapa[x, y] = '|';  // Define como parede
-                    }
-                       
-                    else
-                    {
-                        mapa[x, y] = ' ';  // Espaço vazio
-                    }
-
-
-                   
-
-    
-                }
-                
-      
-
-
-
-               
-   
-            }
-           
-
-            mapa[playerX, playerY] = '@';  // Coloca o personagem '@' na posição inicial
-
-                Console.Clear();          // Limpa a tela a cada frame
-
-
-                   // Redesenha o mapa com a nova posição do jogador
-                desenhaMapa(); 
-               
-                desenhaMapapor();
-               
-                  desenhaMapa2();
                 var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
                 atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
 
+
+            }
+
+        }
+
+
+            static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do jogo
+            {
+
+
+
+                mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
+
+                for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
+                {
+                    for (int x = 0; x < largura; x++)  // Loop para cada coluna do mapa
+                    {
+
+
+
+                        if (y == 0 || y == altura - 1) // Se estiver na borda sul ou norte do mapa (primeira ou última linha/coluna)
+
+                        {
+                            mapa[x, y] = '-';  // Define como chão
+                        }
+
+                        else if (x == 0 || x == largura - 1)
+                        {
+                            mapa[x, y] = '|';  // Define como parede
+                        }
+
+                        else
+                        {
+                            mapa[x, y] = ' ';  // Espaço vazio
+                        }
+
+
+
+
+
+                    }
+
+              
+
+                }
+      
+
+                mapa[playerX, playerY] = '@';
+
+
+                
+
+
+
+                    
             }
 
 
 
-        }
-
-        static void desenhaMapapor()  // Método para desenhar o mapa na tela
-        {
-
-            string[] linhas =  layer[sobre].Split('\n');
-
-            int top = 5; // ou centralizado
-            int esquerda = 20;
-
-            for (int i = 0; i < linhas.Length; i++)
-            {
-                Console.SetCursorPosition(esquerda, topo + i);
-                Console.WriteLine(linhas[i].TrimEnd());
-
-            };  // Escreve o caractere na tela
-            
-        }
-
         static void desenhaMapa()  // Método para desenhar o mapa na tela
         {
+            Console.Clear();
             for (int y = 0; y < altura; y++)  // Para cada linha do mapa
             {
                 for (int x = 0; x < largura; x++)  // Para cada coluna
@@ -198,19 +177,7 @@ static char[,] funciona;
 
 
 
-        static void desenhaMapa2()  // Método para desenhar o mapa na tela
-        {
-            for (int y = 0; y < altura; y++)  // Para cada linha do mapa
-            {
-                for (int x = 0; x < largura; x++)  // Para cada coluna
-                {
-                    Console.Write(funciona[x, y]);  // Escreve o caractere na tela
-                }
-
-                Console.WriteLine();  // Pula para a próxima linha
-
-            }
-        }
+     
         static void atualizarPosicao(ConsoleKey tecla)  // Método para atualizar posição do jogador
         {
             int tempX = playerX;  // Guarda posição temporária X
@@ -227,7 +194,7 @@ static char[,] funciona;
             }
 
             // Se a nova posição não for parede
-            if (mapa[tempX, tempY] == ' ')
+            if (mapa[tempX, tempY] == ' ' )
             {
 
                 mapa[playerX, playerY] = ' ';     // Apaga a posição antiga do jogador
@@ -238,39 +205,6 @@ static char[,] funciona;
 
 
             }
-
-        }
-        static void jogointeiro()
-        {
-
-            /*
-              ________       ________         __            ________       ________  
-             / ______ \     |___  ___|       /  \          |   ____ \     |___  ___|
-            / /      \_\       |  |         / /\ \         |  |    \ \       |  |
-            \ \_______         |  |        / /__\ \        |  |____/ /       |  |
-             \_______ \        |  |       / ______ \       |  |___  /        |  |
-           __        \ \       |  |      / /      \ \      |  |   \ \        |  |
-           \ \_______/ /       |  |     / /        \ \     |  |    \ \       |  |
-            \_________/        |__|    /_/          \_\    |__|     \_\      |__|
-      */
-
-            moveset();
-       
-
-        }
-      
-        static void atualizetecla2(ConsoleKey tecla2)
-        {
-            switch (tecla2)  // Verifica qual tecla foi pressionada
-            {
-                case ConsoleKey.Enter: layout1 = false; break;
-                    
-            }
-        }
-        static void dig2()
-        {
-            var tecla2 = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
-            atualizetecla2(tecla2);
 
         }
 
@@ -328,7 +262,17 @@ static char[,] funciona;
             }
             while (tecla3 != ConsoleKey.Enter);
             Console.Clear();
-            caminho1();      
+            switch (selecionado) {
+                case 0:
+                    escolhemapa();
+                    break;
+                case 1: 
+                    Console.Write("configuração");
+                    break;
+                case 2:
+                    Console.Write("credito");
+                    break;
+            }
         }
 
         static void escolhemapa()
@@ -358,99 +302,12 @@ static char[,] funciona;
             }
             while (tecla4 != ConsoleKey.Enter) ;
             Console.Clear();
-            caminho2();
+
+            jogar();
         
         }
 
-        static void caminho2()
-        {
-            layout1 = false;
-           
-            if (ativo == 0)
-            {
-
-
-                while (layout1)
-                {
-                    dig2();
-                }
-                jogar();
-            }
-
-            if (ativo == 1)
-            {
-
-
-                while (layout1)
-                {
-                    dig2();
-                }
-
-               //r2();
-            }
-
-
-
-            if (ativo == 2)
-            {
-
-                while (layout1)
-                {
-                    dig2();
-                }
-
-
-                Console.Write(" olá ");
-            }
-        }
-        static void caminho1() 
         
-        {
-
-            layout1 = false;
-            if (selecionado == 0)
-            {
-
-
-                while (layout1)
-                {
-                    dig2();
-                }
-
-                escolhemapa();
-
-            }
-
-
-            if (selecionado == 1)
-            {
-
-
-
-                while (layout1)
-                {
-                    dig2();
-                }
-
-                Console.Write("Alô");
-            }
-
-
-
-            if (selecionado == 2)
-            {
-
-
-
-                while (layout1)
-                {
-                    dig2();
-                }
-
-                Console.Write("Hi");
-            }
-
-        }
     }
 }
 
