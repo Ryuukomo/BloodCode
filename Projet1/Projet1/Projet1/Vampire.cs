@@ -71,7 +71,73 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
 
 
-        
+
+         static string[,] postes = new string[30, 100];
+
+
+
+
+
+        static int largura = 100;
+        static int altura = 30;
+        static int playerX = 1;
+        static int playerY = 10;
+
+        //obstaculos
+        mapa[playerX, playerY] = '@';
+
+       
+        public void atualizarPosicao(ConsoleKey tecla)  // Método para atualizar posição do jogador
+        {
+            int tempX = playerX;  // Guarda posição temporária X
+            int tempY = playerY;  // Guarda posição temporária Y
+
+            switch (tecla)  // Verifica qual tecla foi pressionada
+            {
+
+                case ConsoleKey.A: tempX--; break;  // A = esquerda
+                case ConsoleKey.D: tempX++; break;  // D = direita
+                case ConsoleKey.W: tempY--; break;  // W = cima
+                case ConsoleKey.S: tempY++; break;  // S = baixo
+
+            }
+
+            // Se a nova posição não for parede
+            if (mapa[tempX, tempY] == ' ')
+            {
+
+                mapa[playerX, playerY] = ' ';     // Apaga a posição antiga do jogador
+                mapa[tempX, tempY] = '@';         // Coloca o jogador na nova posição
+
+                playerX = tempX;  // Atualiza X real
+                playerY = tempY;  // Atualiza Y real
+
+
+            }
+
+        }
+
+
+
+   
+            public void mapa1()
+            {
+
+
+
+
+
+
+                // Cria uma parede horizontal de obstáculos na linha 5
+                for (int x = 0; x < 10; x++)
+                {
+                    postes[5, x] = "#";
+                }
+
+                postes[3, 4] = "p1";
+            }
+
+
 
 
         static bool jogando = true;  // Controla se o jogo ainda está rodando
