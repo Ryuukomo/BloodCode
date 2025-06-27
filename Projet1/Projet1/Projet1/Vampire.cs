@@ -10,7 +10,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
         static char[,] mapa;// Declara uma matriz de caracteres que representa o mapa do jogo
         static char[,] layer;
-        static string[] sobreposiçao = { @"_________________", "aaaaaaaaaa", "qqqqq" };
+        static string[] sobreposicao = { "_________________", "aaaaaaaaaa", "qqqqq" };
         static int mapa1 = 0;
         static string[] opcoes = { @" 
                          ________       ________         __            ________       ________  
@@ -308,6 +308,22 @@ static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do 
                 Console.WriteLine(linhas[i].TrimEnd());
             }
         }
+
+        static void Mostrarmap()
+        {
+
+            Console.Clear();
+            string[] linhas =  sobreposicao[mapa1].Split('\n');
+
+            int topo = 5; // ou centralizado
+            int esquerda = 10;
+
+            for (int i = 0; i < linhas.Length; i++)
+            {
+                Console.SetCursorPosition(esquerda, topo + i);
+                Console.WriteLine(linhas[i].TrimEnd());
+            }
+        }
         static void moveset()
         {
             Console.CursorVisible = false;
@@ -385,8 +401,8 @@ static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do 
             switch (ativo)
             {
                 case 0:
-
-                    mapa1 = 0;
+                    jogar();
+                    
                     break;
                 case 1:
                     Console.Write("configuração");
