@@ -97,7 +97,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
             while (jogando)
             {
-                desenhaMapa2();
                 var tecla = Console.ReadKey(true).Key;
                 atualizarPosicao(tecla);
             }
@@ -121,7 +120,10 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             }
 
         }
+        static void desenhaMapa2()
+        {
 
+        }
 static void iniciarMapa()
         {
             layer = new char[larg, alt];
@@ -213,21 +215,7 @@ static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do 
         
 
         }
-        static void desenhaMapa2()  // Método para desenhar o mapa na tela
-        {
-            Console.Clear();
-            for (int y = 0; y < alt; y++)  // Para cada linha do mapa
-            {
-                for (int x = 0; x < larg; x++)  // Para cada coluna
-                {
-                    Console.Write(layer[x, y]);  // Escreve o caractere na tela
-                }
 
-                Console.WriteLine();  // Pula para a próxima linha
-
-            }
-
-        }
         static void desenhaMapa()  // Método para desenhar o mapa na tela
         {
             Console.Clear();
@@ -315,12 +303,9 @@ static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do 
             Console.Clear();
             string[] linhas =  sobreposicao[mapa1].Split('\n');
 
-            int topo = 5; // ou centralizado
-            int esquerda = 10;
-
             for (int i = 0; i < linhas.Length; i++)
             {
-                Console.SetCursorPosition(esquerda, topo + i);
+                Console.SetCursorPosition(larg, alt + i);
                 Console.WriteLine(linhas[i].TrimEnd());
             }
         }
@@ -391,18 +376,11 @@ static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do 
 
             jogarEstatico();
 
-            mapaDiferente();
-         
-         
-        
-        }
-        static void mapaDiferente()
-        {
             switch (ativo)
             {
                 case 0:
                     jogar();
-                    
+
                     break;
                 case 1:
                     Console.Write("configuração");
@@ -411,7 +389,10 @@ static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do 
                     Console.Write("credito");
                     break;
             }
+
+
         }
+       
         
     }
 }
