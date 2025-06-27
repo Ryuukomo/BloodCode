@@ -25,7 +25,7 @@ namespace JogR
 
 
        
-            postes[3, 4] = "p1";
+        
 
             // Cria uma parede horizontal de obstáculos na linha 5
             for (int x = 0; x< 10; x++)
@@ -33,8 +33,7 @@ namespace JogR
                 postes[5, x] = "#";
             }
 
-            Console.Clear();
-
+    postes[3, 4] = "p1";
         }
 
 

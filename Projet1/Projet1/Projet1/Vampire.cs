@@ -72,9 +72,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
 
         
-        static int playerX = 1;
-        static int playerY = 10;
-
 
 
         static bool jogando = true;  // Controla se o jogo ainda está rodando
@@ -89,26 +86,31 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
         static void jogarEstatico()  // Método principal da lógica do jogo
         {
+            
+            
+            
+           
+    /* mapas certo = new mapas();
 
+            certo.mapa1(); 
+           
              MapStatic fase1 = new MapStatic();
         
 
             
                     fase1.MapaStatic();
-
-            mapas certo = new mapas();
-
-            certo.mapa1(); 
+    */
+       
         
             while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
             {
 
-                MapStatic desenhafase1 = new MapStatic();
+               /* MapStatic desenhafase1 = new MapStatic();
 
 
 
                 desenhafase1.desenhaMapa();
-
+                */
 
 
 
@@ -116,11 +118,11 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         
                 var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
 
-                MapStatic atualpos = new MapStatic();
+               /* MapStatic atualpos = new MapStatic();
 
 
-                atualpos.atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
-
+                atualpos.atualizarPosicao(tecla);   Atualiza a posição do jogador com base na tecla pressionada
+                    */
 
             }
 

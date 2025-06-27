@@ -45,7 +45,18 @@ namespace JogR
             }
  mapa[playerX, playerY] = '@';
    
-    public void desenhaMapa()  // Método para desenhar o mapa na tela
+
+
+        }
+
+
+
+        
+
+  
+
+
+        public void desenhaMapa()  // Método para desenhar o mapa na tela
         {
             Console.Clear();
             for (int y = 0; y < altura; y++)  // Para cada linha do mapa
@@ -58,17 +69,6 @@ namespace JogR
                 Console.WriteLine();  // Pula para a próxima linha
 
             }
-
-        }
-
-
-
-        
-
-  
-
-
-    
 
 
 
