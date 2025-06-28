@@ -9,7 +9,10 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         // mapa[x, y] = layer[x + y * largura];
 
         static char[,] mapa;// Declara uma matriz de caracteres que representa o mapa do jogo
-       
+
+
+
+
         static string[] opcoes = { @" 
                          ________       ________         __            ________       ________  
                         / ______ \     |__    __|       /  \          |   ____ \     |__    __|
@@ -39,7 +42,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
            \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
 " };
         static int selecionado = 0;
-     
 
         static string[] SeletorDeMapa = { @"
                                      ---------------------------------------
@@ -71,23 +73,112 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
 
 
+        static int largura = 100;           // Define a largura do mapa
+        static int altura = 29;            // Define a altura do mapa
 
-         static string[,] postes = new string[30, 100];
+        static int playerX = 1;            // Posição X inicial do jogador
+        static int playerY = 10;            // Posição Y inicial do jogador
+
+        static bool jogando = true;  // Controla se o jogo ainda está rodando
+
+
+
+        static void Main()  // Método principal onde o jogo começa
+        {
+            moveset();
+        }
+        static void jogar()  // Método principal da lógica do jogo
+        {
+
+            iniciarMapaEstatico();// Inicializa o mapa com paredes e espaço vazio
+
+            while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
+            {
+
+
+                desenhaMapa();
+
+                var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
+                atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
+
+
+            }
+
+        }
+
+
+        static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do jogo
+        {
+
+
+
+            mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
+
+            for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
+            {
+                for (int x = 0; x < largura; x++)  // Loop para cada coluna do mapa
+                {
+
+
+
+                    if (y == 0 || y == altura - 1) // Se estiver na borda sul ou norte do mapa (primeira ou última linha/coluna)
+
+                    {
+                        mapa[x, y] = '-';  // Define como chão
+                    }
+
+                    else if (x == 0 || x == largura - 1)
+                    {
+                        mapa[x, y] = '|';  // Define como parede
+                    }
+
+                    else
+                    {
+                        mapa[x, y] = ' ';  // Espaço vazio
+                    }
 
 
 
 
 
-        static int largura = 100;
-        static int altura = 30;
-        static int playerX = 1;
-        static int playerY = 10;
+                }
 
-        //obstaculos
-        mapa[playerX, playerY] = '@';
 
-       
-        public void atualizarPosicao(ConsoleKey tecla)  // Método para atualizar posição do jogador
+
+            }
+
+
+            mapa[playerX, playerY] = '@';
+
+
+
+
+
+
+
+        }
+
+
+
+        static void desenhaMapa()  // Método para desenhar o mapa na tela
+        {
+            Console.Clear();
+            for (int y = 0; y < altura; y++)  // Para cada linha do mapa
+            {
+                for (int x = 0; x < largura; x++)  // Para cada coluna
+                {
+                    Console.Write(mapa[x, y]);  // Escreve o caractere na tela
+                }
+
+                Console.WriteLine();  // Pula para a próxima linha
+
+            }
+        }
+
+
+
+
+        static void atualizarPosicao(ConsoleKey tecla)  // Método para atualizar posição do jogador
         {
             int tempX = playerX;  // Guarda posição temporária X
             int tempY = playerY;  // Guarda posição temporária Y
@@ -117,92 +208,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
         }
 
-
-
-   
-            public void mapa1()
-            {
-
-
-
-
-
-
-                // Cria uma parede horizontal de obstáculos na linha 5
-                for (int x = 0; x < 10; x++)
-                {
-                    postes[5, x] = "#";
-                }
-
-                postes[3, 4] = "p1";
-            }
-
-
-
-
-        static bool jogando = true;  // Controla se o jogo ainda está rodando
-
-
-
-        static void Main()  // Método principal onde o jogo começa
-        {
-            moveset();
-
-        }
-
-        static void jogarEstatico()  // Método principal da lógica do jogo
-        {
-            
-            
-            
-           
-    /* mapas certo = new mapas();
-
-            certo.mapa1(); 
-           
-             MapStatic fase1 = new MapStatic();
-        
-
-            
-                    fase1.MapaStatic();
-    */
-       
-        
-            while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
-            {
-
-               /* MapStatic desenhafase1 = new MapStatic();
-
-
-
-                desenhafase1.desenhaMapa();
-                */
-
-
-
-
-        
-                var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
-
-               /* MapStatic atualpos = new MapStatic();
-
-
-                atualpos.atualizarPosicao(tecla);   Atualiza a posição do jogador com base na tecla pressionada
-                    */
-
-            }
-
-        }
-
-       
-
-        
-
-       
-
-
-
-     
         static void MostrarMenu()
         {
 
@@ -233,12 +238,10 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                 Console.WriteLine(linhas[i].TrimEnd());
             }
         }
-
-        
         static void moveset()
         {
             Console.CursorVisible = false;
-             
+
             Console.Clear();
             MostrarMenu();
             ConsoleKey tecla3;
@@ -259,12 +262,12 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             }
             while (tecla3 != ConsoleKey.Enter);
             Console.Clear();
-            switch (selecionado) {
+            switch (selecionado)
+            {
                 case 0:
                     escolhemapa();
-
                     break;
-                case 1: 
+                case 1:
                     Console.Write("configuração");
                     break;
                 case 2:
@@ -291,8 +294,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                 if (tecla4 == ConsoleKey.UpArrow)
                 {
                     ativo = (ativo - 1 + opcoes.Length) % opcoes.Length;
-                   
-                    
                 }
                 else if (tecla4 == ConsoleKey.DownArrow)
                 {
@@ -300,17 +301,14 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                 }
                 MostrarMenumap();
             }
-            while (tecla4 != ConsoleKey.Enter) ;
+            while (tecla4 != ConsoleKey.Enter);
             Console.Clear();
 
-            jogarEstatico();
-
-
-
+            jogar();
 
         }
-       
-        
+
+
     }
 }
 
