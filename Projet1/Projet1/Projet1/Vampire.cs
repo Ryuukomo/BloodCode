@@ -10,6 +10,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
         static char[,] mapa;// Declara uma matriz de caracteres que representa o mapa do jogo
 
+        static char[,] obstaculos;
 
 
 
@@ -90,7 +91,35 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         static void jogar()  // Método principal da lógica do jogo
         {
 
-            iniciarMapaEstatico();// Inicializa o mapa com paredes e espaço vazio
+
+
+
+
+            adicionarObstaculos();
+
+
+            while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
+            {
+
+
+                desenhaMapa();
+
+                var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
+                atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
+
+
+            }
+
+        }
+        static void jogar2()  // Método principal da lógica do jogo
+        {
+
+
+
+
+
+            adicionarObstaculos2();
+
 
             while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
             {
@@ -106,6 +135,66 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
         }
 
+
+        static void adicionarObstaculos()
+        {
+            obstaculos = new char[largura, altura];
+            for (int y = 0; y < altura; y++)
+            {
+                for (int x = 0; x < largura; x++)
+                {
+                    obstaculos[x, y] = ' '; // vazio por padrão
+                }
+            }
+
+            // Exemplo de obstáculos
+            for (int x = 20; x < 30; x++)
+                obstaculos[x, 15] = '#';
+
+            for (int y = 5; y < 10; y++)
+                obstaculos[50, y] = '#';
+
+            // Mescla os obstáculos no mapa
+            for (int y = 0; y < altura; y++)
+            {
+                for (int x = 0; x < largura; x++)
+                {
+                    if (obstaculos[x, y] != ' ')
+                        mapa[x, y] = obstaculos[x, y];
+                }
+            }
+        }
+
+
+
+        static void adicionarObstaculos2()
+        {
+            obstaculos = new char[largura, altura];
+            for (int y = 0; y < altura; y++)
+            {
+                for (int x = 0 ; x < largura; x++)
+                {
+                    obstaculos[x, y] = ' '; // vazio por padrão
+                }
+            }
+
+            // Exemplo de obstáculos
+            for (int x = 20; x < 22; x++) // equivale a distancia de 20 até 22
+                obstaculos[x, 15] = 'a';
+
+            for (int y = 5; y < 10; y++)
+                obstaculos[50, y] = 'a';
+
+            // Mescla os obstáculos no mapa
+            for (int y = 0; y < altura; y++)
+            {
+                for (int x = 0; x < largura; x++)
+                {
+                    if (obstaculos[x, y] != ' ')
+                        mapa[x, y] = obstaculos[x, y];
+                }
+            }
+        }
 
         static void iniciarMapaEstatico()  // Método para criar e configurar o mapa do jogo
         {
@@ -293,22 +382,50 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
                 if (tecla4 == ConsoleKey.UpArrow)
                 {
-                    ativo = (ativo - 1 + opcoes.Length) % opcoes.Length;
+                    ativo = (ativo - 1 + SeletorDeMapa.Length) % SeletorDeMapa.Length;
                 }
                 else if (tecla4 == ConsoleKey.DownArrow)
                 {
-                    ativo = (ativo + 1) % opcoes.Length;
+                    ativo = (ativo + 1) % SeletorDeMapa.Length;
                 }
                 MostrarMenumap();
             }
             while (tecla4 != ConsoleKey.Enter);
-            Console.Clear();
+               Console.Clear();
 
-            jogar();
+
+
+ 
+                 iniciarMapaEstatico();
+                switch (ativo)
+
+                {
+                // Inicializa o mapa com paredes e espaço vazio
+
+                    case 0:
+                   
+                          
+                        jogar();
+                   
+                        break;
+
+                    case 1:
+
+
+                    jogar2();
+
+                        break;
+                }
+               
+
+                 
+
+
+
+            
+
 
         }
-
-
     }
 }
 
