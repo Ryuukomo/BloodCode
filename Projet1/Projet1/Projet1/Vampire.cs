@@ -72,7 +72,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
                                      _______________________________________ " };
         static int ativo = 0;
 
-
+      
 
         static int largura = 100;           // Define a largura do mapa
         static int altura = 29;            // Define a altura do mapa
@@ -80,8 +80,10 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         static int playerX = 1;            // Posição X inicial do jogador
         static int playerY = 10;            // Posição Y inicial do jogador
 
-        static bool jogando = true;  // Controla se o jogo ainda está rodando
+     
 
+        static bool jogando = true;  // Controla se o jogo ainda está rodando
+       
 
 
         static void Main()  // Método principal onde o jogo começa
@@ -91,11 +93,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         static void jogar()  // Método principal da lógica do jogo
         {
 
-
-
-
-
-            adicionarObstaculos();
+            iniciarMapaEstatico();
 
 
             while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
@@ -114,24 +112,25 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         static void jogar2()  // Método principal da lógica do jogo
         {
 
+            iniciarMapaEstatico2();
 
-
-
-
-            adicionarObstaculos2();
-
-
-            while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
+     while (jogando)               // Loop principal do jogo: enquanto o jogador estiver jogando
             {
 
+           
 
                 desenhaMapa();
+
+
 
                 var tecla = Console.ReadKey(true).Key;  // Espera o jogador pressionar uma tecla (sem mostrar no console)
                 atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na tecla pressionada
 
 
             }
+
+            
+       
 
         }
 
@@ -170,6 +169,8 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
         static void adicionarObstaculos2()
         {
             obstaculos = new char[largura, altura];
+
+
             for (int y = 0; y < altura; y++)
             {
                 for (int x = 0 ; x < largura; x++)
@@ -179,8 +180,8 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             }
 
             // Exemplo de obstáculos
-            for (int x = 20; x < 22; x++) // equivale a distancia de 20 até 22
-                obstaculos[x, 15] = 'a';
+            for (int x = 1; x < 9; x++) // equivale a distancia de 20 até 22
+                obstaculos[x, 10] = '_';
 
             for (int y = 5; y < 10; y++)
                 obstaculos[50, y] = 'a';
@@ -203,6 +204,62 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
             mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
 
+          
+
+            for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
+            {
+                for (int x = 0; x < largura; x++)  // Loop para cada coluna do mapa
+                {
+
+
+              
+                        if (y == 0 || y == altura - 1) // Se estiver na borda sul ou norte do mapa (primeira ou última linha/coluna)
+
+                    {
+                        mapa[x, y] = '-';  // Define como chão
+                    }
+
+                    else if (x == 0 || x == largura - 1)
+                    {
+                        mapa[x, y] = '|';  // Define como parede
+                    }
+
+                    else
+                    { 
+                        adicionarObstaculos();
+                        mapa[x, y] = ' ';  // Espaço vazio
+                    }
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+    
+
+
+
+
+
+
+        }
+
+
+        static void iniciarMapaEstatico2()  // Método para criar e configurar o mapa do jogo
+        {
+
+
+
+            mapa = new char[largura, altura];  // Cria uma nova matriz do tamanho especificado
+
+
+
             for (int y = 0; y < altura; y++)  // Loop para cada linha do mapa
             {
                 for (int x = 0; x < largura; x++)  // Loop para cada coluna do mapa
@@ -223,6 +280,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
                     else
                     {
+                        adicionarObstaculos2();
                         mapa[x, y] = ' ';  // Espaço vazio
                     }
 
@@ -237,7 +295,6 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
             }
 
 
-            mapa[playerX, playerY] = '@';
 
 
 
@@ -246,56 +303,49 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
 
         }
-
-
-
-        static void desenhaMapa()  // Método para desenhar o mapa na tela
+        static void desenhaMapa()
         {
             Console.Clear();
-            for (int y = 0; y < altura; y++)  // Para cada linha do mapa
+            for (int y = 0; y < altura; y++)
             {
-                for (int x = 0; x < largura; x++)  // Para cada coluna
+                for (int x = 0; x < largura; x++)
                 {
-                    Console.Write(mapa[x, y]);  // Escreve o caractere na tela
+                    if (x == playerX && y == playerY)
+                        Console.Write('@');  // Desenha o personagem por cima
+                    else
+                        Console.Write(mapa[x, y]);  // Desenha o cenário original
                 }
-
-                Console.WriteLine();  // Pula para a próxima linha
-
+                Console.WriteLine();
             }
         }
 
 
 
 
-        static void atualizarPosicao(ConsoleKey tecla)  // Método para atualizar posição do jogador
+        static void atualizarPosicao(ConsoleKey tecla)
         {
-            int tempX = playerX;  // Guarda posição temporária X
-            int tempY = playerY;  // Guarda posição temporária Y
+            int tempX = playerX;
+            int tempY = playerY;
 
-            switch (tecla)  // Verifica qual tecla foi pressionada
+            switch (tecla)
             {
-
-                case ConsoleKey.A: tempX--; break;  // A = esquerda
-                case ConsoleKey.D: tempX++; break;  // D = direita
-                case ConsoleKey.W: tempY--; break;  // W = cima
-                case ConsoleKey.S: tempY++; break;  // S = baixo
-
+                case ConsoleKey.A: tempX--; break;
+                case ConsoleKey.D: tempX++; break;
+                case ConsoleKey.W: tempY--; break;
+                case ConsoleKey.S: tempY++; break;
             }
 
-            // Se a nova posição não for parede
-            if (mapa[tempX, tempY] == ' ')
+            // Permite mover apenas se o novo local for espaço vazio ou chão
+            if (mapa[tempX, tempY] == ' ' || mapa[tempX, tempY] == '_')
             {
-
-                mapa[playerX, playerY] = ' ';     // Apaga a posição antiga do jogador
-                mapa[tempX, tempY] = '@';         // Coloca o jogador na nova posição
-
-                playerX = tempX;  // Atualiza X real
-                playerY = tempY;  // Atualiza Y real
-
-
+                playerX = tempX;
+                playerY = tempY;
             }
-
         }
+
+
+
+
 
         static void MostrarMenu()
         {
@@ -396,7 +446,7 @@ namespace JogR  // Define o namespace do seu jogo (um agrupamento de código)
 
 
  
-                 iniciarMapaEstatico();
+                
                 switch (ativo)
 
                 {
