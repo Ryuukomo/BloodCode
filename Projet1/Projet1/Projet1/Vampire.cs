@@ -77,7 +77,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
         static int ativo = 0;  // Índice do mapa atualmente selecionado
 
         static int largura = 100;  // Largura do mapa (quantidade de colunas)
-        static int altura = 28;  // Altura do mapa (quantidade de linhas)
+        static int altura = 29;  // Altura do mapa (quantidade de linhas)
 
         static int playerX = 1;  // Posição X inicial do jogador (coluna)
         static int playerY = 1;  // Posição Y inicial do jogador (linha)
@@ -178,8 +178,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                 for (int x = 0; x < largura; x++)
                 {
                     if (y == 0 || y == altura - 1)
-                        mapa[x, y] = '-';  // Chão ou teto
-
+                        mapa[x, y] = '_';  // Chão ou teto
                     else if (x == 0 || x == largura - 1)
                         mapa[x, y] = '|';  // Paredes
                     else
@@ -217,7 +216,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                 case ConsoleKey.S: tempY++; break;
             }
 
-            if (mapa[tempX, tempY] == ' ' || mapa[tempX, tempY] != '_')  // Verifica colisão
+            if (mapa[tempX, tempY] == ' ' || mapa[tempX, tempY] == '_')  // Verifica colisão
             {
                 playerX = tempX;  // Atualiza coordenada X
                 playerY = tempY;  // Atualiza coordenada Y
