@@ -5,7 +5,7 @@ using System.Threading;  // Usado para controlar o tempo entre quedas
 
 namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
 {
-    class Vampire  // Define a classe principal do jogo
+    public class Vampire  // Define a classe principal do jogo
     {
         static char[,] mapa;  // Matriz que representa o cenário fixo do mapa (paredes, chão, etc.)
         static char[,] obstaculos;  // Matriz auxiliar para armazenar obstáculos antes de aplicar no mapa
@@ -72,15 +72,13 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                                                       \__/
                                      _______________________________________ "
         };  // Arte em ASCII para seleção visual de mapas
-       
+
+        
         
         static int ativo = 0;  // Índice do mapa atualmente selecionado
 
         static int largura = 100;  // Largura do mapa (quantidade de colunas)
         static int altura = 29;  // Altura do mapa (quantidade de linhas)
-
-        static int playerX = 1;  // Posição X inicial do jogador (coluna)
-        static int playerY = 1;  // Posição Y inicial do jogador (linha)
 
         static bool jogando = true;  // Indica se o jogo está em execução
 
@@ -98,10 +96,11 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
             while (jogando)  // Laço principal do jogo
             {
 
-                aplicarGravidade();
+               
                 desenhaMapa();  // Exibe o mapa atualizado na tela
-                var tecla = Console.ReadKey(true).Key;  // Aguarda entrada do jogador sem exibir a tecla
-                atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na entrada
+
+                 aplicarGravidade();
+
             }
         }
 
@@ -110,10 +109,12 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
             iniciarMapaEstatico2();  // Inicializa o segundo tipo de mapa
             while (jogando)  // Laço principal do jogo
             {
-                aplicarGravidade();
+                
                 desenhaMapa();  // Exibe o mapa atualizado
-                var tecla = Console.ReadKey(true).Key;  // Captura tecla pressionada
-                atualizarPosicao(tecla);  // Atualiza a posição do jogador
+
+                aplicarGravidade();
+
+
             }
         }
 
@@ -158,7 +159,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
         static void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
         {
             mapa = new char[largura, altura];  // Cria nova matriz do mapa
-            for (int y = 0; y < altura; y++)
+            for (int y = 0; y < altura; y++) 
                 for (int x = 0; x < largura; x++)
                 {
                     if (y == 0 || y == altura - 1)
@@ -194,34 +195,27 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
             {
                 for (int x = 0; x < largura; x++)
                 {
-                    if (x == playerX && y == playerY)
-                        Console.Write('@');  // Desenha o jogador
+
+                    if (x == Personagem.playerX && y == Personagem.playerY)
+
+                    {
+                        Personagem.desenharPersonagem();
+                    }
                     else
+                    {
                         Console.Write(mapa[x, y]);  // Desenha o elemento do mapa
-                }
+                    
+                    }                    
+                } 
+                
                 Console.WriteLine();  // Pula para a próxima linha
             }
+               
         }
+        
 
-        static void atualizarPosicao(ConsoleKey tecla)  // Processa movimento do jogador
-        {
-            int tempX = playerX;
-            int tempY = playerY;
 
-            switch (tecla)
-            {
-                case ConsoleKey.A: tempX--; break;
-                case ConsoleKey.D: tempX++; break;
-                case ConsoleKey.W: tempY--; break;
-                case ConsoleKey.S: tempY++; break;
-            }
-
-            if (mapa[tempX, tempY] == ' ' || mapa[tempX, tempY] == '_')  // Verifica colisão
-            {
-                playerX = tempX;  // Atualiza coordenada X
-                playerY = tempY;  // Atualiza coordenada Y
-            }
-        }
+   
 
         static void MostrarMenu()  // Exibe o menu principal com arte
         {
@@ -295,7 +289,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
             Console.Clear();
 
             
-
+          
             switch (ativo)
             {
                 case 0:  jogar(); break;  // Inicia com mapa 1
@@ -305,10 +299,10 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
 
         static void aplicarGravidade()
         {
-            while (playerY + 1 < altura - 1 && (mapa[playerX, playerY ] != '_'))
+            while (Personagem.playerY + 1 < altura - 1 && (mapa[Personagem.playerX, Personagem.playerY ] != '_'))
             {
-                playerY++;
-                desenhaMapa();
+                Personagem.playerY++;
+                //desenhaMapa();
                 Thread.Sleep(120);  // Tempo entre quedas para simular animação
             }
         }
