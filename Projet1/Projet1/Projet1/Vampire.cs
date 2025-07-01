@@ -1,5 +1,7 @@
 ﻿using System;  // Importa funcionalidades básicas do sistema
 using System.Security;  // (Não está sendo usado neste código) Importa funcionalidades de segurança
+using System.Threading;  // Usado para controlar o tempo entre quedas
+
 
 namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
 {
@@ -75,10 +77,10 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
         static int ativo = 0;  // Índice do mapa atualmente selecionado
 
         static int largura = 100;  // Largura do mapa (quantidade de colunas)
-        static int altura = 29;  // Altura do mapa (quantidade de linhas)
+        static int altura = 28;  // Altura do mapa (quantidade de linhas)
 
         static int playerX = 1;  // Posição X inicial do jogador (coluna)
-        static int playerY = 10;  // Posição Y inicial do jogador (linha)
+        static int playerY = 1;  // Posição Y inicial do jogador (linha)
 
         static bool jogando = true;  // Indica se o jogo está em execução
 
@@ -95,6 +97,8 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
             iniciarMapaEstatico();  // Inicializa o mapa com seus elementos
             while (jogando)  // Laço principal do jogo
             {
+
+                aplicarGravidade();
                 desenhaMapa();  // Exibe o mapa atualizado na tela
                 var tecla = Console.ReadKey(true).Key;  // Aguarda entrada do jogador sem exibir a tecla
                 atualizarPosicao(tecla);  // Atualiza a posição do jogador com base na entrada
@@ -106,6 +110,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
             iniciarMapaEstatico2();  // Inicializa o segundo tipo de mapa
             while (jogando)  // Laço principal do jogo
             {
+                aplicarGravidade();
                 desenhaMapa();  // Exibe o mapa atualizado
                 var tecla = Console.ReadKey(true).Key;  // Captura tecla pressionada
                 atualizarPosicao(tecla);  // Atualiza a posição do jogador
@@ -157,7 +162,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                 for (int x = 0; x < largura; x++)
                 {
                     if (y == 0 || y == altura - 1)
-                        mapa[x, y] = '-';  // Adiciona chão ou teto
+                        mapa[x, y] = '_';  // Adiciona chão ou teto
                     else if (x == 0 || x == largura - 1)
                         mapa[x, y] = '|';  // Adiciona paredes laterais
                     else
@@ -174,6 +179,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                 {
                     if (y == 0 || y == altura - 1)
                         mapa[x, y] = '-';  // Chão ou teto
+
                     else if (x == 0 || x == largura - 1)
                         mapa[x, y] = '|';  // Paredes
                     else
@@ -184,7 +190,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
 
         static void desenhaMapa()  // Renderiza o mapa e o jogador
         {
-            Console.Clear();  // Limpa a tela
+            Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
             for (int y = 0; y < altura; y++)
             {
                 for (int x = 0; x < largura; x++)
@@ -211,7 +217,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                 case ConsoleKey.S: tempY++; break;
             }
 
-            if (mapa[tempX, tempY] == ' ' || mapa[tempX, tempY] == '_')  // Verifica colisão
+            if (mapa[tempX, tempY] == ' ' || mapa[tempX, tempY] != '_')  // Verifica colisão
             {
                 playerX = tempX;  // Atualiza coordenada X
                 playerY = tempY;  // Atualiza coordenada Y
@@ -288,10 +294,23 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
             while (tecla4 != ConsoleKey.Enter);  // Confirma seleção
 
             Console.Clear();
+
+            
+
             switch (ativo)
             {
-                case 0: jogar(); break;  // Inicia com mapa 1
-                case 1: jogar2(); break;  // Inicia com mapa 2
+                case 0:  jogar(); break;  // Inicia com mapa 1
+                case 1:  jogar2(); break;  // Inicia com mapa 2
+            }
+        }
+
+        static void aplicarGravidade()
+        {
+            while (playerY + 1 < altura - 1 && (mapa[playerX, playerY ] != '_'))
+            {
+                playerY++;
+                desenhaMapa();
+                Thread.Sleep(120);  // Tempo entre quedas para simular animação
             }
         }
     }
