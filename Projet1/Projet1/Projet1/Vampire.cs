@@ -82,6 +82,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
 
         static bool jogando = true;  // Indica se o jogo está em execução
 
+ 
 
 
 
@@ -158,6 +159,10 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
 
             for (int y = 5; y < 10; y++)
                 obstaculos[50, y] = 'a';  // Adiciona coluna com 'a'
+
+        
+        
+
 
             for (int y = 0; y < altura; y++)  // Aplica os obstáculos no mapa
                 for (int x = 0; x < largura; x++)
@@ -320,8 +325,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                         Personagem.playerY--;
                         Personagem.forcaDoPulo--;
                     }
-                    else
-                    {
+                                 {
                         Personagem.pulando = false;
                         Personagem.forcaDoPulo = 0;
                     }

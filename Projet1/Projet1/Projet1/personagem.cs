@@ -16,12 +16,13 @@ namespace JogR
 
         public static bool pulando = false;
         public static int forcaDoPulo = 0;
-
-        public Personagem(char[,] mapa)
+    
+  
+        public Personagem(char[,] mapa) // Construtor que recebe o mapa
         {
             Personagem.mapa = mapa;
         }
-
+      
         public static void atualizarPosicao(ConsoleKey tecla)
         {
             int tempX = playerX;

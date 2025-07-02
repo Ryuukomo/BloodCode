@@ -8,6 +8,18 @@ namespace JogR
 
         {
 
+
+            /*( Class Personagem { 
+
+            Polimorfismo 
+
+
+
+            Veículo 
+
+                Automóvel, Trem                                         
+            */
+
             /* comentário de bloco
              * 
              TIPO NUMÉRICO
