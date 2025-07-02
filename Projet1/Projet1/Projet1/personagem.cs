@@ -8,56 +8,50 @@ namespace JogR
 {
     public class Personagem
     {
+        public static int playerX = 1;
+        public static int playerY = 1;
 
-
-
-        public static int playerX = 1;  // Posição X inicial do jogador (coluna)
-        public static int playerY = 1;  // Posição Y inicial do jogador (linha)
-
-       static char person = '@';
-
+        static char person = '@';
         static char[,] mapa;
 
+        public static bool pulando = false;
+        public static int forcaDoPulo = 0;
 
         public Personagem(char[,] mapa)
         {
-            Personagem.mapa = mapa;  // Atribui o mapa recebido ao campo estático
-            
-        } // Construtor que recebe o mapa
+            Personagem.mapa = mapa;
+        }
 
-
-            public static void atualizarPosicao(ConsoleKey tecla)  // Processa movimento do jogador
+        public static void atualizarPosicao(ConsoleKey tecla)
         {
             int tempX = playerX;
             int tempY = playerY;
-              // Cria nova matriz do mapa
+
             switch (tecla)
             {
                 case ConsoleKey.A: tempX--; break;
                 case ConsoleKey.D: tempX++; break;
-                case ConsoleKey.W: tempY--; break;
+                case ConsoleKey.W:
+                    if (!pulando)
+                    {
+                        pulando = true;
+                        forcaDoPulo = 3;
+                    }
+                    break;
+
                 case ConsoleKey.S: tempY++; break;
             }
 
-            if (mapa[tempX, tempY] == ' ' || mapa[tempX, tempY] == '_')  // Verifica colisão
+            if (mapa[tempX, tempY] == ' ' || mapa[tempX, tempY] == '_')
             {
-                playerX = tempX;  // Atualiza coordenada X
-                playerY = tempY;  // Atualiza coordenada Y
+                playerX = tempX;
+                playerY = tempY;
             }
         }
-       public static void desenharPersonagem()
+
+        public static void desenharPersonagem()
         {
-        
-
-                Console.Write(person);
-   
-                var tecla = Console.ReadKey(true).Key;  // Aguarda entrada do jogador sem exibir a tecla
-            atualizarPosicao(tecla);  // Cria instância do personagem
-        
-
+            Console.Write(person);
         }
-    
-
-
     }
 }

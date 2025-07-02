@@ -73,12 +73,12 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                                      _______________________________________ "
         };  // Arte em ASCII para seleção visual de mapas
 
-        
-        
+
+
         static int ativo = 0;  // Índice do mapa atualmente selecionado
 
         static int largura = 100;  // Largura do mapa (quantidade de colunas)
-        static int altura = 29;  // Altura do mapa (quantidade de linhas)
+        public static int altura = 29;  // Altura do mapa (quantidade de linhas)
 
         static bool jogando = true;  // Indica se o jogo está em execução
 
@@ -90,34 +90,43 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
             moveset();  // Inicia o menu principal
         }
 
-        static void jogar()  // Lógica do jogo para o primeiro mapa
+        static void jogar()
         {
-            iniciarMapaEstatico();  // Inicializa o mapa com seus elementos
-            while (jogando)  // Laço principal do jogo
-            {
+            iniciarMapaEstatico();
+            new Personagem(mapa);  // Inicia personagem com referência ao mapa
 
+            while (jogando)
+            {
                
-                desenhaMapa();  // Exibe o mapa atualizado na tela
-
-                 aplicarGravidade();
-
-            }
-        }
-
-        static void jogar2()  // Lógica do jogo para o segundo mapa
-        {
-            iniciarMapaEstatico2();  // Inicializa o segundo tipo de mapa
-            while (jogando)  // Laço principal do jogo
-            {
-                
-                desenhaMapa();  // Exibe o mapa atualizado
-
+                if (Console.KeyAvailable)
+                {
+                    var tecla = Console.ReadKey(true).Key;
+                    Personagem.atualizarPosicao(tecla);
+                }
                 aplicarGravidade();
-
-
+ desenhaMapa();
+                Thread.Sleep(50);
             }
         }
 
+        static void jogar2()
+        {
+            iniciarMapaEstatico2();
+            new Personagem(mapa);  // Inicia personagem com referência ao mapa
+
+            while (jogando)
+            {
+              
+                if (Console.KeyAvailable)
+                {
+                    var tecla = Console.ReadKey(true).Key;
+                    Personagem.atualizarPosicao(tecla);
+                }
+                aplicarGravidade();
+  desenhaMapa();
+                Thread.Sleep(50);
+            }
+        }
         static void adicionarObstaculos()  // Adiciona obstáculos para o mapa 1
         {
             obstaculos = new char[largura, altura];  // Inicializa matriz de obstáculos
@@ -159,7 +168,7 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
         static void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
         {
             mapa = new char[largura, altura];  // Cria nova matriz do mapa
-            for (int y = 0; y < altura; y++) 
+            for (int y = 0; y < altura; y++)
                 for (int x = 0; x < largura; x++)
                 {
                     if (y == 0 || y == altura - 1)
@@ -204,18 +213,18 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
                     else
                     {
                         Console.Write(mapa[x, y]);  // Desenha o elemento do mapa
-                    
-                    }                    
-                } 
-                
+
+                    }
+                }
+
                 Console.WriteLine();  // Pula para a próxima linha
             }
-               
+
         }
-        
 
 
-   
+
+
 
         static void MostrarMenu()  // Exibe o menu principal com arte
         {
@@ -288,25 +297,51 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
 
             Console.Clear();
 
-            
-          
+
+
             switch (ativo)
             {
-                case 0:  jogar(); break;  // Inicia com mapa 1
-                case 1:  jogar2(); break;  // Inicia com mapa 2
+                case 0: jogar(); break;  // Inicia com mapa 1
+                case 1: jogar2(); break;  // Inicia com mapa 2
             }
         }
 
-        static void aplicarGravidade()
+        public static void aplicarGravidade()
         {
-            while (Personagem.playerY + 1 < altura - 1 && (mapa[Personagem.playerX, Personagem.playerY ] != '_'))
+
+
+            if (Personagem.pulando)
             {
-                Personagem.playerY++;
-                //desenhaMapa();
-                Thread.Sleep(120);  // Tempo entre quedas para simular animação
+                if (Personagem.forcaDoPulo > 0)
+                {
+                    int cima = Personagem.playerY - 1;
+                    if (cima > 0 && mapa[Personagem.playerX, cima] == ' ')
+                    {
+                        Personagem.playerY--;
+                        Personagem.forcaDoPulo--;
+                    }
+                    else
+                    {
+                        Personagem.pulando = false;
+                        Personagem.forcaDoPulo = 0;
+                    }
+                }
+                else
+                {
+                    Personagem.pulando = false;
+                }
+            }
+            else
+            {
+                // Gravidade atuando
+                int abaixo = Personagem.playerY ;
+
+                // Aqui é a correção principal: verifica se o bloco abaixo é espaço
+                if (abaixo < altura && mapa[Personagem.playerX, abaixo] == ' ')
+                {
+                    Personagem.playerY++;  // Continua caindo
+                }
             }
         }
     }
 }
-
-
