@@ -17,7 +17,7 @@ namespace JogR
         public static bool pulando = false;
         public static int forcaDoPulo = 0;
 
-        public List<Fragmento> coletados;
+        public static List<Fragmento> coletados;
 
 
         public Personagem(char[,] mapa) // Construtor que recebe o mapa
