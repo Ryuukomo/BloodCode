@@ -16,11 +16,14 @@ namespace JogR
 
         public static bool pulando = false;
         public static int forcaDoPulo = 0;
-    
-  
+
+        public List<Fragmento> coletados;
+
+
         public Personagem(char[,] mapa) // Construtor que recebe o mapa
         {
             Personagem.mapa = mapa;
+            coletados = new List<Fragmento>();
         }
       
         public static void atualizarPosicao(ConsoleKey tecla)
@@ -47,6 +50,15 @@ namespace JogR
             {
                 playerX = tempX;
                 playerY = tempY;
+            }
+            foreach (Fragmento fragmento in GameManager.Instancia.fragmentos)
+            {
+                if (fragmento.x == playerX && fragmento.y == playerY)
+                {
+                    GameManager.Instancia.fragmentos.Remove(fragmento);
+                    coletados.Add(fragmento);
+                    break;
+                }
             }
         }
 
