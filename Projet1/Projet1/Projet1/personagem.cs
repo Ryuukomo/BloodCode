@@ -8,25 +8,25 @@ namespace JogR
 {
     public class Personagem
     {
-        public static int playerX = 1;
-        public static int playerY = 1;
+        public int playerX = 1;
+        public int playerY = 1;
 
-        static char person = '@';
-        static char[,] mapa;
+        public char person = '@';
+        public char[,] mapa;
 
-        public static bool pulando = false;
-        public static int forcaDoPulo = 0;
+        public bool pulando = false;
+        public int forcaDoPulo = 0;
 
-        public static List<Fragmento> coletados;
+        public List<Fragmento> coletados;
 
 
         public Personagem(char[,] mapa) // Construtor que recebe o mapa
         {
-            Personagem.mapa = mapa;
+            this.mapa = mapa;
             coletados = new List<Fragmento>();
         }
       
-        public static void atualizarPosicao(ConsoleKey tecla)
+        public void atualizarPosicao(ConsoleKey tecla)
         {
             int tempX = playerX;
             int tempY = playerY;
@@ -62,7 +62,7 @@ namespace JogR
             }
         }
 
-        public static void desenharPersonagem()
+        public void desenharPersonagem()
         {
             Console.Write(person);
         }

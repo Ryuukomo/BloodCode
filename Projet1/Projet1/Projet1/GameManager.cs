@@ -22,10 +22,10 @@ namespace JogR
 
 
     
-        static char[,] mapa;  // Matriz que representa o cenário fixo do mapa (paredes, chão, etc.)
-        static char[,] obstaculos;  // Matriz auxiliar para armazenar obstáculos antes de aplicar no mapa
+        public char[,] mapa;  // Matriz que representa o cenário fixo do mapa (paredes, chão, etc.)
+        public char[,] obstaculos;  // Matriz auxiliar para armazenar obstáculos antes de aplicar no mapa
 
-        static string[] opcoes = {
+        public string[] opcoes = {
             @" 
                          ________       ________         __            ________       ________  
                         / ______ \     |__    __|       /  \          |   ____ \     |__    __|
@@ -57,9 +57,9 @@ namespace JogR
            \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
             "
         };  // Arte em ASCII para o menu principal, com 3 opções visuais
-        static int selecionado = 0;  // Índice da opção selecionada no menu principal
+       public int selecionado = 0;  // Índice da opção selecionada no menu principal
 
-        static string[] SeletorDeMapa = {@"                      
+       public string[] SeletorDeMapa = {@"                      
                                      ---------------------------------------
                                                        __
                                                       / |
@@ -97,6 +97,8 @@ namespace JogR
 
         public bool jogando = true;  // Indica se o jogo está em execução
 
+        public Personagem personagem;  // Referência ao personagem do jogo
+
         public List<Fragmento> fragmentos;  // Lista de fragmentos que podem ser coletados no jogo
 
 
@@ -104,7 +106,7 @@ namespace JogR
         public void jogar()
         {
             iniciarMapaEstatico();
-            new Personagem(mapa);  // Inicia personagem com referência ao mapa
+            personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
 
             while (jogando)
             {
@@ -112,31 +114,41 @@ namespace JogR
                 if (Console.KeyAvailable)
                 {
                     var tecla = Console.ReadKey(true).Key;
-                    Personagem.atualizarPosicao(tecla);
+                    personagem.atualizarPosicao(tecla);
                 }
                 aplicarGravidade();
                 desenhaMapa();
                 Thread.Sleep(50);
-            }
+            } 
+            VerificaV("raig");  // Verifica se o jogador coletou os fragmentos corretos
         }
 
        public void jogar2()
         {
             iniciarMapaEstatico2();
-            new Personagem(mapa);  // Inicia personagem com referência ao mapa
+            personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
 
-            while (jogando)
+            while (personagem.coletados.Count < fragmentos.Count)
             {
 
                 if (Console.KeyAvailable)
                 {
                     var tecla = Console.ReadKey(true).Key;
-                    Personagem.atualizarPosicao(tecla);
+                    personagem.atualizarPosicao(tecla);
                 }
                 aplicarGravidade();
                 desenhaMapa();
                 Thread.Sleep(50);
+
+                if (VerificaV("blood"))
+                {
+                    Console.Write("Você coletou todos os fragmentos necessários para completar o mapa!");  // Mensagem de sucesso se coletou todos os fragmentos
+                    break;  // Sai do loop se coletou todos os fragmentos
+                } 
             }
+
+          
+
         }
         public void adicionarObstaculos()  // Adiciona obstáculos para o mapa 1
         {
@@ -155,6 +167,22 @@ namespace JogR
                 for (int x = 0; x < largura; x++)
                     if (obstaculos[x, y] != ' ')
                         mapa[x, y] = obstaculos[x, y];
+        }
+
+        public bool VerificaV(string certo)
+        { 
+            if (personagem.coletados.Count != certo.Length)  // Verifica se o personagem coletou diferente fragmentos que o necessário
+            {
+                return false;  // Retorna falso se não tiver coletado todos
+            }
+            for ( int x = 0; x < certo.Length; x++)
+            {
+                if (certo[x] != personagem.coletados[x].forma)
+                {
+                    return false;  
+                }
+            }
+            return true; 
         }
 
         public void adicionarObstaculos2()  // Adiciona obstáculos para o mapa 2
@@ -230,6 +258,7 @@ namespace JogR
                         mapa[x, y] = ' ';  // Espaço vazio
                 }
             adicionarObstaculos2();  // Insere obstáculos do segundo tipo
+            adicionarFragmentos("blood");  // Adiciona fragmentos coletáveis
         }
 
         public void desenhaMapa()  // Renderiza o mapa e o jogador
@@ -240,10 +269,10 @@ namespace JogR
                 for (int x = 0; x < largura; x++)
                 {
 
-                    if (x == Personagem.playerX && y == Personagem.playerY)
+                    if (x == personagem.playerX && y == personagem.playerY)
 
                     {
-                        Personagem.desenharPersonagem();
+                        personagem.desenharPersonagem();
                     }
                     else
                     {
@@ -260,10 +289,6 @@ namespace JogR
                 fragmento.Draw();
             }
         }
-
-
-
-
 
         public void MostrarMenu()  // Exibe o menu principal com arte
         {
@@ -349,35 +374,35 @@ namespace JogR
         {
 
 
-            if (Personagem.pulando)
+            if (personagem.pulando)
             {
-                if (Personagem.forcaDoPulo > 0)
+                if (personagem.forcaDoPulo > 0)
                 {
-                    int cima = Personagem.playerY - 1;
-                    if (cima > 0 && mapa[Personagem.playerX, cima] == ' ')
+                    int cima = personagem.playerY - 1;
+                    if (cima > 0 && mapa[personagem.playerX, cima] == ' ')
                     {
-                        Personagem.playerY--;
-                        Personagem.forcaDoPulo--;
+                        personagem.playerY--;
+                        personagem.forcaDoPulo--;
                     }
                     {
-                        Personagem.pulando = false;
-                        Personagem.forcaDoPulo = 0;
+                        personagem.pulando = false;
+                        personagem.forcaDoPulo = 0;
                     }
                 }
                 else
                 {
-                    Personagem.pulando = false;
+                    personagem.pulando = false;
                 }
             }
             else
             {
                 // Gravidade atuando
-                int abaixo = Personagem.playerY;
+                int abaixo = personagem.playerY;
 
                 // Aqui é a correção principal: verifica se o bloco abaixo é espaço
-                if (abaixo < altura && mapa[Personagem.playerX, abaixo] == ' ')
+                if (abaixo < altura && mapa[personagem.playerX, abaixo] == ' ')
                 {
-                    Personagem.playerY++;  // Continua caindo
+                    personagem.playerY++;  // Continua caindo
                 }
             }
         }
