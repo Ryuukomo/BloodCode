@@ -9,6 +9,7 @@ namespace JogR
 {
     class GameManager
     {
+<<<<<<< HEAD
         private GameManager() {}  
 
 
@@ -22,6 +23,17 @@ namespace JogR
 
 
     
+=======
+        private GameManager() { }  // Construtor privado para implementar o padrão Singleton
+
+        static private GameManager instancia;  // Instância única da classe
+
+        public static GameManager Instancia => instancia ??= new GameManager();  // Getter da instância (Singleton)
+
+
+
+
+>>>>>>> mudança de fase pronta
         public char[,] mapa;  // Matriz que representa o cenário fixo do mapa (paredes, chão, etc.)
         public char[,] obstaculos;  // Matriz auxiliar para armazenar obstáculos antes de aplicar no mapa
 
@@ -57,9 +69,15 @@ namespace JogR
            \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
             "
         };  // Arte em ASCII para o menu principal, com 3 opções visuais
+<<<<<<< HEAD
        public int selecionado = 0;  // Índice da opção selecionada no menu principal
 
        public string[] SeletorDeMapa = {@"                      
+=======
+        public int selecionado = 0;  // Índice da opção selecionada no menu principal
+
+        public string[] SeletorDeMapa = {@"                      
+>>>>>>> mudança de fase pronta
                                      ---------------------------------------
                                                        __
                                                       / |
@@ -108,7 +126,11 @@ namespace JogR
             iniciarMapaEstatico();
             personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
 
+<<<<<<< HEAD
             while (jogando)
+=======
+            while (personagem.coletados.Count < fragmentos.Count)
+>>>>>>> mudança de fase pronta
             {
 
                 if (Console.KeyAvailable)
@@ -119,11 +141,25 @@ namespace JogR
                 aplicarGravidade();
                 desenhaMapa();
                 Thread.Sleep(50);
+<<<<<<< HEAD
             } 
             VerificaV("raig");  // Verifica se o jogador coletou os fragmentos corretos
         }
 
        public void jogar2()
+=======
+
+                if (VerificaV("blood"))
+                {
+                    Console.Write("Você coletou todos os fragmentos necessários para completar o mapa!");  // Mensagem de sucesso se coletou todos os fragmentos
+                    break;  // Sai do loop se coletou todos os fragmentos
+                }
+            }
+
+        }
+
+        public void jogar2()
+>>>>>>> mudança de fase pronta
         {
             iniciarMapaEstatico2();
             personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
@@ -137,6 +173,7 @@ namespace JogR
                     personagem.atualizarPosicao(tecla);
                 }
                 aplicarGravidade();
+<<<<<<< HEAD
                 desenhaMapa();
                 Thread.Sleep(50);
 
@@ -148,6 +185,30 @@ namespace JogR
             }
 
           
+=======
+
+                desenhaMapa();
+                Thread.Sleep(60);
+
+                if (VerificaV("blood"))
+                {
+                    Console.Clear();
+                    Console.Write("Você coletou todos os fragmentos necessários para completar o mapa!");  // Mensagem de sucesso se coletou todos os fragmentos
+
+                    var tecla5 = Console.ReadKey(true).Key;
+                    enteFase2(tecla5);
+                    break;
+
+                    
+
+
+                    // Sai do loop se coletou todos os fragmentos
+                }
+
+            }
+
+
+>>>>>>> mudança de fase pronta
 
         }
         public void adicionarObstaculos()  // Adiciona obstáculos para o mapa 1
@@ -170,11 +231,16 @@ namespace JogR
         }
 
         public bool VerificaV(string certo)
+<<<<<<< HEAD
         { 
+=======
+        {
+>>>>>>> mudança de fase pronta
             if (personagem.coletados.Count != certo.Length)  // Verifica se o personagem coletou diferente fragmentos que o necessário
             {
                 return false;  // Retorna falso se não tiver coletado todos
             }
+<<<<<<< HEAD
             for ( int x = 0; x < certo.Length; x++)
             {
                 if (certo[x] != personagem.coletados[x].forma)
@@ -185,6 +251,20 @@ namespace JogR
             return true; 
         }
 
+=======
+            for (int x = 0; x < certo.Length; x++)
+            {
+
+                if (certo[x] != personagem.coletados[x].forma)
+                {
+                    return false;
+                }
+
+
+            }
+            return true;
+        }
+>>>>>>> mudança de fase pronta
         public void adicionarObstaculos2()  // Adiciona obstáculos para o mapa 2
         {
             obstaculos = new char[largura, altura];  // Inicializa matriz de obstáculos
@@ -228,6 +308,7 @@ namespace JogR
         private void adicionarFragmentos(string resposta)  // Adiciona fragmentos coletáveis no mapa
         {
             fragmentos = new List<Fragmento>();  // Inicializa a lista de fragmentos
+<<<<<<< HEAD
             for (int i = 0; i < resposta.Length; i++)  // Adiciona 5 fragmentos aleatórios
             {
                
@@ -239,6 +320,21 @@ namespace JogR
             {
                 int a = random.Next(26);
                 char letra = (char)('a' + a);
+=======
+
+            for (int i = 0; i < resposta.Length; i++)  // Adiciona 5 fragmentos aleatórios
+            {
+
+                fragmentos.Add(new Fragmento(resposta[i]));  // Cria novo fragmento com forma 'F'
+            }
+            Random random = new Random();  // Inicializa gerador de números aleatórios
+
+            for (int i = 0; i < 4; i++)
+            {
+                int a = random.Next(26);
+                char letra = (char)('a' + a);
+
+>>>>>>> mudança de fase pronta
                 fragmentos.Add(new Fragmento(letra));  // Adiciona fragmentos extras com forma 'F'
             }
 
@@ -268,6 +364,7 @@ namespace JogR
             {
                 for (int x = 0; x < largura; x++)
                 {
+<<<<<<< HEAD
 
                     if (x == personagem.playerX && y == personagem.playerY)
 
@@ -288,6 +385,44 @@ namespace JogR
             {
                 fragmento.Draw();
             }
+=======
+                    bool desenhou = false;
+
+
+                    // Se for o jogador E não desenhou fragmento, desenha o personagem
+                    foreach (var fragmento in fragmentos)  // Desenha todos os fragmentos coletáveis
+                    {
+                        if (fragmento.x == x && fragmento.y == y)
+                        {
+                            fragmento.Draw();
+                            desenhou = true;
+                            break;
+
+                        }
+
+                    }
+                    if (!desenhou && x == personagem.playerX && y == personagem.playerY)
+                    {
+                        personagem.desenharPersonagem();
+                        desenhou = true;
+                    }
+
+                    // Se ninguém desenhou ainda, desenha o mapa normalmente
+                    else if (!desenhou)
+                    {
+                        Console.Write(mapa[x, y]);
+                    }
+
+
+
+
+                }
+
+
+                Console.WriteLine();  // Pula para a próxima linha
+            }
+
+>>>>>>> mudança de fase pronta
         }
 
         public void MostrarMenu()  // Exibe o menu principal com arte
@@ -366,10 +501,44 @@ namespace JogR
             switch (ativo)
             {
                 case 0: jogar(); break;  // Inicia com mapa 1
+<<<<<<< HEAD
                 case 1: jogar2(); break;  // Inicia com mapa 2
             }
         }
 
+=======
+                case 1:
+                    jogar2();
+
+
+
+                    break;  // Inicia com mapa 2
+
+
+            }
+        }
+
+        public void enteFase2(ConsoleKey tecla5)
+        {
+            Console.Clear();
+           
+
+          switch (tecla5)
+            {
+
+
+               case ConsoleKey.Enter:
+               
+                    jogar(); break;
+           
+
+            }
+        }
+
+
+
+
+>>>>>>> mudança de fase pronta
         public void aplicarGravidade()
         {
 
@@ -398,6 +567,10 @@ namespace JogR
             {
                 // Gravidade atuando
                 int abaixo = personagem.playerY;
+<<<<<<< HEAD
+=======
+                
+>>>>>>> mudança de fase pronta
 
                 // Aqui é a correção principal: verifica se o bloco abaixo é espaço
                 if (abaixo < altura && mapa[personagem.playerX, abaixo] == ' ')
@@ -405,7 +578,24 @@ namespace JogR
                     personagem.playerY++;  // Continua caindo
                 }
             }
+<<<<<<< HEAD
         }
 
     }
 }
+=======
+
+            foreach (var f in GameManager.Instancia.fragmentos.ToList())
+
+                if (f.x == personagem.playerX && f.y == personagem.playerY)
+                {
+                    GameManager.Instancia.fragmentos.Remove(f);
+                    personagem.coletados.Add(f);
+                    break;
+                }
+
+
+        }
+    }
+}
+>>>>>>> mudança de fase pronta
