@@ -7,17 +7,9 @@ namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
 {
    public class Vampire  // Define a classe principal do jogo
     {
-<<<<<<< HEAD
-        static void Main()  // Ponto de entrada do programa
-        {
-            GameManager.Instancia.moveset();  // Inicia o menu principal
-        }
-
-=======
        public static void Main()  // Ponto de entrada do programa
-        {
+       {
             GameManager.Instancia.moveset();  // Inicia o menu principal
-        }
->>>>>>> mudança de fase pronta
+       }
     }
 }

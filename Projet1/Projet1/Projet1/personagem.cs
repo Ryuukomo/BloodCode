@@ -25,11 +25,11 @@ namespace JogR
             this.mapa = mapa;
             coletados = new List<Fragmento>();
         }
-<<<<<<< HEAD
-      
-=======
 
->>>>>>> mudança de fase pronta
+      
+
+
+
         public void atualizarPosicao(ConsoleKey tecla)
         {
             int tempX = playerX;
@@ -55,7 +55,7 @@ namespace JogR
                 playerX = tempX;
                 playerY = tempY;
             }
-<<<<<<< HEAD
+
             foreach (Fragmento fragmento in GameManager.Instancia.fragmentos)
             {
                 if (fragmento.x == playerX && fragmento.y == playerY)
@@ -65,7 +65,7 @@ namespace JogR
                     break;
                 }
             }
-=======
+
            
             foreach (var f in GameManager.Instancia.fragmentos.ToList())
                
@@ -76,7 +76,7 @@ namespace JogR
                     break;
                 }
 
->>>>>>> mudança de fase pronta
+
         }
 
         public void desenharPersonagem()
