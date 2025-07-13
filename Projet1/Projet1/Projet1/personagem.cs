@@ -26,10 +26,6 @@ namespace JogR
             coletados = new List<Fragmento>();
         }
 
-      
-
-
-
         public void atualizarPosicao(ConsoleKey tecla)
         {
             int tempX = playerX;

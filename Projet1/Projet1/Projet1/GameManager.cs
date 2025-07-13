@@ -151,6 +151,7 @@ namespace JogR
                   
                     enteFase2();
                     jogar();
+
                     break;
 
 

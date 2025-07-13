@@ -9,9 +9,7 @@ namespace JogR
 
    public class Fragmento
   {
-
-    
-
+  
         public char forma { get; set; }
         public int x { get; set; }
         public int y { get; set; }
