@@ -8,6 +8,8 @@ namespace JogR
 {
     public class Personagem
     {
+
+       
         public int playerX = 1;
         public int playerY = 1;
 
@@ -52,22 +54,22 @@ namespace JogR
                 playerY = tempY;
             }
 
-            foreach (Fragmento fragmento in GameManager.Instancia.fragmentos)
+            foreach (Fragmento fragmento in GamePlay.Instancia.fragmentos)
             {
                 if (fragmento.x == playerX && fragmento.y == playerY)
                 {
-                    GameManager.Instancia.fragmentos.Remove(fragmento);
+                    GamePlay.Instancia.fragmentos.Remove(fragmento);
                     coletados.Add(fragmento);
                     break;
                 }
             }
 
            
-            foreach (var f in GameManager.Instancia.fragmentos.ToList())
+            foreach (var f in GamePlay.Instancia.fragmentos.ToList())
                
                 if (f.x == playerX && f.y == playerY)
                 {
-                    GameManager.Instancia.fragmentos.Remove(f);
+                    GamePlay.Instancia.fragmentos.Remove(f);
                     coletados.Add(f);
                     break;
                 }

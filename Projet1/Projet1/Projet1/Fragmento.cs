@@ -13,14 +13,14 @@ namespace JogR
         public char forma { get; set; }
         public int x { get; set; }
         public int y { get; set; }
-
+     
         public Fragmento(char forma)
         {
             this.forma = forma;
             Random random = new Random();
 
-            this.x = random.Next(1, GameManager.Instancia.largura - 1);
-            this.y = random.Next(1, GameManager.Instancia.altura - 1);
+            this.x = random.Next(1, GamePlay.Instancia.largura - 1);
+            this.y = random.Next(1, GamePlay.Instancia.altura - 1);
 
         }
         public void Draw()
