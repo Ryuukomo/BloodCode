@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace JogR
 {
 
-   public class Fragmento
-  {
-  
+    public class Fragmento
+    {
+
         public char forma { get; set; }
         public int x { get; set; }
         public int y { get; set; }
-     
+
         public Fragmento(char forma)
         {
             this.forma = forma;
@@ -29,5 +29,5 @@ namespace JogR
             Console.Write(forma);
 
         }
-   }
+    }
 }

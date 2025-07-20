@@ -9,7 +9,7 @@ namespace JogR
     class Objetos
     {
 
-        private Objetos() {} // Construtor privado para implementar o padrão Singleton
+        private Objetos() { } // Construtor privado para implementar o padrão Singleton
 
         static private Objetos instancia;  // Instância única da classe
 

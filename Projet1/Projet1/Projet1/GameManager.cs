@@ -17,7 +17,7 @@ namespace JogR
         public static GameManager Instancia => instancia ??= new GameManager();  // Getter da instância (Singleton)
 
 
-        
+
 
         public string[] opcoes = {
             @" 
@@ -126,7 +126,7 @@ namespace JogR
                 else if (tecla3 == ConsoleKey.DownArrow)
                     selecionado = (selecionado + 1) % opcoes.Length;  // Desce
                 MostrarMenu();
-             
+
             }
             while (tecla3 != ConsoleKey.Enter);  // Aguarda confirmação
 
@@ -144,36 +144,39 @@ namespace JogR
             Console.CursorVisible = false;
             Console.Clear();
             MostrarMenumap();
-            ConsoleKey tecla4;          
+            ConsoleKey tecla4;
             do
-            {      tecla4 = Console.ReadKey(true).Key;
- 
- switch (tecla4) {
+            {
+                tecla4 = Console.ReadKey(true).Key;
+
+                switch (tecla4)
+                {
 
 
-                        case ConsoleKey.LeftArrow:
+                    case ConsoleKey.LeftArrow:
 
-                        moveset();return;
+                        moveset(); return;
                 }
                 if (tecla4 == ConsoleKey.UpArrow)
 
                 {
                     ativo = (ativo - 1 + SeletorDeMapa.Length) % SeletorDeMapa.Length;  // Mapa anterior
 
-                    MostrarMenumap(); }
-                    if (tecla4 == ConsoleKey.DownArrow)
-                    {
-                        ativo = (ativo + 1) % SeletorDeMapa.Length;  // Próximo mapa
+                    MostrarMenumap();
+                }
+                if (tecla4 == ConsoleKey.DownArrow)
+                {
+                    ativo = (ativo + 1) % SeletorDeMapa.Length;  // Próximo mapa
 
-                        MostrarMenumap();
-                    }
-               
-
-           
-                
+                    MostrarMenumap();
+                }
 
 
-              
+
+
+
+
+
             }
 
 
@@ -189,8 +192,8 @@ namespace JogR
 
             switch (ativo)
             {
-   
-               
+
+
                 case 0: GamePlay.Instancia.jogar(); break;  // Inicia com mapa 1
                 case 1:
                     GamePlay.Instancia.jogar2();
@@ -200,25 +203,26 @@ namespace JogR
                     break;  // Inicia com mapa 2
 
 
-            } 
+            }
         }
 
         public void enteFase2()
         {
-           
+
             ConsoleKey tecla5;
             tecla5 = Console.ReadKey(true).Key;
 
-            while (tecla5 != ConsoleKey.Enter) {        
-                
+            while (tecla5 != ConsoleKey.Enter)
+            {
+
                 Console.Clear();
                 Console.WriteLine("Você completou o mapa 2! Pressione Enter para continuar.");
                 tecla5 = Console.ReadKey(true).Key;
             }
 
-           
 
-           
+
+
         }
 
 

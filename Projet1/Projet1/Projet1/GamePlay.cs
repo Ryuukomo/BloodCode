@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JogR
 {
-   class GamePlay
+    class GamePlay
     {
 
 
@@ -19,7 +19,7 @@ namespace JogR
 
 
         public char[,] mapa;  // Matriz que representa o cenário fixo do mapa (paredes, chão, etc.)
-       
+
 
         public int largura = 100;  // Largura do mapa (quantidade de colunas)
         public int altura = 29;  // Altura do mapa (quantidade de linhas)
@@ -98,8 +98,8 @@ namespace JogR
 
 
         }
-       
- public void desenhaMapa()  // Renderiza o mapa e o jogador
+
+        public void desenhaMapa()  // Renderiza o mapa e o jogador
         {
             Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
             for (int y = 0; y < altura; y++)
@@ -162,10 +162,10 @@ namespace JogR
             }
             return true;
         }
-       
-      
-    
-       public void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
+
+
+
+        public void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
         {
             mapa = new char[largura, altura];  // Cria nova matriz do mapa
             for (int y = 0; y < altura; y++)
@@ -178,10 +178,10 @@ namespace JogR
                     else
                         mapa[x, y] = ' ';  // Espaço vazio
                 }
-           Objetos.Instancia.adicionarObstaculos();  // Insere obstáculos após o preenchimento base
-           Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
+            Objetos.Instancia.adicionarObstaculos();  // Insere obstáculos após o preenchimento base
+            Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
         }
-       public void iniciarMapaEstatico2()  // Inicializa o cenário fixo do mapa 2
+        public void iniciarMapaEstatico2()  // Inicializa o cenário fixo do mapa 2
         {
             mapa = new char[largura, altura];  // Cria nova matriz do mapa
             for (int y = 0; y < altura; y++)
@@ -198,8 +198,8 @@ namespace JogR
             Objetos.Instancia.adicionarFragmentos("blood");  // Adiciona fragmentos coletáveis
         }
 
-       
-       public void aplicarGravidade()
+
+        public void aplicarGravidade()
         {
 
 
@@ -247,11 +247,11 @@ namespace JogR
 
 
         }
-   
-       
-    
-    
-    
-    
+
+
+
+
+
+
     }
 }

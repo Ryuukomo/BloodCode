@@ -9,7 +9,7 @@ namespace JogR
     public class Personagem
     {
 
-       
+
         public int playerX = 1;
         public int playerY = 1;
 
@@ -64,9 +64,9 @@ namespace JogR
                 }
             }
 
-           
+
             foreach (var f in GamePlay.Instancia.fragmentos.ToList())
-               
+
                 if (f.x == playerX && f.y == playerY)
                 {
                     GamePlay.Instancia.fragmentos.Remove(f);
