@@ -65,8 +65,10 @@ namespace JogR
                     else if (x == 0 || x == GamePlay.Instancia.largura - 1)
                         GamePlay.Instancia.mapa[x, y] = '|';  // Adiciona paredes laterais
                     else
-                        GamePlay.Instancia.mapa[x, y] = ' ';  // Espaço vazio
-                   Objetos.Instancia.adicionarObstaculos();  // Insere obstáculos após o preenchimento base
+                   
+                    GamePlay.Instancia.mapa[x, y] = ' ';  // Espaço vazio
+                   
+                    Objetos.Instancia.adicionarObstaculos();  // Insere obstáculos após o preenchimento base
                     Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
                 }
         }

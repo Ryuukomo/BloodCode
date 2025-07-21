@@ -17,38 +17,66 @@ namespace JogR
         public static GameManager Instancia => instancia ??= new GameManager();  // Getter da instância (Singleton)
 
 
+        public string[] comande = { @" 
+                     ________________
+                    |                |
+                    |                |
+                    |   \        /   |          
+                    |    \  /\  /    | 
+                    |     \/  \/     |
+                    |                |
+    ________________|________________|________________
+   |       __       |                |     ______     |
+   |      /  \      |     /------    |    |      \    |
+   |     /    \     |    /           |    |       \   |
+   |    /------\    |    \------\    |    |        |  |         
+   |    |      |    |           /    |    |       /   |
+   |    |      |    |    ------/     |    |______/    |
+   |________________|________________|________________| 
+                                                                                                                                                                                                                                                                                                                                      
+            ", @"                       
 
+        >>   precionar 'S' move o personagem para baixo 
+   (precionado, mesmo estando no chão, o personagem descerá)", @"
 
+        >>   precionar 'D' move o personagem para direita", @" 
+
+        >>   precione 'W' para subir com o personagem 
+   (precionado várias vezes, o personagem subirá cada vez mais)", @"
+
+        >>   precionar 'A' move o personagem para esquerda" };
+
+        public int T = 0; 
         public string[] opcoes = {
             @" 
-                         ________       ________         __            ________       ________  
-                        / ______ \     |__    __|       /  \          |   ____ \     |__    __|
-                       / /      \_\       |  |         / /\ \         |  |    \ \       |  |
-                       \ \_______         |  |        / /__\ \        |  |____/ /       |  |
-                        \_______ \        |  |       / ______ \       |  |___  /        |  |
-                      __        \ \       |  |      / /      \ \      |  |   \ \        |  |
-                      \ \_______/ /       |  |     / /        \ \     |  |    \ \       |  |
-                       \_________/        |__|    /_/          \_\    |__|     \_\      |__| 
+                            ________       ________         __            ________       ________  
+                           / ______ \     |__    __|       /  \          |   ____ \     |__    __|
+                          / /      \_\       |  |         / /\ \         |  |    \ \       |  |
+                          \ \_______         |  |        / /__\ \        |  |____/ /       |  |
+                           \_______ \        |  |       / ______ \       |  |___  /        |  |
+                         __        \ \       |  |      / /      \ \      |  |   \ \        |  |
+                         \ \_______/ /       |  |     / /        \ \     |  |    \ \       |  |
+                          \_________/        |__|    /_/          \_\    |__|     \_\      |__| 
             ",
             @" 
-                 ________          ________        __      __     ________    ________        ________
-                / ______ \        / ______ \      |   \   |  |   |   _____|  |__    __|      / ______ \
-               / /      \_\      / /      \ \     |    \  |  |   |  |           |  |        / /      \_\
-              / /               / /        \ \    |  |\ \ |  |   |  |____       |  |       / /   _______
-             | |               | |          | |   |  | \ \|  |   |   ____|      |  |      | |   |_____  |
-              \ \        __     \ \        / /    |  |  \    |   |  |           |  |       \ \        | |
-               \ \______/ /      \ \______/ /     |  |   \   |   |  |         __|  |__      \ \______/  |
-                \________/        \________/      |__|    \__|   |__|        |________|      \________| |
+                    ________          ________        __      __     ________    ________        ________
+                   / ______ \        / ______ \      |   \   |  |   |   _____|  |__    __|      / ______ \
+                  / /      \_\      / /      \ \     |    \  |  |   |  |           |  |        / /      \_\
+                 / /               / /        \ \    |  |\ \ |  |   |  |____       |  |       / /   _______
+                | |               | |          | |   |  | \ \|  |   |   ____|      |  |      | |   |_____  |
+                 \ \        __     \ \        / /    |  |  \    |   |  |           |  |       \ \        | |
+                  \ \______/ /      \ \______/ /     |  |   \   |   |  |         __|  |__      \ \______/  |
+                   \________/        \________/      |__|    \__|   |__|        |________|      \________| |
             ",
             @" 
-            ________      ________        ________      ________       ________     ________       ________       
-           / ______ \    |   ____ \      |   _____|    |  _____ \     |__    __|   |__    __|     / ______ \     
-          / /      \_\   |  |    \ \     |  |          | |     \ \       |  |         |  |       / /      \ \     
-         / /             |  |____/ /     |  |____      | |      \ \      |  |         |  |      / /        \ \    
-        | |              |  |___  /      |   ____|     | |       | |     |  |         |  |     | |          | |   
-         \ \        __   |  |   \ \      |  |          | |      / /      |  |         |  |      \ \        / /    
-          \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
-           \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
+               ________      ________        ________      ________       ________     ________       ________       
+              / ______ \    |   ____ \      |   _____|    |  _____ \     |__    __|   |__    __|     / ______ \     
+             / /      \_\   |  |    \ \     |  |          | |     \ \       |  |         |  |       / /      \ \     
+            / /             |  |____/ /     |  |____      | |      \ \      |  |         |  |      / /        \ \    
+           | |              |  |___  /      |   ____|     | |       | |     |  |         |  |     | |          | |   
+            \ \        __   |  |   \ \      |  |          | |      / /      |  |         |  |      \ \        / /    
+             \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
+              \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
             "
         };  // Arte em ASCII para o menu principal, com 3 opções visuais
         public int selecionado = 0;  // Índice da opção selecionada no menu principal
@@ -86,11 +114,35 @@ namespace JogR
 
         public int ativo = 0;  // Índice do mapa atualmente selecionado
 
+        public string[] Conf = { @"   
+     ________          ________        __      __     ________      ________         ________         __           ________
+    / ______ \        / ______ \      |   \   |  |   |__    __|    |   ____ \       / ______ \       |  |         |   _____|
+   / /      \_\      / /      \ \     |    \  |  |      |  |       |  |    \ \     / /      \ \      |  |         |  |
+  / /               / /        \ \    |  |\ \ |  |      |  |       |  |____/ /    / /        \ \     |  |         |  |____
+ | |               | |          | |   |  | \ \|  |      |  |       |  |___  /    | |          | |    |  |         |   ____|
+  \ \        __     \ \        / /    |  |  \    |      |  |       |  |   \ \     \ \        / /     |  |         |  |
+   \ \______/ /      \ \______/ /     |  |   \   |      |  |       |  |    \ \     \ \______/ /      |  |____     |  |_____
+    \________/        \________/      |__|    \__|      |__|       |__|     \_\     \________/       |_______|    |________|
+
+", @"
+                       ________      ________        ________      ________       ________     ________       ________       
+                      / ______ \    |   ____ \      |   _____|    |  _____ \     |__    __|   |__    __|     / ______ \     
+                     / /      \_\   |  |    \ \     |  |          | |     \ \       |  |         |  |       / /      \ \     
+                    / /             |  |____/ /     |  |____      | |      \ \      |  |         |  |      / /        \ \    
+                   | |              |  |___  /      |   ____|     | |       | |     |  |         |  |     | |          | |   
+                    \ \        __   |  |   \ \      |  |          | |      / /      |  |         |  |      \ \        / /    
+                     \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
+                      \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/   
+
+"," " };
+
+        public int sist = 0;  // Índice do mapa atualmente selecionado
+
         public void MostrarMenu()  // Exibe o menu principal com arte
         {
             Console.Clear();
             string[] linhas = opcoes[selecionado].Split('\n');
-            int topo = 5;  // Posição vertical
+            int topo = 13;  // Posição vertical
             int esquerda = 10;  // Posição horizontal
             for (int i = 0; i < linhas.Length; i++)
             {
@@ -98,12 +150,25 @@ namespace JogR
                 Console.WriteLine(linhas[i].TrimEnd());
             }
         }
-
+        public void MostrarMenuConf() 
+        
+        {
+            Console.Clear();
+            string[] linhas = Conf[sist].Split('\n');
+            int topo = 13;
+            int esquerda = 10;
+         
+            for (int i = 0; i < linhas.Length; i++)
+            {
+                Console.SetCursorPosition(esquerda, topo + i);
+                Console.WriteLine(linhas[i].TrimEnd());
+            }
+        }
         public void MostrarMenumap()  // Exibe o menu de seleção de mapa
         {
             Console.Clear();
             string[] linhas = SeletorDeMapa[ativo].Split('\n');
-            int topo = 5;
+            int topo = 13;
             int esquerda = 10;
             for (int i = 0; i < linhas.Length; i++)
             {
@@ -134,7 +199,7 @@ namespace JogR
             switch (selecionado)
             {
                 case 0: escolhemapa(); break;  // Inicia jogo
-                case 1: Console.Write("configuração"); break;  // Configurações
+                case 1: Configuracao(); break;  // Configurações
                 case 2: Console.Write("credito"); break;  // Créditos
             }
         }
@@ -205,7 +270,73 @@ namespace JogR
 
             }
         }
+        
+        public void Configuracao()
+        {
+            Console.CursorVisible = false;
+            Console.Clear();
+            MostrarMenuConf();
+            ConsoleKey tecla5;
+            do
+            {
+                tecla5 = Console.ReadKey(true).Key;
 
+                switch (tecla5)
+                {
+
+
+                    case ConsoleKey.LeftArrow:
+
+                        moveset(); return;
+                }
+                if (tecla5 == ConsoleKey.UpArrow)
+
+                {
+                    sist = (sist - 1 + Conf.Length) % Conf.Length;  // Mapa anterior
+
+                    MostrarMenuConf();
+                }
+                if (tecla5 == ConsoleKey.DownArrow)
+                {
+                  sist = (sist + 1) % Conf.Length;  // Próximo mapa
+
+                    MostrarMenuConf();
+                }
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
+            while (tecla5 != ConsoleKey.Enter);  // Confirma seleção
+
+            Console.Clear();
+
+
+
+            switch (sist)
+            {
+
+
+                case 0: 
+                    
+                    
+                    Tecle();  break;  
+                case 1:
+                    Console.Write("oii");
+                    break;  // Inicia com mapa 2
+
+
+            }
+        }
         public void enteFase2()
         {
 
@@ -224,10 +355,67 @@ namespace JogR
 
 
         }
+      public void Tecle()
+        {
+
+            Console.Clear();
+            string[] linhas = comande[T].Split('\n');
+            string[] linhas2 = comande[T = 1].Split('\n');
+            string[] linhas3 = comande[T = 2].Split('\n');
+            string[] linhas4 = comande[T = 3].Split('\n');
+            string[] linhas5 = comande[T = 4].Split('\n');
+
+            int topo = 0;
+            int topo2 = 16;
+            int topo3 = 19;
+            int topo4 = 21;
+            int topo5 = 24;
+            int esquerda = 0;
+          
 
 
+            for (int i = 0; i < linhas.Length; i++)
+            {
+                Console.SetCursorPosition(esquerda, topo + i);
+               
+                Console.WriteLine(linhas[i].TrimEnd());
+
+            }
+            for (int i = 0; i < linhas2.Length; i++)
+            {
+                Console.SetCursorPosition(esquerda, topo2 + i);
+                Console.WriteLine(linhas2[i].TrimEnd());
+            }
+            for (int i = 0; i < linhas3.Length; i++)
+            {
+                Console.SetCursorPosition(esquerda, topo3 + i);
+                Console.WriteLine(linhas3[i].TrimEnd());
+            }
+            for (int i = 0; i < linhas4.Length; i++)
+            {
+                Console.SetCursorPosition(esquerda, topo4 + i);
+                Console.WriteLine(linhas4[i].TrimEnd());
+            }
+            for (int i = 0; i < linhas5.Length; i++)
+            {
+                Console.SetCursorPosition(esquerda, topo5 + i);
+                Console.WriteLine(linhas5[i].TrimEnd());
+            }
+
+            ConsoleKey tecla5;
+            tecla5 = Console.ReadKey(true).Key;
+
+            switch (tecla5)
+            {
 
 
+                case ConsoleKey.LeftArrow:
+
+                    Configuracao(); return;
+            }
+           
+        }
 
     }
-}
+
+    }
