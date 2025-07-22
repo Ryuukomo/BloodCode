@@ -95,12 +95,7 @@ namespace JogR
             \ \        __   |  |   \ \      |  |          | |      / /      |  |         |  |      \ \        / /    
              \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
               \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
-            "
-        };
-
-
-
-        public string[] comande2 = { @"
+            ",@"
                      ________________
                     |                |
                     |      /|\       |
@@ -133,7 +128,11 @@ namespace JogR
 (precionado várias vezes, o personagem subirá cada vez mais)", @"
 
 
-     >>   precionar seta '<' move o personagem para esquerda" };
+     >>   precionar seta '<' move o personagem para esquerda"
+        };
+
+
+
         // Arte em ASCII para o menu principal, com 3 opções visuais
         public int selecionado = 0;  // Índice da opção selecionada no menu principal
 
@@ -198,20 +197,30 @@ namespace JogR
         {
             Console.Clear();
             string[] linhass = opcoes[selecionado].Split('\n');
-            int top = 13;  // Posição vertical
+           
+
+          
+
+
+ int top = 13;  // Posição vertical
             int esquerd = 10;  // Posição horizontal
-            
+          
          
 
-               
-for (int i = 0; i < linhass.Length; i++)
+
+            for (int i = 0; i < linhass.Length; i++)
             {
                 Console.SetCursorPosition(esquerd, top + i);
                 Console.WriteLine(linhass[i].TrimEnd());
-               
-            }  
-    
-       
+
+
+
+
+                
+
+            }
+
+
         }
         public void MostrarMenuConf() 
         
@@ -245,21 +254,23 @@ for (int i = 0; i < linhass.Length; i++)
         {
             Console.CursorVisible = false;
             Console.Clear();
-            
-            MostrarMenu();
-         
+       
+              MostrarMenu();
+             
             ConsoleKey tecla3;
             do
             {
                 tecla3 = Console.ReadKey(true).Key;   
-               
+             
                 if (tecla3 == ConsoleKey.UpArrow)
-                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length; 
+                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length;
+                  
                 // Sobe
                 else if (tecla3 == ConsoleKey.DownArrow)
                     selecionado = (selecionado + 1) % opcoes.Length;  // Desce
+               
                 MostrarMenu();
-
+ 
             }
             while (tecla3 != ConsoleKey.Enter);  // Aguarda confirmação
 
@@ -491,7 +502,50 @@ for (int i = 0; i < linhass.Length; i++)
            
         }
 
-      
+      public void Tecle2()
+        {
+            string[] linhas = opcoes[selecionado = 3].Split('\n');
+            string[] linhas2 = opcoes[selecionado = 4].Split('\n');
+            string[] linhas3 = opcoes[selecionado = 5].Split('\n');
+            string[] linhas4 = opcoes[selecionado = 6].Split('\n');
+            string[] linhas5 = opcoes[selecionado = 7].Split('\n');
+
+            int topo = 20;
+            int topo2 = 25;
+            int topo3 = 30;
+            int topo4 = 35;
+            int topo5 = 40;
+
+            int esquerd = 10;
+
+            for (int i = 0; i < linhas.Length; i++)
+            {
+                Console.SetCursorPosition(esquerd, topo + i);
+
+                Console.WriteLine(linhas[i].TrimEnd());
+
+            }
+            for (int i = 0; i < linhas2.Length; i++)
+            {
+                Console.SetCursorPosition(esquerd, topo2 + i);
+                Console.WriteLine(linhas2[i].TrimEnd());
+            }
+            for (int i = 0; i < linhas3.Length; i++)
+            {
+                Console.SetCursorPosition(esquerd, topo3 + i);
+                Console.WriteLine(linhas3[i].TrimEnd());
+            }
+            for (int i = 0; i < linhas4.Length; i++)
+            {
+                Console.SetCursorPosition(esquerd, topo4 + i);
+                Console.WriteLine(linhas4[i].TrimEnd());
+            }
+            for (int i = 0; i < linhas5.Length; i++)
+            {
+                Console.SetCursorPosition(esquerd, topo5 + i);
+                Console.WriteLine(linhas5[i].TrimEnd());
+            }
+        }
     
     }
 
