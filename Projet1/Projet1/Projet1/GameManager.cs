@@ -36,17 +36,35 @@ namespace JogR
                                                                                                                                                                                                                                                                                                                                       
             ", @"                       
 
-        >>   precionar 'S' move o personagem para baixo 
-   (precionado, mesmo estando no chão, o personagem descerá)", @"
 
-        >>   precionar 'D' move o personagem para direita", @" 
 
-        >>   precione 'W' para subir com o personagem 
-   (precionado várias vezes, o personagem subirá cada vez mais)", @"
+     >>   precionar 'S' move o personagem para baixo 
+(precionado, mesmo estando no chão, o personagem descerá)", @"
 
-        >>   precionar 'A' move o personagem para esquerda" };
 
+
+     >>   precionar 'D' move o personagem para direita", @" 
+
+
+
+     >>   precione 'W' para subir com o personagem 
+(precionado várias vezes, o personagem subirá cada vez mais)", @"
+
+
+
+     >>   precionar 'A' move o personagem para esquerda"};
+
+ 
+        
+        
+        
         public int T = 0; 
+
+
+
+
+
+
         public string[] opcoes = {
             @" 
                             ________       ________         __            ________       ________  
@@ -78,7 +96,45 @@ namespace JogR
              \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
               \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
             "
-        };  // Arte em ASCII para o menu principal, com 3 opções visuais
+        };
+
+
+
+        public string[] comande2 = { @"
+                     ________________
+                    |                |
+                    |      /|\       |
+                    |     / | \      |
+                    |    /  |  \     |
+                    |       |        |
+                    |       |        |
+    ________________|________________|________________
+   |                |                |                |
+   |      /         |       |        |         \      |
+   |     /          |       |        |          \     |
+   |    |-------    |    \  |  /     |    -------|    |
+   |     \          |     \ | /      |          /     |
+   |      \         |      \|/       |         /      |
+   |________________|________________|________________|
+
+
+ ", @"                       
+
+
+
+     >>   precionar seta '\/' muda para o próximo icone abaixo dos menus 
+", @"
+
+
+     >>   precionar seta '>' ainda não faz nada", @" 
+
+
+     >>   precionar seta '/\' muda para o próximo icone acima dos menus 
+(precionado várias vezes, o personagem subirá cada vez mais)", @"
+
+
+     >>   precionar seta '<' move o personagem para esquerda" };
+        // Arte em ASCII para o menu principal, com 3 opções visuais
         public int selecionado = 0;  // Índice da opção selecionada no menu principal
 
         public string[] SeletorDeMapa = {@"                      
@@ -141,28 +197,36 @@ namespace JogR
         public void MostrarMenu()  // Exibe o menu principal com arte
         {
             Console.Clear();
-            string[] linhas = opcoes[selecionado].Split('\n');
-            int topo = 13;  // Posição vertical
-            int esquerda = 10;  // Posição horizontal
-            for (int i = 0; i < linhas.Length; i++)
+            string[] linhass = opcoes[selecionado].Split('\n');
+            int top = 13;  // Posição vertical
+            int esquerd = 10;  // Posição horizontal
+            
+         
+
+               
+for (int i = 0; i < linhass.Length; i++)
             {
-                Console.SetCursorPosition(esquerda, topo + i);
-                Console.WriteLine(linhas[i].TrimEnd());
-            }
+                Console.SetCursorPosition(esquerd, top + i);
+                Console.WriteLine(linhass[i].TrimEnd());
+               
+            }  
+    
+       
         }
         public void MostrarMenuConf() 
         
         {
             Console.Clear();
-            string[] linhas = Conf[sist].Split('\n');
-            int topo = 13;
-            int esquerda = 10;
+            string[] linhass = Conf[sist].Split('\n');
+            int top = 13;
+            int esquerd = 10;
          
-            for (int i = 0; i < linhas.Length; i++)
+            for (int i = 0; i < linhass.Length; i++)
             {
-                Console.SetCursorPosition(esquerda, topo + i);
-                Console.WriteLine(linhas[i].TrimEnd());
+                Console.SetCursorPosition(esquerd, top + i);
+                Console.WriteLine(linhass[i].TrimEnd());
             }
+           
         }
         public void MostrarMenumap()  // Exibe o menu de seleção de mapa
         {
@@ -181,13 +245,17 @@ namespace JogR
         {
             Console.CursorVisible = false;
             Console.Clear();
+            
             MostrarMenu();
+         
             ConsoleKey tecla3;
             do
             {
-                tecla3 = Console.ReadKey(true).Key;
+                tecla3 = Console.ReadKey(true).Key;   
+               
                 if (tecla3 == ConsoleKey.UpArrow)
-                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length;  // Sobe
+                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length; 
+                // Sobe
                 else if (tecla3 == ConsoleKey.DownArrow)
                     selecionado = (selecionado + 1) % opcoes.Length;  // Desce
                 MostrarMenu();
@@ -202,6 +270,8 @@ namespace JogR
                 case 1: Configuracao(); break;  // Configurações
                 case 2: Console.Write("credito"); break;  // Créditos
             }
+
+            
         }
 
         public void escolhemapa()  // Controle da escolha do mapa
@@ -364,14 +434,17 @@ namespace JogR
             string[] linhas3 = comande[T = 2].Split('\n');
             string[] linhas4 = comande[T = 3].Split('\n');
             string[] linhas5 = comande[T = 4].Split('\n');
+           
+          
 
             int topo = 0;
-            int topo2 = 16;
-            int topo3 = 19;
-            int topo4 = 21;
-            int topo5 = 24;
+            int topo2 = 15;
+            int topo3 = 20;
+            int topo4 = 24;
+            int topo5 = 29;
             int esquerda = 0;
           
+         
 
 
             for (int i = 0; i < linhas.Length; i++)
@@ -402,6 +475,8 @@ namespace JogR
                 Console.WriteLine(linhas5[i].TrimEnd());
             }
 
+          
+
             ConsoleKey tecla5;
             tecla5 = Console.ReadKey(true).Key;
 
@@ -416,6 +491,8 @@ namespace JogR
            
         }
 
+      
+    
     }
 
     }
