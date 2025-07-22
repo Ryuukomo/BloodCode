@@ -214,23 +214,22 @@ namespace JogR
         {
             Console.CursorVisible = false;
             Console.Clear();
-       
-              MostrarMenu();
-             
+            
+            MostrarMenu();
+         
             ConsoleKey tecla3;
             do
             {
                 tecla3 = Console.ReadKey(true).Key;   
-             
+               
                 if (tecla3 == ConsoleKey.UpArrow)
-                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length;
-                  
+                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length; 
+                    
                 // Sobe
                 else if (tecla3 == ConsoleKey.DownArrow)
                     selecionado = (selecionado + 1) % opcoes.Length;  // Desce
-               
                 MostrarMenu();
- 
+
             }
             while (tecla3 != ConsoleKey.Enter);  // Aguarda confirmação
 
