@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace JogR
 {
-    public class Mapas
-    {public bool desenhou = false;  
+    public class Mapas : MonoBehaviour
+    
+    {
+        public bool desenhou = false;  
 
         public Personagem personagem;  // Referência ao personagem do jogo
         public void desenhaMapa()  // Renderiza o mapa e o jogador
@@ -87,6 +89,15 @@ namespace JogR
                 }
             Objetos.Instancia.adicionarObstaculos2();  // Insere obstáculos do segundo tipo
             Objetos.Instancia.adicionarFragmentos("blood");  // Adiciona fragmentos coletáveis
+        }
+        public override void Update ()
+        {
+            desenhaMapa();  // Chama o método de renderização do mapa
+        }
+
+        public override void Start()
+        {          GameManager.Instancia.selecionado = 1;  // Define o mapa selecionado como 1
+            GamePlay.Instancia.jogar();  // Inicia o jogo com o mapa 1
         }
     }
 }

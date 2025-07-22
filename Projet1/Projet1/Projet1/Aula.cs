@@ -8,6 +8,40 @@ namespace JogR
 
         {
 
+            /* @"
+                     ________________
+                    |                |
+                    |      /|\       |
+                    |     / | \      |
+                    |    /  |  \     |
+                    |       |        |
+                    |       |        |
+    ________________|________________|________________
+   |                |                |                |
+   |      /         |       |        |         \      |
+   |     /          |       |        |          \     |
+   |    |-------    |    \  |  /     |    -------|    |
+   |     \          |     \ | /      |          /     |
+   |      \         |      \|/       |         /      |
+   |________________|________________|________________|
+
+
+ ", @"                       
+
+
+
+     >>   precionar seta '\/' muda para o próximo icone abaixo dos menus 
+", @"
+
+
+     >>   precionar seta '>' ainda não faz nada", @" 
+
+
+     >>   precionar seta '/\' muda para o próximo icone acima dos menus 
+(precionado várias vezes, o personagem subirá cada vez mais)", @"
+
+
+     >>   precionar seta '<' move o personagem para esquerda"*/
 
             /*( Class Personagem { 
 
@@ -64,5 +98,61 @@ namespace JogR
         };
         return result[data] || "Não é uma cor";
     }
-    console.log(isColor("red")); */
-        } } }
+    console.log(isColor("red")); 
+            
+             
+             
+             
+             
+             
+            class MonoBehavior{ Thread trhead;
+            
+
+            Run() {
+
+            Awake();
+            Start();
+
+            Thread T = new Thread() => {
+
+            while (rodando) {
+            Update();
+            LateUpdate();
+            Thread.Sleep(1000); // Pausa a thread por 1 segundo
+            }
+            OnDestroy;
+                // Código a ser executado em uma thread separada
+            }
+            }
+            t.start();}
+
+
+
+
+            Start() {}
+
+
+
+            Stop(){
+
+            rodando = false;
+            This.trhead.Join(); // Espera a thread terminar
+            }
+
+            Update() {}
+
+            Awake() {}
+             
+            LateUpdate() {}
+            
+            OnDestroy() {}
+             
+             
+             
+             
+             
+             
+             */
+        }
+
+    } }

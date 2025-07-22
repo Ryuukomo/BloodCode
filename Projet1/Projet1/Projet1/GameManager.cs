@@ -54,13 +54,6 @@ namespace JogR
 
      >>   precionar 'A' move o personagem para esquerda"};
 
- 
-        
-        
-        
-        public int T = 0; 
-
-
 
 
 
@@ -95,40 +88,7 @@ namespace JogR
             \ \        __   |  |   \ \      |  |          | |      / /      |  |         |  |      \ \        / /    
              \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
               \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
-            ",@"
-                     ________________
-                    |                |
-                    |      /|\       |
-                    |     / | \      |
-                    |    /  |  \     |
-                    |       |        |
-                    |       |        |
-    ________________|________________|________________
-   |                |                |                |
-   |      /         |       |        |         \      |
-   |     /          |       |        |          \     |
-   |    |-------    |    \  |  /     |    -------|    |
-   |     \          |     \ | /      |          /     |
-   |      \         |      \|/       |         /      |
-   |________________|________________|________________|
-
-
- ", @"                       
-
-
-
-     >>   precionar seta '\/' muda para o próximo icone abaixo dos menus 
-", @"
-
-
-     >>   precionar seta '>' ainda não faz nada", @" 
-
-
-     >>   precionar seta '/\' muda para o próximo icone acima dos menus 
-(precionado várias vezes, o personagem subirá cada vez mais)", @"
-
-
-     >>   precionar seta '<' move o personagem para esquerda"
+            "
         };
 
 
@@ -439,14 +399,14 @@ namespace JogR
       public void Tecle()
         {
 
-            Console.Clear();
-            string[] linhas = comande[T].Split('\n');
-            string[] linhas2 = comande[T = 1].Split('\n');
-            string[] linhas3 = comande[T = 2].Split('\n');
-            string[] linhas4 = comande[T = 3].Split('\n');
-            string[] linhas5 = comande[T = 4].Split('\n');
+    
+            string[] linhas = comande[0].Split('\n');
+            string[] linhas2 = comande[1].Split('\n');
+            string[] linhas3 = comande[2].Split('\n');
+            string[] linhas4 = comande[3].Split('\n');
+            string[] linhas5 = comande[4].Split('\n');
            
-          
+            
 
             int topo = 0;
             int topo2 = 15;
@@ -486,9 +446,7 @@ namespace JogR
                 Console.WriteLine(linhas5[i].TrimEnd());
             }
 
-          
-
-            ConsoleKey tecla5;
+              ConsoleKey tecla5;
             tecla5 = Console.ReadKey(true).Key;
 
             switch (tecla5)
@@ -499,53 +457,12 @@ namespace JogR
 
                     Configuracao(); return;
             }
+
+        
            
         }
 
-      public void Tecle2()
-        {
-            string[] linhas = opcoes[selecionado = 3].Split('\n');
-            string[] linhas2 = opcoes[selecionado = 4].Split('\n');
-            string[] linhas3 = opcoes[selecionado = 5].Split('\n');
-            string[] linhas4 = opcoes[selecionado = 6].Split('\n');
-            string[] linhas5 = opcoes[selecionado = 7].Split('\n');
-
-            int topo = 20;
-            int topo2 = 25;
-            int topo3 = 30;
-            int topo4 = 35;
-            int topo5 = 40;
-
-            int esquerd = 10;
-
-            for (int i = 0; i < linhas.Length; i++)
-            {
-                Console.SetCursorPosition(esquerd, topo + i);
-
-                Console.WriteLine(linhas[i].TrimEnd());
-
-            }
-            for (int i = 0; i < linhas2.Length; i++)
-            {
-                Console.SetCursorPosition(esquerd, topo2 + i);
-                Console.WriteLine(linhas2[i].TrimEnd());
-            }
-            for (int i = 0; i < linhas3.Length; i++)
-            {
-                Console.SetCursorPosition(esquerd, topo3 + i);
-                Console.WriteLine(linhas3[i].TrimEnd());
-            }
-            for (int i = 0; i < linhas4.Length; i++)
-            {
-                Console.SetCursorPosition(esquerd, topo4 + i);
-                Console.WriteLine(linhas4[i].TrimEnd());
-            }
-            for (int i = 0; i < linhas5.Length; i++)
-            {
-                Console.SetCursorPosition(esquerd, topo5 + i);
-                Console.WriteLine(linhas5[i].TrimEnd());
-            }
-        }
+    
     
     }
 
