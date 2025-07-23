@@ -20,8 +20,8 @@ namespace JogR
 
         public int Up => this.y -= 1;
         public int Down => this.y += 1;
-        public int Left => this.y -= 1;
-        public int Right => this.y += 1;
+        public int Left => this.x -= 1;
+        public int Right => this.x += 1;
         
         public static int Distance(Vector2 a, Vector2 b)
         {

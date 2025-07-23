@@ -46,7 +46,7 @@ namespace JogR
                 obstaculos[x, 10] = '_';  // Adiciona piso
 
             for (int y = 5; y < 10; y++)
-                obstaculos[50, y] = 'a';  // Adiciona coluna com 'a'
+                obstaculos[50, y] = '|';  // Adiciona coluna 
 
             for (int y = 0; y < GamePlay.Instancia.altura; y++)  // Aplica os obstáculos no mapa
                 for (int x = 0; x < GamePlay.Instancia.largura; x++)

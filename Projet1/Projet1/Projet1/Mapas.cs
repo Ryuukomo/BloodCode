@@ -34,7 +34,7 @@ namespace JogR
                         }
 
                     }
-                    if (!desenhou && x == personagem.playerX && y == personagem.playerY)
+                    if (!desenhou && x == personagem.p.x && y == personagem.p.y)
                     {
                      personagem.desenharPersonagem();
                      desenhou = true;
@@ -90,14 +90,6 @@ namespace JogR
             Objetos.Instancia.adicionarObstaculos2();  // Insere obstáculos do segundo tipo
             Objetos.Instancia.adicionarFragmentos("blood");  // Adiciona fragmentos coletáveis
         }
-        public override void Update ()
-        {
-            desenhaMapa();  // Chama o método de renderização do mapa
-        }
-
-        public override void Start()
-        {          GameManager.Instancia.selecionado = 1;  // Define o mapa selecionado como 1
-            GamePlay.Instancia.jogar();  // Inicia o jogo com o mapa 1
-        }
+     
     }
 }

@@ -121,7 +121,7 @@ namespace JogR
                         }
 
                     }
-                    if (!desenhou && x == personagem.playerX && y == personagem.playerY)
+                    if (!desenhou && x == personagem.p.x && y == personagem.p.y)
                     {
                         personagem.desenharPersonagem();
                         desenhou = true;
@@ -207,13 +207,14 @@ namespace JogR
             {
                 if (personagem.forcaDoPulo > 0)
                 {
-                    int cima = personagem.playerY - 1;
-                    if (cima > 0 && mapa[personagem.playerX, cima] == ' ')
+                    int cima = personagem.p.Up;
+                    if (cima > 0 && mapa[personagem.p.x, cima] == ' ')
                     {
-                        personagem.playerY--;
+                        personagem.p.y--;
                         personagem.forcaDoPulo--;
                     }
                     {
+                        cima = personagem.p.Down;  // Se não puder pular mais, d
                         personagem.pulando = false;
                         personagem.forcaDoPulo = 0;
                     }
@@ -226,19 +227,19 @@ namespace JogR
             else
             {
                 // Gravidade atuando
-                int abaixo = personagem.playerY;
+                int abaixo = personagem.p.y;
 
 
                 // Aqui é a correção principal: verifica se o bloco abaixo é espaço
-                if (abaixo < altura && mapa[personagem.playerX, abaixo] == ' ')
+                if (abaixo < altura && mapa[personagem.p.x, abaixo] == ' ')
                 {
-                    personagem.playerY++;  // Continua caindo
+                    abaixo = personagem.p.Down;  // Continua caindo
                 }
             }
 
             foreach (var f in fragmentos.ToList())
 
-                if (f.x == personagem.playerX && f.y == personagem.playerY)
+                if (f.x == personagem.p.x && f.y == personagem.p.y)
                 {
                     fragmentos.Remove(f);
                     personagem.coletados.Add(f);

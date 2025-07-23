@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace JogR
 {
-    class GameManager
+    class GameManager : MonoBehaviour
     {
         private GameManager() { }  // Construtor privado para implementar o padrão Singleton
 
@@ -52,7 +54,7 @@ namespace JogR
 
 
 
-     >>   precionar 'A' move o personagem para esquerda"};
+     >>   precionar 'A' move o personagem para esquerda" };
 
 
 
@@ -60,6 +62,7 @@ namespace JogR
 
         public string[] opcoes = {
             @" 
+
                             ________       ________         __            ________       ________  
                            / ______ \     |__    __|       /  \          |   ____ \     |__    __|
                           / /      \_\       |  |         / /\ \         |  |    \ \       |  |
@@ -149,53 +152,85 @@ namespace JogR
                      \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
                       \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/   
 
-"," " };
+", " " };
 
         public int sist = 0;  // Índice do mapa atualmente selecionado
+
+
+
+        public override void Awake()
+        { }
+      
+
 
         public void MostrarMenu()  // Exibe o menu principal com arte
         {
             Console.Clear();
-            string[] linhass = opcoes[selecionado].Split('\n');
-           
-
-          
+            string[] linhass = opcoes[selecionado].Split('\n','\n');
 
 
- int top = 13;  // Posição vertical
+
+
+            int top = 20;  // Posição vertical
             int esquerd = 10;  // Posição horizontal
-          
-         
+       
 
 
-            for (int i = 0; i < linhass.Length; i++)
+  Console.SetCursorPosition(0, 0);
+                Console.Write(@"                 
+                                 ________________
+                                |                |
+                                |      /|\       |
+                                |     / | \      |
+                                |    /  |  \     |
+                                |       |        |
+                                |       |        |
+                ________________|________________|________________
+               |                |                |                |
+               |      /         |       |        |         \      |
+               |     /          |       |        |          \     |
+               |    |-------    |    \  |  /     |    -------|    |
+               |     \          |     \ | /      |          /     |
+               |      \         |      \|/       |         /      |
+               |________________|________________|________________|                 
+           ".TrimEnd());
+
+     Console.WriteLine(@"
+        >> precionar seta '\/' muda para o próximo icone abaixo dos menus
+        >> precionar seta '>' ainda não faz nada
+        >> precionar seta '/\' muda para o próximo icone acima dos menus 
+         (precionado várias vezes, o personagem subirá cada vez mais)
+        >> precionar seta '<' move o personagem para esquerda".TrimEnd());
+            for (int i = 1; i < linhass.Length; i++)
             {
+              
+
                 Console.SetCursorPosition(esquerd, top + i);
                 Console.WriteLine(linhass[i].TrimEnd());
-
-
-
-
-                
-
             }
+          
+
+
+
+
+
 
 
         }
-        public void MostrarMenuConf() 
-        
+        public void MostrarMenuConf()
+
         {
             Console.Clear();
             string[] linhass = Conf[sist].Split('\n');
             int top = 13;
             int esquerd = 10;
-         
+
             for (int i = 0; i < linhass.Length; i++)
             {
                 Console.SetCursorPosition(esquerd, top + i);
                 Console.WriteLine(linhass[i].TrimEnd());
             }
-           
+
         }
         public void MostrarMenumap()  // Exibe o menu de seleção de mapa
         {
@@ -214,17 +249,17 @@ namespace JogR
         {
             Console.CursorVisible = false;
             Console.Clear();
-            
+
             MostrarMenu();
-         
+
             ConsoleKey tecla3;
             do
             {
-                tecla3 = Console.ReadKey(true).Key;   
-               
+                tecla3 = Console.ReadKey(true).Key;
+
                 if (tecla3 == ConsoleKey.UpArrow)
-                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length; 
-                    
+                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length;
+
                 // Sobe
                 else if (tecla3 == ConsoleKey.DownArrow)
                     selecionado = (selecionado + 1) % opcoes.Length;  // Desce
@@ -241,7 +276,7 @@ namespace JogR
                 case 2: Console.Write("credito"); break;  // Créditos
             }
 
-            
+
         }
 
         public void escolhemapa()  // Controle da escolha do mapa
@@ -310,7 +345,7 @@ namespace JogR
 
             }
         }
-        
+
         public void Configuracao()
         {
             Console.CursorVisible = false;
@@ -338,7 +373,7 @@ namespace JogR
                 }
                 if (tecla5 == ConsoleKey.DownArrow)
                 {
-                  sist = (sist + 1) % Conf.Length;  // Próximo mapa
+                    sist = (sist + 1) % Conf.Length;  // Próximo mapa
 
                     MostrarMenuConf();
                 }
@@ -366,10 +401,10 @@ namespace JogR
             {
 
 
-                case 0: 
-                    
-                    
-                    Tecle();  break;  
+                case 0:
+
+
+                    Tecle(); break;
                 case 1:
                     Console.Write("oii");
                     break;  // Inicia com mapa 2
@@ -395,17 +430,17 @@ namespace JogR
 
 
         }
-      public void Tecle()
+        public void Tecle()
         {
 
-    
+
             string[] linhas = comande[0].Split('\n');
             string[] linhas2 = comande[1].Split('\n');
             string[] linhas3 = comande[2].Split('\n');
             string[] linhas4 = comande[3].Split('\n');
             string[] linhas5 = comande[4].Split('\n');
-           
-            
+
+
 
             int topo = 0;
             int topo2 = 15;
@@ -413,14 +448,14 @@ namespace JogR
             int topo4 = 24;
             int topo5 = 29;
             int esquerda = 0;
-          
-         
+
+
 
 
             for (int i = 0; i < linhas.Length; i++)
             {
                 Console.SetCursorPosition(esquerda, topo + i);
-               
+
                 Console.WriteLine(linhas[i].TrimEnd());
 
             }
@@ -445,7 +480,7 @@ namespace JogR
                 Console.WriteLine(linhas5[i].TrimEnd());
             }
 
-              ConsoleKey tecla5;
+            ConsoleKey tecla5;
             tecla5 = Console.ReadKey(true).Key;
 
             switch (tecla5)
@@ -457,12 +492,12 @@ namespace JogR
                     Configuracao(); return;
             }
 
-        
-           
+
+
         }
 
-    
-    
     }
 
+        
     }
+

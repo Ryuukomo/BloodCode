@@ -10,9 +10,6 @@ namespace JogR
     {
 
 
-        public int playerX = 1;
-        public int playerY = 1;
-
         public char person = '@';
         public char[,] mapa;
 
@@ -28,7 +25,7 @@ namespace JogR
             coletados = new List<Fragmento>();
         }
 
-        Vector2 p = new Vector2(1, 1); // Usado para armazenar a posição do personagem
+        public Vector2 p = new Vector2(1, 1); // Usado para armazenar a posição do personagem
         public void atualizarPosicao(ConsoleKey tecla)
         {
             int tempX = p.x;
@@ -40,17 +37,18 @@ namespace JogR
             {
                 case ConsoleKey.A: x = p.Left ; break;
                 case ConsoleKey.D: x = p.Right; break;
-                case ConsoleKey.W: y = p.Up; break;
+                case ConsoleKey.W:
+                    if (!pulando)
+                    {
+                        pulando = true;
+                        forcaDoPulo = 3;
+                    }
+                    break;
                 case ConsoleKey.S: y = p.Down; break;
-                    /*  if (!pulando)
-                      {
-                          pulando = true;
-                          forcaDoPulo = 3;
-                      }
-                      break;*/
+                   
             }
 
-            if (mapa[p.x, p.y] == ' ' || mapa[p.x, p.y] == '_')
+            if (mapa[x, y] == '|' )
             {
                 p.x = tempX;
                 p.y = tempY;
@@ -58,7 +56,7 @@ namespace JogR
 
             foreach (Fragmento fragmento in GamePlay.Instancia.fragmentos)
             {
-                if (fragmento.x == p.x && fragmento.y == p.y)
+                if (fragmento.x == x && fragmento.y == y)
                 {
                     GamePlay.Instancia.fragmentos.Remove(fragmento);
                     coletados.Add(fragmento);
@@ -69,7 +67,7 @@ namespace JogR
 
             foreach (var f in GamePlay.Instancia.fragmentos.ToList())
 
-                if (f.x == p.x && f.y == p.y)
+                if (f.x == x && f.y == y)
                 {
                     GamePlay.Instancia.fragmentos.Remove(f);
                     coletados.Add(f);

@@ -46,6 +46,6 @@ namespace JogR
         public virtual void Update() { }
         public virtual void LateUpdate() { }
 
-        public  void OnDestroy() { }
+        public virtual void OnDestroy() { }
     }
 }
