@@ -62,7 +62,6 @@ namespace JogR
 
         public string[] opcoes = {
             @" 
-
                             ________       ________         __            ________       ________  
                            / ______ \     |__    __|       /  \          |   ____ \     |__    __|
                           / /      \_\       |  |         / /\ \         |  |    \ \       |  |
@@ -166,7 +165,7 @@ namespace JogR
         public void MostrarMenu()  // Exibe o menu principal com arte
         {
             Console.Clear();
-            string[] linhass = opcoes[selecionado].Split('\n','\n');
+            string[] linhass = opcoes[selecionado].Split('\n','\n','\n', '\n', '\n');
 
 
 
@@ -193,15 +192,14 @@ namespace JogR
                |     \          |     \ | /      |          /     |
                |      \         |      \|/       |         /      |
                |________________|________________|________________|                 
-           ".TrimEnd());
+           "+ '\n' + @"
+        >> precionar seta '\/' muda para o próximo icone abaixo dos menus" + '\n' + @"
+        >> precionar seta '>' ainda não faz nada" + '\n' + @"
+        >> precionar seta '/\' muda para o próximo icone acima dos menus" + '\n' + @"
+         (precionado várias vezes, o personagem subirá cada vez mais)" + '\n' + @"
+        >> precionar seta '<' move o personagem para esquerda" );
 
-     Console.WriteLine(@"
-        >> precionar seta '\/' muda para o próximo icone abaixo dos menus
-        >> precionar seta '>' ainda não faz nada
-        >> precionar seta '/\' muda para o próximo icone acima dos menus 
-         (precionado várias vezes, o personagem subirá cada vez mais)
-        >> precionar seta '<' move o personagem para esquerda".TrimEnd());
-            for (int i = 1; i < linhass.Length; i++)
+            for (int i = 5; i < linhass.Length; i++)
             {
               
 
