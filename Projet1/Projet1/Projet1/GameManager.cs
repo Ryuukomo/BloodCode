@@ -170,8 +170,9 @@ namespace JogR
 
 
 
-            int top = 20;  // Posição vertical
+            int top = 4;  // Posição vertical
             int esquerd = 10;  // Posição horizontal
+
 
 
        
@@ -227,12 +228,14 @@ namespace JogR
 
         public void moveset()  // Controle de seleção do menu principal
         {
-            Console.CursorVisible = false;
+          
             Console.Clear();
-
-            MostrarMenu();
-
-
+  Console.CursorVisible = false;
+            MostrarMenu();   
+           
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");      
+       
             Console.Write(@"                 
                    ________________
                   |                |
@@ -250,38 +253,27 @@ namespace JogR
  |      \         |      \|/       |         /      |
  |________________|________________|________________|                 
            ");
+        
+     
 
-
-
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
+       
             ConsoleKey tecla3;
             do
             {
                 tecla3 = Console.ReadKey(true).Key;
 
-                if (tecla3 == ConsoleKey.UpArrow)
-                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length;
-
+                Console.SetCursorPosition(4, 10);
+                if (tecla3 == ConsoleKey.UpArrow) 
+                selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length;
+                
+             
                 // Sobe
                 else if (tecla3 == ConsoleKey.DownArrow)
                     selecionado = (selecionado + 1) % opcoes.Length;  // Desce
+            
                 MostrarMenu();
-
+              
+                
             }
             while (tecla3 != ConsoleKey.Enter);  // Aguarda confirmação
 
