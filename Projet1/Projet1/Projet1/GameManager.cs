@@ -165,49 +165,31 @@ namespace JogR
         public void MostrarMenu()  // Exibe o menu principal com arte
         {
             Console.Clear();
-            string[] linhass = opcoes[selecionado].Split('\n','\n','\n', '\n', '\n');
+            string[] linhass = opcoes[selecionado].Split('\n','\n','\n', '\n', '\n', '\n');
 
 
 
 
             int top = 20;  // Posição vertical
             int esquerd = 10;  // Posição horizontal
+
+
        
-
-
-  Console.SetCursorPosition(0, 0);
-                Console.Write(@"                 
-                                 ________________
-                                |                |
-                                |      /|\       |
-                                |     / | \      |
-                                |    /  |  \     |
-                                |       |        |
-                                |       |        |
-                ________________|________________|________________
-               |                |                |                |
-               |      /         |       |        |         \      |
-               |     /          |       |        |          \     |
-               |    |-------    |    \  |  /     |    -------|    |
-               |     \          |     \ | /      |          /     |
-               |      \         |      \|/       |         /      |
-               |________________|________________|________________|                 
-           "+ '\n' + @"
-        >> precionar seta '\/' muda para o próximo icone abaixo dos menus" + '\n' + @"
-        >> precionar seta '>' ainda não faz nada" + '\n' + @"
-        >> precionar seta '/\' muda para o próximo icone acima dos menus" + '\n' + @"
-         (precionado várias vezes, o personagem subirá cada vez mais)" + '\n' + @"
-        >> precionar seta '<' move o personagem para esquerda" );
-
-            for (int i = 5; i < linhass.Length; i++)
+            for (int i = 0; i < linhass.Length; i++)
             {
               
 
+
+               
                 Console.SetCursorPosition(esquerd, top + i);
-                Console.WriteLine(linhass[i].TrimEnd());
+               
+                
+                
+                
+                
+                Console.WriteLine( linhass[i].TrimEnd());
             }
           
-
 
 
 
@@ -250,6 +232,43 @@ namespace JogR
 
             MostrarMenu();
 
+
+            Console.Write(@"                 
+                   ________________
+                  |                |
+                  |      /|\       |                             >> precionar seta '\/' muda para o próximo icone abaixo dos menus
+                  |     / | \      |
+                  |    /  |  \     |                           
+                  |       |        |                             >> precionar seta '>' ainda não faz nada
+                  |       |        |                           
+  ________________|________________|________________            
+ |                |                |                |            >> precionar seta '/\' muda para o próximo icone acima dos menus
+ |      /         |       |        |         \      |
+ |     /          |       |        |          \     |            
+ |    |-------    |    \  |  /     |    -------|    |            >> precionar seta '<' move o personagem para esquerda
+ |     \          |     \ | /      |          /     |
+ |      \         |      \|/       |         /      |
+ |________________|________________|________________|                 
+           ");
+
+
+
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
             ConsoleKey tecla3;
             do
             {
