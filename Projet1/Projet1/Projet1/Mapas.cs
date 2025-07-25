@@ -9,10 +9,21 @@ namespace JogR
     public class Mapas : MonoBehaviour
     
     {
-        public bool desenhou = false;  
 
-        public Personagem personagem;  // Referência ao personagem do jogo
-        public void desenhaMapa()  // Renderiza o mapa e o jogador
+        private Mapas()
+
+        {
+            Run();  // Inicia o menu ao criar a instância
+        }
+        // Construtor privado para implementar o padrão Singleton
+
+        static private Mapas instancia { get; set; }  // Instância única da classe
+
+        public static Mapas Instancia => instancia ??= new Mapas();  // Getter da instância (Singleton)
+
+
+        public bool desenhou = false;
+        public override void Draw()  // Renderiza o mapa e o jogador
         {
             Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
             
@@ -36,7 +47,7 @@ namespace JogR
                     }
                     if (!desenhou && x == personagem.p.x && y == personagem.p.y)
                     {
-                     personagem.desenharPersonagem();
+                    
                      desenhou = true;
                     }
 
@@ -89,6 +100,15 @@ namespace JogR
                 }
             Objetos.Instancia.adicionarObstaculos2();  // Insere obstáculos do segundo tipo
             Objetos.Instancia.adicionarFragmentos("blood");  // Adiciona fragmentos coletáveis
+        }
+
+
+
+
+        public override void Start()
+        {
+            iniciarMapaEstatico();  // Inicializa o mapa estático ao iniciar
+  
         }
      
     }

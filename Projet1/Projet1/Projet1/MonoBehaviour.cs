@@ -10,6 +10,8 @@ namespace JogR
     {
         private Thread t;
         private bool ativo = true;
+        public bool visible = false;
+        public bool input = false;
 
         public void Run()
         {
@@ -47,5 +49,6 @@ namespace JogR
         public virtual void LateUpdate() { }
 
         public virtual void OnDestroy() { }
+        public abstract void Draw();
     }
 }

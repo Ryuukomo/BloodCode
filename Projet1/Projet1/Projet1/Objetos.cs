@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JogR
 {
-    class Objetos
+    public class Objetos : MonoBehaviour
     {
 
         private Objetos() { } // Construtor privado para implementar o padrão Singleton
@@ -17,7 +17,7 @@ namespace JogR
 
         public char[,] obstaculos;  // Matriz auxiliar para armazenar obstáculos antes de aplicar no mapa
 
-        public void adicionarObstaculos()  // Adiciona obstáculos para o mapa 1
+        public override void Draw()  // Adiciona obstáculos para o mapa 1
         {
             obstaculos = new char[GamePlay.Instancia.largura, GamePlay.Instancia.altura];  // Inicializa matriz de obstáculos
             for (int y = 0; y < GamePlay.Instancia.altura; y++)

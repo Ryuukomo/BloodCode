@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JogR
 {
-    public class Personagem
+    public class Personagem : MonoBehaviour
     {
 
 
@@ -24,6 +24,12 @@ namespace JogR
             this.mapa = mapa;
             coletados = new List<Fragmento>();
         }
+
+        public Personagem() // Construtor padrão
+        {
+            Run();
+        }
+
 
         public Vector2 p = new Vector2(1, 1); // Usado para armazenar a posição do personagem
         public void atualizarPosicao(ConsoleKey tecla)
@@ -77,7 +83,7 @@ namespace JogR
 
         }
 
-        public void desenharPersonagem()
+        public override void Draw()
         {
             Console.Write(person);
         }

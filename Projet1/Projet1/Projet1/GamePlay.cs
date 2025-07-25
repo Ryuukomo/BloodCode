@@ -6,11 +6,32 @@ using System.Threading.Tasks;
 
 namespace JogR
 {
-    class GamePlay
+    public class GamePlay : MonoBehaviour
     {
 
 
-        private GamePlay() { }  // Construtor privado para implementar o padrão Singleton
+        private GamePlay() 
+        {
+            while (personagem.coletados.Count < fragmentos.Count)
+            {
+
+                if (Console.KeyAvailable)
+                {
+                    var tecla = Console.ReadKey(true).Key;
+                    personagem.atualizarPosicao(tecla);
+                }
+                aplicarGravidade();
+
+                Thread.Sleep(50);
+
+                if (VerificaV("blood"))
+                {
+                    Console.Write("Você coletou todos os fragmentos necessários para completar o mapa!");  // Mensagem de sucesso se coletou todos os fragmentos
+                    break;  // Sai do loop se coletou todos os fragmentos
+                }
+            }
+
+        }  // Construtor privado para implementar o padrão Singleton
 
         static private GamePlay instancia;  // Instância única da classe
 
@@ -30,12 +51,7 @@ namespace JogR
 
         public List<Fragmento> fragmentos;  // Lista de fragmentos que podem ser coletados no jogo
 
-
-
-        public void jogar()
-        {
-            iniciarMapaEstatico();
-            personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
+        public override void Update() {
 
             while (personagem.coletados.Count < fragmentos.Count)
             {
@@ -46,7 +62,7 @@ namespace JogR
                     personagem.atualizarPosicao(tecla);
                 }
                 aplicarGravidade();
-                desenhaMapa();
+
                 Thread.Sleep(50);
 
                 if (VerificaV("blood"))
@@ -55,7 +71,17 @@ namespace JogR
                     break;  // Sai do loop se coletou todos os fragmentos
                 }
             }
+        }  // Método de atualização do jogo (pode ser usado para lógica de jogo, mas não está implementado aqui)
 
+        public void jogar()
+        {   
+
+
+            iniciarMapaEstatico();
+            personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
+
+
+            Update();  // Chama o método de atualização para iniciar o jogo     
         }
 
         public void jogar2()
@@ -88,8 +114,6 @@ namespace JogR
                 }
 
             }
-
-
 
         }
 
