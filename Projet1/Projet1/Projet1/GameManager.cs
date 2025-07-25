@@ -160,19 +160,41 @@ namespace JogR
         public override void Awake()
         { }
       
+public void Tutorial()
+        {
 
+
+            Console.SetCursorPosition(40, 20);
+            Console.Write(@"                 
+                   ________________
+                  |                |
+                  |      /|\       |                             >> precionar seta '\/' muda para o próximo icone abaixo dos menus
+                  |     / | \      |
+                  |    /  |  \     |                           
+                  |       |        |                             >> precionar seta '>' ainda não faz nada
+                  |       |        |                           
+  ________________|________________|________________            
+ |                |                |                |            >> precionar seta '/\' muda para o próximo icone acima dos menus
+ |      /         |       |        |         \      |
+ |     /          |       |        |          \     |            
+ |    |-------    |    \  |  /     |    -------|    |            >> precionar seta '<' move o personagem para esquerda
+ |     \          |     \ | /      |          /     |
+ |      \         |      \|/       |         /      |
+ |________________|________________|________________|                 
+           ");
+
+        }
 
         public void MostrarMenu()  // Exibe o menu principal com arte
         {
             Console.Clear();
-            string[] linhass = opcoes[selecionado].Split('\n','\n','\n', '\n', '\n', '\n');
+            string[] linhass = opcoes[selecionado].Split('\n');
 
 
 
 
-            int top = 4;  // Posição vertical
+            int top = 20;  // Posição vertical
             int esquerd = 10;  // Posição horizontal
-
 
 
        
@@ -228,41 +250,17 @@ namespace JogR
 
         public void moveset()  // Controle de seleção do menu principal
         {
-          
+            Tutorial();
+            Thread.Sleep(4000);
             Console.Clear();
-  Console.CursorVisible = false;
+            Console.CursorVisible = false;
             MostrarMenu();   
-           
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");      
-       
-            Console.Write(@"                 
-                   ________________
-                  |                |
-                  |      /|\       |                             >> precionar seta '\/' muda para o próximo icone abaixo dos menus
-                  |     / | \      |
-                  |    /  |  \     |                           
-                  |       |        |                             >> precionar seta '>' ainda não faz nada
-                  |       |        |                           
-  ________________|________________|________________            
- |                |                |                |            >> precionar seta '/\' muda para o próximo icone acima dos menus
- |      /         |       |        |         \      |
- |     /          |       |        |          \     |            
- |    |-------    |    \  |  /     |    -------|    |            >> precionar seta '<' move o personagem para esquerda
- |     \          |     \ | /      |          /     |
- |      \         |      \|/       |         /      |
- |________________|________________|________________|                 
-           ");
-        
-     
-
        
             ConsoleKey tecla3;
             do
             {
                 tecla3 = Console.ReadKey(true).Key;
 
-                Console.SetCursorPosition(4, 10);
                 if (tecla3 == ConsoleKey.UpArrow) 
                 selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length;
                 

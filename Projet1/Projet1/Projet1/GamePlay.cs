@@ -60,6 +60,8 @@ namespace JogR
 
         public void jogar2()
         {
+
+            Console.Clear();  // Limpa a tela antes de iniciar o segundo mapa
             iniciarMapaEstatico2();
             personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
 
@@ -80,17 +82,9 @@ namespace JogR
                 {
                     Console.Clear();
                     Console.Write("Você coletou todos os fragmentos necessários para completar o mapa!");  // Mensagem de sucesso se coletou todos os fragmentos
-
-
                     GameManager.Instancia.enteFase2();
                     jogar();
-
-                    break;
-
-
-
-
-                    // Sai do loop se coletou todos os fragmentos
+                    break;// Sai do loop se coletou todos os fragmentos
                 }
 
             }
