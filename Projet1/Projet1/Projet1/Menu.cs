@@ -9,15 +9,15 @@ namespace JogR
     public class Menu : MonoBehaviour
     {
 
-       
+
         // Construtor privado para implementar o padrão Singleton
 
         static private Menu instancia { get; set; }  // Instância única da classe
         private Menu()
-        
+
         {
             Run();  // Inicia o menu ao criar a instância
-        }  
+        }
         public static Menu Instancia => instancia ??= new Menu();  // Getter da instância (Singleton)
 
 
@@ -159,7 +159,7 @@ namespace JogR
         public override void Update()  // Método para iniciar o menu
         {
             if (!input) return;
-               moveset();  // Chama o método de controle de seleção do menu principal
+            moveset();  // Chama o método de controle de seleção do menu principal
         }
 
         public void Tutorial()
@@ -184,7 +184,7 @@ namespace JogR
  |      \         |      \|/       |         /      |
  |________________|________________|________________|                 
            ");
-     Thread.Sleep(4000);
+            Thread.Sleep(4000);
         }
 
         public void MostrarMenu()  // Exibe o menu principal com arte
@@ -253,7 +253,7 @@ namespace JogR
         public void moveset()  // Controle de seleção do menu principal
         {
             Tutorial();
-       
+
             Console.Clear();
             Console.CursorVisible = false;
             MostrarMenu();
@@ -505,9 +505,9 @@ namespace JogR
 
         public override void Draw()
         {
-            
-        } 
-  
+
+        }
+
 
 
 

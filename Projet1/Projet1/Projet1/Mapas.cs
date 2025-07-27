@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace JogR
 {
     public class Mapas : MonoBehaviour
-    
+
     {
 
         private Mapas()
@@ -26,20 +26,20 @@ namespace JogR
         public override void Draw()  // Renderiza o mapa e o jogador
         {
             Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
-            
+
             for (int y = 0; y < GamePlay.Instancia.altura; y++)
             {
                 for (int x = 0; x < GamePlay.Instancia.largura; x++)
                 {
-                   
+
 
                     // Se for o jogador E não desenhou fragmento, desenha o personagem
                     foreach (var fragmento in GamePlay.Instancia.fragmentos)  // Desenha todos os fragmentos coletáveis
                     {
                         if (fragmento.x == x && fragmento.y == y)
                         {
-                           fragmento.Draw();
-                           desenhou = true;
+                            fragmento.Draw();
+                            desenhou = true;
                             break;
 
                         }
@@ -47,8 +47,8 @@ namespace JogR
                     }
                     if (!desenhou && x == personagem.p.x && y == personagem.p.y)
                     {
-                    
-                     desenhou = true;
+
+                        desenhou = true;
                     }
 
                     // Se ninguém desenhou ainda, desenha o mapa normalmente
@@ -78,21 +78,21 @@ namespace JogR
                     else if (x == 0 || x == GamePlay.Instancia.largura - 1)
                         GamePlay.Instancia.mapa[x, y] = '|';  // Adiciona paredes laterais
                     else
-                   
-                    GamePlay.Instancia.mapa[x, y] = ' ';  // Espaço vazio
-                   
+
+                        GamePlay.Instancia.mapa[x, y] = ' ';  // Espaço vazio
+
                     Objetos.Instancia.adicionarObstaculos();  // Insere obstáculos após o preenchimento base
                     Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
                 }
         }
         public void iniciarMapaEstatico2()  // Inicializa o cenário fixo do mapa 2
         {
-           GamePlay.Instancia.mapa = new char[GamePlay.Instancia.largura,GamePlay.Instancia.altura];  // Cria nova matriz do mapa
+            GamePlay.Instancia.mapa = new char[GamePlay.Instancia.largura, GamePlay.Instancia.altura];  // Cria nova matriz do mapa
             for (int y = 0; y < GamePlay.Instancia.altura; y++)
                 for (int x = 0; x < GamePlay.Instancia.largura; x++)
                 {
                     if (y == 0 || y == GamePlay.Instancia.altura - 1)
-                       GamePlay.Instancia.mapa[x, y] = '_';  // Chão ou teto
+                        GamePlay.Instancia.mapa[x, y] = '_';  // Chão ou teto
                     else if (x == 0 || x == GamePlay.Instancia.largura - 1)
                         GamePlay.Instancia.mapa[x, y] = '|';  // Paredes
                     else
@@ -108,8 +108,8 @@ namespace JogR
         public override void Start()
         {
             iniciarMapaEstatico();  // Inicializa o mapa estático ao iniciar
-  
+
         }
-     
+
     }
 }

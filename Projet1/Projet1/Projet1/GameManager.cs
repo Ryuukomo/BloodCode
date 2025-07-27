@@ -12,7 +12,8 @@ namespace JogR
 {
     class GameManager : MonoBehaviour
     {
-        private GameManager() {
+        private GameManager()
+        {
 
 
             Run();  // Chama o método Run para iniciar o MonoBehaviour, que gerencia o ciclo de vida do jogo    
@@ -51,16 +52,16 @@ namespace JogR
 
         public override void Start()
         {
-           layout = Menu.Instancia;  // Inicializa o mapa
+            layout = Menu.Instancia;  // Inicializa o mapa
             layout.visible = true;  // Inicializa o personagem
-            layout.input=  true;  // Inicializa o menu
-        
+            layout.input = true;  // Inicializa o menu
+
         }  // Configura o jogo ao iniciar
 
 
         public override void Draw()
         {
-            if(mapa.visible) mapa.Draw();  // Verifica se o mapa está visível e o renderiza
+            if (mapa.visible) mapa.Draw();  // Verifica se o mapa está visível e o renderiza
             if (personagem.visible) personagem.Draw();  // Verifica se o personagem está visível e o renderiza
             if (layout.visible) layout.Draw();  // Verifica se o menu está visível e o renderiza
 
@@ -68,6 +69,6 @@ namespace JogR
 
     }
 
-        
-    }
+
+}
 

@@ -10,7 +10,7 @@ namespace JogR
     {
 
 
-        private GamePlay() 
+        private GamePlay()
         {
             while (personagem.coletados.Count < fragmentos.Count)
             {
@@ -51,7 +51,8 @@ namespace JogR
 
         public List<Fragmento> fragmentos;  // Lista de fragmentos que podem ser coletados no jogo
 
-        public override void Update() {
+        public override void Update()
+        {
 
             while (personagem.coletados.Count < fragmentos.Count)
             {
@@ -74,7 +75,7 @@ namespace JogR
         }  // Método de atualização do jogo (pode ser usado para lógica de jogo, mas não está implementado aqui)
 
         public void jogar()
-        {   
+        {
 
 
             iniciarMapaEstatico();

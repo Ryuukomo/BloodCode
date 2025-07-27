@@ -41,7 +41,7 @@ namespace JogR
 
             switch (tecla)
             {
-                case ConsoleKey.A: x = p.Left ; break;
+                case ConsoleKey.A: x = p.Left; break;
                 case ConsoleKey.D: x = p.Right; break;
                 case ConsoleKey.W:
                     if (!pulando)
@@ -51,10 +51,10 @@ namespace JogR
                     }
                     break;
                 case ConsoleKey.S: y = p.Down; break;
-                   
+
             }
 
-            if (mapa[x, y] == '|' )
+            if (mapa[x, y] == '|')
             {
                 p.x = tempX;
                 p.y = tempY;
