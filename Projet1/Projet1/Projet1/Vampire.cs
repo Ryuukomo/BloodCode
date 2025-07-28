@@ -6,7 +6,7 @@ namespace JogR
     {
         public static void Main()
         {
-            GameManager.Instancia.moveset();
+            GameManager.Instancia.Start();
       }
     }
 }

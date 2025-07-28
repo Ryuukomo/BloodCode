@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JogR
 {
-    public class Mapas : MonoBehaviour
+    class Mapas : MonoBehaviour
 
     {
 
@@ -17,7 +17,7 @@ namespace JogR
         }
         // Construtor privado para implementar o padrão Singleton
 
-        static private Mapas instancia { get; set; }  // Instância única da classe
+        private static Mapas instancia { get; set; }  // Instância única da classe
 
         public static Mapas Instancia => instancia ??= new Mapas();  // Getter da instância (Singleton)
 

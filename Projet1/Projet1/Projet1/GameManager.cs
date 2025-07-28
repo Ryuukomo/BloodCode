@@ -15,12 +15,11 @@ namespace JogR
         private GameManager()
         {
 
-
             Run();  // Chama o método Run para iniciar o MonoBehaviour, que gerencia o ciclo de vida do jogo    
 
         }  // Construtor privado para implementar o padrão Singleton
 
-        static private GameManager instancia;  // Instância única da classe
+       private static  GameManager instancia;  // Instância única da classe
 
         public static GameManager Instancia => instancia ??= new GameManager();  // Getter da instância (Singleton)
 

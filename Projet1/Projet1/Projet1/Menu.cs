@@ -12,7 +12,7 @@ namespace JogR
 
         // Construtor privado para implementar o padrão Singleton
 
-        static private Menu instancia { get; set; }  // Instância única da classe
+        private static Menu instancia { get; set; }  // Instância única da classe
         private Menu()
 
         {
@@ -168,8 +168,8 @@ namespace JogR
             {
                 case ConsoleKey.Enter:
 
-                    moveset();
 
+                    GameManager.Instancia.visible = false;
                     break;
             }
         }
@@ -355,10 +355,9 @@ namespace JogR
             {
 
 
-                case 0: GamePlay.Instancia.(); break;  // Inicia com mapa 1
+                case 0: GamePlay.Instancia.Start(); break;  // Inicia com mapa 1
                 case 1:
-                    GamePlay.Instancia.jogar2();
-
+                    Console.Write("Fase Indefinida");
 
 
                     break;  // Inicia com mapa 2
