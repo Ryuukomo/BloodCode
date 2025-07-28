@@ -159,7 +159,8 @@ namespace JogR
         public override void Update()  // Método para iniciar o menu
         {
 
-            Draw();
+           
+       
             if (!input) return;
 
             var tecla = Console.ReadKey(true).Key;
@@ -169,16 +170,17 @@ namespace JogR
                 case ConsoleKey.Enter:
 
 
-                    GameManager.Instancia.visible = false;
+                    moveset();
+                    GameManager.layout.visible = false;
                     break;
             }
         }
 
         public void Tutorial()
         {
+            Console.Clear();
 
-
-            Console.SetCursorPosition(40, 20);
+           
             Console.Write(@"                 
                    ________________
                   |                |
@@ -196,7 +198,7 @@ namespace JogR
  |      \         |      \|/       |         /      |
  |________________|________________|________________|                 
            ");
-            Thread.Sleep(4000);
+
         }
 
         public void MostrarMenu()  // Exibe o menu principal com arte

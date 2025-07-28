@@ -20,7 +20,7 @@ namespace JogR
 
  
         public Personagem(char[,] mapa) // Construtor que recebe o mapa
-        { Run();
+        {   Run();
             this.mapa = mapa;
             coletados = new List<Fragmento>();
         }

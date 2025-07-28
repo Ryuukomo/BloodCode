@@ -28,7 +28,7 @@ namespace JogR
        
         public override void Update()
         {  
-            Draw();
+          
 
             GameManager.Instancia.personagem = new Personagem(GameManager.Instancia.mapa.mapa);  // Inicia personagem com referência ao mapa
             while (GameManager.Instancia.personagem.coletados.Count < fragmentos.Count)
