@@ -21,16 +21,20 @@ namespace JogR
 
         public static Mapas Instancia => instancia ??= new Mapas();  // Getter da instância (Singleton)
 
-      
+        public char[,] mapa;  // Matriz que representa o cenário fixo do mapa (paredes, chão, etc.)
+
+
+        public int largura = 100;  // Largura do mapa (quantidade de colunas)
+        public int altura = 29;  // Altura do mapa (quantidade de linhas)
         public bool desenhou = false;
 
         public override void Draw()  // Renderiza o mapa e o jogador
         {
             Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
 
-            for (int y = 0; y < GamePlay.Instancia.altura; y++)
+            for (int y = 0; y < altura; y++)
             {
-                for (int x = 0; x < GamePlay.Instancia.largura; x++)
+                for (int x = 0; x < largura; x++)
                 {
 
 
@@ -46,7 +50,7 @@ namespace JogR
                         }
 
                     }
-                    if (!desenhou && x == GamePlay.Instancia.personagem.p.x && y == GamePlay.Instancia.personagem.p.y)
+                    if (!desenhou && x == GameManager.Instancia.personagem.p.x && y == GameManager.Instancia.personagem.p.y)
                     {
 
                         desenhou = true;
@@ -55,7 +59,7 @@ namespace JogR
                     // Se ninguém desenhou ainda, desenha o mapa normalmente
                     else if (!desenhou)
                     {
-                        Console.Write(GamePlay.Instancia.mapa[x, y]);
+                        Console.Write(mapa[x, y]);
                     }
 
 
@@ -70,17 +74,17 @@ namespace JogR
         }
         public void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
         {
-            GamePlay.Instancia.mapa = new char[GamePlay.Instancia.largura, GamePlay.Instancia.altura];  // Cria nova matriz do mapa
-            for (int y = 0; y < GamePlay.Instancia.altura; y++)
-                for (int x = 0; x < GamePlay.Instancia.largura; x++)
+          mapa = new char[largura, altura];  // Cria nova matriz do mapa
+            for (int y = 0; y < altura; y++)
+                for (int x = 0; x < largura; x++)
                 {
-                    if (y == 0 || y == GamePlay.Instancia.altura - 1)
-                        GamePlay.Instancia.mapa[x, y] = '_';  // Adiciona chão ou teto
-                    else if (x == 0 || x == GamePlay.Instancia.largura - 1)
-                        GamePlay.Instancia.mapa[x, y] = '|';  // Adiciona paredes laterais
+                    if (y == 0 || y == altura - 1)
+                        mapa[x, y] = '_';  // Adiciona chão ou teto
+                    else if (x == 0 || x == largura - 1)
+                        mapa[x, y] = '|';  // Adiciona paredes laterais
                     else
 
-                        GamePlay.Instancia.mapa[x, y] = ' ';  // Espaço vazio
+                        mapa[x, y] = ' ';  // Espaço vazio
 
                     Objetos.Instancia.Draw();  // Insere obstáculos após o preenchimento base
                     Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis

@@ -355,7 +355,7 @@ namespace JogR
             {
 
 
-                case 0: GamePlay.Instancia.jogar(); break;  // Inicia com mapa 1
+                case 0: GamePlay.Instancia.(); break;  // Inicia com mapa 1
                 case 1:
                     GamePlay.Instancia.jogar2();
 
