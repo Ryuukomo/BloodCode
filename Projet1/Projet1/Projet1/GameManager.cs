@@ -12,20 +12,20 @@ namespace JogR
 {
     class GameManager : MonoBehaviour
     {
-        private GameManager() {
-
+        private GameManager()
+        {
 
             Run();  // Chama o método Run para iniciar o MonoBehaviour, que gerencia o ciclo de vida do jogo    
 
         }  // Construtor privado para implementar o padrão Singleton
 
-       private static  GameManager instancia;  // Instância única da classe
+        private static GameManager instancia;  // Instância única da classe
 
         public static GameManager Instancia => instancia ??= new GameManager();  // Getter da instância (Singleton)
 
 
         public Mapas mapa;
-       public Personagem personagem;
+        public Personagem personagem;
         public Menu layout;
 
 
@@ -46,28 +46,25 @@ namespace JogR
 
 
 
-        /* 
-        */
 
         public override void Start()
         {
-           layout = Menu.Instancia;  // Inicializa o mapa
-            layout.visible = true;  // Inicializa o personagem
-            layout.input=  true;  // Inicializa o menu
-        
-        }  // Configura o jogo ao iniciar
+            layout = Menu.Instancia;
+            layout.Draw();
+            layout.visible = true;
+            layout.input = true;
 
+        }
 
         public override void Draw()
         {
-            if(mapa.visible) mapa.Draw();  // Verifica se o mapa está visível e o renderiza
-            if (personagem.visible) personagem.Draw();  // Verifica se o personagem está visível e o renderiza
-            if (layout.visible) layout.Draw();  // Verifica se o menu está visível e o renderiza
+            if (mapa != null && mapa.visible) mapa.Draw();  // Verifica se o mapa está visível e o renderiza
+            if (personagem != null && personagem.visible) personagem.Draw();  // Verifica se o personagem está visível e o renderiza
+            if (layout != null && layout.visible) layout.Draw();  // Verifica se o menu está visível e o renderiza
 
         }  // Renderiza o mapa e o jogador
 
     }
 
-        
-    }
 
+}

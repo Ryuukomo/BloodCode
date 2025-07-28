@@ -9,15 +9,15 @@ namespace JogR
     public class Menu : MonoBehaviour
     {
 
-       
+
         // Construtor privado para implementar o padrão Singleton
 
-        static private Menu instancia { get; set; }  // Instância única da classe
+        private static Menu instancia { get; set; }  // Instância única da classe
         private Menu()
-        
+
         {
             Run();  // Inicia o menu ao criar a instância
-        }  
+        }
         public static Menu Instancia => instancia ??= new Menu();  // Getter da instância (Singleton)
 
 
@@ -158,36 +158,29 @@ namespace JogR
         public int sist = 0;  // Índice do mapa atualmente selecionado
         public override void Update()  // Método para iniciar o menu
         {
+
+
+
             if (!input) return;
 
             var tecla = Console.ReadKey(true).Key;
 
             switch (tecla)
             {
-                case ConsoleKey.J:
-                    GameManager.Instancia.Mapas.visible = true;
+                case ConsoleKey.Enter:
 
-                    GameManager.Instance.pl.visible = true;
-                    GameManager.Instance.pl.input = true;
 
-                    GameManager.Instance.nemo.visible = false;
-                    GameManager.Instance.nemo.input = false;
+                    moveset();
+                    GameManager.layout.visible = false;
                     break;
-                case ConsoleKey.C:
-                    Console.WriteLine("Jogo criado pelo professor Marcius na UC4 de jogos.");
-                    break;
-                case ConsoleKey.Escape:
-                    Stop();
-                    break;
-                    moveset();  // Chama o método de controle de seleção do menu principal
             }
         }
 
         public void Tutorial()
         {
+            Console.Clear();
 
 
-            Console.SetCursorPosition(40, 20);
             Console.Write(@"                 
                    ________________
                   |                |
@@ -205,7 +198,7 @@ namespace JogR
  |      \         |      \|/       |         /      |
  |________________|________________|________________|                 
            ");
-     Thread.Sleep(4000);
+
         }
 
         public void MostrarMenu()  // Exibe o menu principal com arte
@@ -273,8 +266,8 @@ namespace JogR
 
         public void moveset()  // Controle de seleção do menu principal
         {
-            Tutorial();
-       
+
+
             Console.Clear();
             Console.CursorVisible = false;
             MostrarMenu();
@@ -364,10 +357,9 @@ namespace JogR
             {
 
 
-                case 0: GamePlay.Instancia.jogar(); break;  // Inicia com mapa 1
+                case 0: GamePlay.Instancia.Start(); break;  // Inicia com mapa 1
                 case 1:
-                    GamePlay.Instancia.jogar2();
-
+                    Console.Write("Fase Indefinida");
 
 
                     break;  // Inicia com mapa 2
@@ -526,9 +518,9 @@ namespace JogR
 
         public override void Draw()
         {
-            
-        } 
-  
+            Tutorial();
+        }
+
 
 
 

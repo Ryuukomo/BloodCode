@@ -1,15 +1,12 @@
-﻿using System;  // Importa funcionalidades básicas do sistema
-using System.Security;  // (Não está sendo usado neste código) Importa funcionalidades de segurança
-using System.Threading;  // Usado para controlar o tempo entre quedas
+﻿using System;
 
-
-namespace JogR  // Define o agrupamento do código sob o namespace 'JogR'
+namespace JogR
 {
-   public class Vampire  // Define a classe principal do jogo
+    public class Vampire
     {
-       public static void Main()  // Ponto de entrada do programa
-       {
-            GameManager.Instancia.moveset();  // Inicia o menu principal
-       }
+        public static void Main()
+        {
+            GameManager.Instancia.Start();
+        }
     }
 }

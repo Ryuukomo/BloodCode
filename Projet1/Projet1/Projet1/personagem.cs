@@ -21,14 +21,12 @@ namespace JogR
 
         public Personagem(char[,] mapa) // Construtor que recebe o mapa
         {
+            Run();
             this.mapa = mapa;
             coletados = new List<Fragmento>();
         }
 
-        public Personagem() // Construtor padrão
-        {
-            Run();
-        }
+
 
 
         public Vector2 p = new Vector2(1, 1); // Usado para armazenar a posição do personagem
@@ -41,7 +39,7 @@ namespace JogR
 
             switch (tecla)
             {
-                case ConsoleKey.A: x = p.Left ; break;
+                case ConsoleKey.A: x = p.Left; break;
                 case ConsoleKey.D: x = p.Right; break;
                 case ConsoleKey.W:
                     if (!pulando)
@@ -51,10 +49,10 @@ namespace JogR
                     }
                     break;
                 case ConsoleKey.S: y = p.Down; break;
-                   
+
             }
 
-            if (mapa[x, y] == '|' )
+            if (mapa[x, y] == '|')
             {
                 p.x = tempX;
                 p.y = tempY;
