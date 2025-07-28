@@ -50,16 +50,17 @@ namespace JogR
         public override void Start()
         {
             layout = Menu.Instancia;  
+            layout.Draw();
             layout.visible = true; 
             layout.input = true;  
-
+            
         }  
 
         public override void Draw()
         {
-            if (mapa.visible) mapa.Draw();  // Verifica se o mapa está visível e o renderiza
-            if (personagem.visible) personagem.Draw();  // Verifica se o personagem está visível e o renderiza
-            if (layout.visible) layout.Draw();  // Verifica se o menu está visível e o renderiza
+            if (mapa != null && mapa.visible) mapa.Draw();  // Verifica se o mapa está visível e o renderiza
+            if (personagem != null && personagem.visible) personagem.Draw();  // Verifica se o personagem está visível e o renderiza
+            if (layout != null && layout.visible) layout.Draw();  // Verifica se o menu está visível e o renderiza
 
         }  // Renderiza o mapa e o jogador
 
