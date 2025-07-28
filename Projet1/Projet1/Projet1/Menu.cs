@@ -158,8 +158,20 @@ namespace JogR
         public int sist = 0;  // Índice do mapa atualmente selecionado
         public override void Update()  // Método para iniciar o menu
         {
+
+            Draw();
             if (!input) return;
-            moveset();  // Chama o método de controle de seleção do menu principal
+
+            var tecla = Console.ReadKey(true).Key;
+
+            switch (tecla)
+            {
+                case ConsoleKey.Enter:
+
+                    moveset();
+
+                    break;
+            }
         }
 
         public void Tutorial()
@@ -252,7 +264,7 @@ namespace JogR
 
         public void moveset()  // Controle de seleção do menu principal
         {
-            Tutorial();
+            
 
             Console.Clear();
             Console.CursorVisible = false;
@@ -505,7 +517,7 @@ namespace JogR
 
         public override void Draw()
         {
-
+            Tutorial();
         }
 
 

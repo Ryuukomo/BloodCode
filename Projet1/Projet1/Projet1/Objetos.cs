@@ -34,25 +34,14 @@ namespace JogR
                 for (int x = 0; x < GamePlay.Instancia.largura; x++)
                     if (obstaculos[x, y] != ' ')
                         GamePlay.Instancia.mapa[x, y] = obstaculos[x, y];
+
+
+          
+
+
         }
-        public void adicionarObstaculos2()  // Adiciona obstáculos para o mapa 2
-        {
-            obstaculos = new char[GamePlay.Instancia.largura, GamePlay.Instancia.altura];  // Inicializa matriz de obstáculos
-            for (int y = 0; y < GamePlay.Instancia.altura; y++)
-                for (int x = 0; x < GamePlay.Instancia.largura; x++)
-                    obstaculos[x, y] = ' ';  // Inicializa com espaços vazios
-
-            for (int x = 1; x < 9; x++)
-                obstaculos[x, 10] = '_';  // Adiciona piso
-
-            for (int y = 5; y < 10; y++)
-                obstaculos[50, y] = '|';  // Adiciona coluna 
-
-            for (int y = 0; y < GamePlay.Instancia.altura; y++)  // Aplica os obstáculos no mapa
-                for (int x = 0; x < GamePlay.Instancia.largura; x++)
-                    if (obstaculos[x, y] != ' ')
-                        GamePlay.Instancia.mapa[x, y] = obstaculos[x, y];
-        }
+      
+     
         public void adicionarFragmentos(string resposta)  // Adiciona fragmentos coletáveis no mapa
         {
             GamePlay.Instancia.fragmentos = new List<Fragmento>();  // Inicializa a lista de fragmentos

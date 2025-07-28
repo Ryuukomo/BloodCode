@@ -25,9 +25,9 @@ namespace JogR
         public static GameManager Instancia => instancia ??= new GameManager();  // Getter da instância (Singleton)
 
 
-        Mapas mapa;
-        Personagem personagem;
-        Menu layout;
+       public Mapas mapa;
+       public Personagem personagem;
+       public Menu layout;
 
 
         public override void Update()
@@ -47,17 +47,14 @@ namespace JogR
 
 
 
-        /* 
-        */
 
         public override void Start()
         {
-            layout = Menu.Instancia;  // Inicializa o mapa
-            layout.visible = true;  // Inicializa o personagem
-            layout.input = true;  // Inicializa o menu
+            layout = Menu.Instancia;  
+            layout.visible = true; 
+            layout.input = true;  
 
-        }  // Configura o jogo ao iniciar
-
+        }  
 
         public override void Draw()
         {

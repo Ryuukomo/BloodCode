@@ -21,8 +21,9 @@ namespace JogR
 
         public static Mapas Instancia => instancia ??= new Mapas();  // Getter da instância (Singleton)
 
-
+      
         public bool desenhou = false;
+
         public override void Draw()  // Renderiza o mapa e o jogador
         {
             Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
@@ -45,7 +46,7 @@ namespace JogR
                         }
 
                     }
-                    if (!desenhou && x == personagem.p.x && y == personagem.p.y)
+                    if (!desenhou && x == GamePlay.Instancia.personagem.p.x && y == GamePlay.Instancia.personagem.p.y)
                     {
 
                         desenhou = true;
@@ -81,29 +82,11 @@ namespace JogR
 
                         GamePlay.Instancia.mapa[x, y] = ' ';  // Espaço vazio
 
-                    Objetos.Instancia.adicionarObstaculos();  // Insere obstáculos após o preenchimento base
+                    Objetos.Instancia.Draw();  // Insere obstáculos após o preenchimento base
                     Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
                 }
         }
-        public void iniciarMapaEstatico2()  // Inicializa o cenário fixo do mapa 2
-        {
-            GamePlay.Instancia.mapa = new char[GamePlay.Instancia.largura, GamePlay.Instancia.altura];  // Cria nova matriz do mapa
-            for (int y = 0; y < GamePlay.Instancia.altura; y++)
-                for (int x = 0; x < GamePlay.Instancia.largura; x++)
-                {
-                    if (y == 0 || y == GamePlay.Instancia.altura - 1)
-                        GamePlay.Instancia.mapa[x, y] = '_';  // Chão ou teto
-                    else if (x == 0 || x == GamePlay.Instancia.largura - 1)
-                        GamePlay.Instancia.mapa[x, y] = '|';  // Paredes
-                    else
-                        GamePlay.Instancia.mapa[x, y] = ' ';  // Espaço vazio
-                }
-            Objetos.Instancia.adicionarObstaculos2();  // Insere obstáculos do segundo tipo
-            Objetos.Instancia.adicionarFragmentos("blood");  // Adiciona fragmentos coletáveis
-        }
-
-
-
+   
 
         public override void Start()
         {

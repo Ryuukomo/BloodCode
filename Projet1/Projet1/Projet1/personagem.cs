@@ -18,17 +18,14 @@ namespace JogR
 
         public List<Fragmento> coletados;
 
-
+ 
         public Personagem(char[,] mapa) // Construtor que recebe o mapa
-        {
+        { Run();
             this.mapa = mapa;
             coletados = new List<Fragmento>();
         }
 
-        public Personagem() // Construtor padrão
-        {
-            Run();
-        }
+      
 
 
         public Vector2 p = new Vector2(1, 1); // Usado para armazenar a posição do personagem
