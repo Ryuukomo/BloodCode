@@ -159,7 +159,28 @@ namespace JogR
         public override void Update()  // Método para iniciar o menu
         {
             if (!input) return;
-               moveset();  // Chama o método de controle de seleção do menu principal
+
+            var tecla = Console.ReadKey(true).Key;
+
+            switch (tecla)
+            {
+                case ConsoleKey.J:
+                    GameManager.Instancia.Mapas.visible = true;
+
+                    GameManager.Instance.pl.visible = true;
+                    GameManager.Instance.pl.input = true;
+
+                    GameManager.Instance.nemo.visible = false;
+                    GameManager.Instance.nemo.input = false;
+                    break;
+                case ConsoleKey.C:
+                    Console.WriteLine("Jogo criado pelo professor Marcius na UC4 de jogos.");
+                    break;
+                case ConsoleKey.Escape:
+                    Stop();
+                    break;
+                    moveset();  // Chama o método de controle de seleção do menu principal
+            }
         }
 
         public void Tutorial()

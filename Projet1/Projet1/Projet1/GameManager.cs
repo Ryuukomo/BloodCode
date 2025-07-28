@@ -19,14 +19,14 @@ namespace JogR
 
         }  // Construtor privado para implementar o padrão Singleton
 
-        static private GameManager instancia;  // Instância única da classe
+       private static  GameManager instancia;  // Instância única da classe
 
         public static GameManager Instancia => instancia ??= new GameManager();  // Getter da instância (Singleton)
 
 
-        Mapas mapa;
-        Personagem personagem;
-        Menu layout;
+        public Mapas mapa;
+       public Personagem personagem;
+        public Menu layout;
 
 
         public override void Update()
