@@ -30,47 +30,10 @@ namespace JogR
 
         public override void Draw()  // Renderiza o mapa e o jogador
         {
-            Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
-
-            for (int y = 0; y < altura; y++)
-            {
-                for (int x = 0; x < largura; x++)
-                {
-
-
-                    // Se for o jogador E não desenhou fragmento, desenha o personagem
-                    foreach (var fragmento in GamePlay.Instancia.fragmentos)  // Desenha todos os fragmentos coletáveis
-                    {
-                        if (fragmento.x == x && fragmento.y == y)
-                        {
-                            fragmento.Draw();
-                            desenhou = true;
-                            break;
-
-                        }
-
-                    }
-                    if (!desenhou && x == GameManager.Instancia.personagem.p.x && y == GameManager.Instancia.personagem.p.y)
-                    {
-
-                        desenhou = true;
-                    }
-
-                    // Se ninguém desenhou ainda, desenha o mapa normalmente
-                    else if (!desenhou)
-                    {
-                        Console.Write(mapa[x, y]);
-                    }
-
-
-
-
-                }
-
-
-                Console.WriteLine();  // Pula para a próxima linha
-            }
-
+        
+        
+        
+        
         }
         public void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
         {
@@ -90,7 +53,7 @@ namespace JogR
                     Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
                 }
         }
-
+   
 
         public override void Start()
         {

@@ -168,10 +168,12 @@ namespace JogR
             switch (tecla)
             {
                 case ConsoleKey.Enter:
+                
 
 
                     moveset();
-                    GameManager.layout.visible = false;
+
+                  
                     break;
             }
         }
@@ -357,7 +359,7 @@ namespace JogR
             {
 
 
-                case 0: GamePlay.Instancia.Start(); break;  // Inicia com mapa 1
+                case 0: GamePlay.Instancia.Jogar(); break;  // Inicia com mapa 1
                 case 1:
                     Console.Write("Fase Indefinida");
 
@@ -518,7 +520,8 @@ namespace JogR
 
         public override void Draw()
         {
-            Tutorial();
+            Tutorial(); visible = false;
+
         }
 
 

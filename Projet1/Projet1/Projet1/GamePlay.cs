@@ -17,7 +17,7 @@ namespace JogR
         }  // Construtor privado para implementar o padrão Singleton
         public static GamePlay Instancia => instancia ??= new GamePlay();  // Getter da instância (Singleton)
 
-
+      
 
         public bool jogando = true;  // Indica se o jogo está em execução
 
@@ -29,8 +29,9 @@ namespace JogR
         public override void Update()
         {
 
-
+    
             GameManager.Instancia.personagem = new Personagem(GameManager.Instancia.mapa.mapa);  // Inicia personagem com referência ao mapa
+            
             while (GameManager.Instancia.personagem.coletados.Count < fragmentos.Count)
             {
 
@@ -51,9 +52,9 @@ namespace JogR
             }
         }  // Método de atualização do jogo (pode ser usado para lógica de jogo, mas não está implementado aqui)
 
-        public override void Start()
+        public void Jogar()
         {
-            Update();  // Chama o método de atualização para iniciar o jogo     
+        Draw();
         }
 
 
