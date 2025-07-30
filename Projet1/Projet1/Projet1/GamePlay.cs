@@ -30,7 +30,7 @@ namespace JogR
         {
 
     
-            GameManager.Instancia.personagem = new Personagem(GameManager.Instancia.mapa.mapa);  // Inicia personagem com referência ao mapa
+            GameManager.Instancia.personagem = new Personagem(Mapas.Instancia.mapa);  // Inicia personagem com referência ao mapa
             
             while (GameManager.Instancia.personagem.coletados.Count < fragmentos.Count)
             {
@@ -63,7 +63,7 @@ namespace JogR
         public override void Draw()  // Renderiza o mapa e o jogador
         {
             Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
-            for (int y = 0; y < GameManager.Instancia.mapa.altura; y++)
+            for (int y = 0; y < Mapas.Instancia.altura; y++)
             {
                 for (int x = 0; x < GameManager.Instancia.mapa.largura; x++)
                 {
