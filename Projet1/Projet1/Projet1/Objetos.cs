@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JogR
 {
-    public class Objetos : MonoBehaviour
+    public class Objetos 
     {
 
         private Objetos() { } // Construtor privado para implementar o padrão Singleton
@@ -17,11 +17,11 @@ namespace JogR
 
         public char[,] obstaculos;  // Matriz auxiliar para armazenar obstáculos antes de aplicar no mapa
 
-        public override void Draw()  // Adiciona obstáculos para o mapa 1
+        public  void addObjetos()  // Adiciona obstáculos para o mapa 1
         {
-            obstaculos = new char[Mapas.Instancia.largura, Mapas.Instancia.altura];  // Inicializa matriz de obstáculos
-            for (int y = 0; y < Mapas.Instancia.altura; y++)
-                for (int x = 0; x < Mapas.Instancia.largura; x++)
+            obstaculos = new char[GamePlay.Instancia.largura, GamePlay.Instancia.altura];  // Inicializa matriz de obstáculos
+            for (int y = 0; y < GamePlay.Instancia.altura; y++)
+                for (int x = 0; x < GamePlay.Instancia.largura; x++)
                     obstaculos[x, y] = ' ';  // Inicializa todos os espaços como vazios
 
             for (int x = 20; x < 30; x++)
@@ -30,10 +30,10 @@ namespace JogR
             for (int y = 5; y < 10; y++)
                 obstaculos[50, y] = '#';  // Adiciona parede vertical
 
-            for (int y = 0; y < Mapas.Instancia.altura; y++)  // Aplica obstáculos no mapa original
-                for (int x = 0; x < Mapas.Instancia.largura; x++)
+            for (int y = 0; y < GamePlay.Instancia.altura; y++)  // Aplica obstáculos no mapa original
+                for (int x = 0; x < GamePlay.Instancia.largura; x++)
                     if (obstaculos[x, y] != ' ')
-                        Mapas.Instancia.mapa[x, y] = obstaculos[x, y];
+                        GamePlay.Instancia.mapa[x, y] = obstaculos[x, y];
 
 
 
@@ -61,6 +61,11 @@ namespace JogR
                 GamePlay.Instancia.fragmentos.Add(new Fragmento(letra));  // Adiciona fragmentos extras com forma 'F'
             }
 
+        }
+
+        public void Draw()
+        {
+            
         }
 
     }

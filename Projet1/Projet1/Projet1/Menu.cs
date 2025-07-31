@@ -60,7 +60,7 @@ namespace JogR
      >>   precionar 'A' move o personagem para esquerda" };
 
 
-
+        public int menu = -1;  // Índice do menu atual (-1: tutorial, 0: principal, 1: mapa, 2: configurações, 3: controles)
 
 
         public string[] opcoes = {
@@ -83,7 +83,7 @@ namespace JogR
                  \ \        __     \ \        / /    |  |  \    |   |  |           |  |       \ \        | |
                   \ \______/ /      \ \______/ /     |  |   \   |   |  |         __|  |__      \ \______/  |
                    \________/        \________/      |__|    \__|   |__|        |________|      \________| |
-            ",
+            "/*,
             @" 
                ________      ________        ________      ________       ________     ________       ________       
               / ______ \    |   ____ \      |   _____|    |  _____ \     |__    __|   |__    __|     / ______ \     
@@ -93,7 +93,7 @@ namespace JogR
             \ \        __   |  |   \ \      |  |          | |      / /      |  |         |  |      \ \        / /    
              \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
               \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/      
-            "
+            "*/
         };
 
 
@@ -118,21 +118,8 @@ namespace JogR
                                                         /
                                                        /
                                                       /____
-                                     _______________________________________ ",
-            @"          
-                                     ---------------------------------------
-                                                       __
-                                                      /  \
-                                                         /
-                                                        |
-                                                         \
-                                                      \__/
                                      _______________________________________ "
         };  // Arte em ASCII para seleção visual de mapas
-
-
-
-        public int ativo = 0;  // Índice do mapa atualmente selecionado
 
         public string[] Conf = { @"   
      ________          ________        __      __     ________      ________         ________         __           ________
@@ -159,24 +146,64 @@ namespace JogR
         public int sist = 0;  // Índice do mapa atualmente selecionado
         public override void Update()  // Método para iniciar o menu
         {
-
-
-
             if (!input) return;
 
             var tecla = Console.ReadKey(true).Key;
 
             switch (tecla)
             {
-                case ConsoleKey.Enter:
-                
-
-
-                    moveset();
-
-                  
+                case ConsoleKey.LeftArrow:
+                    if (menu == 2) menu=0;
+                    else menu--;
                     break;
+                case ConsoleKey.Enter:
+                    switch (menu)
+                    {
+                        case 0:
+                            switch (selecionado)
+                            {
+                                case 0: menu = 1;  break;// Muda para o menu de seleção de mapa
+                                case 1: menu = 2;  break; // Configurações
+                            }
+                            break;
+                        case 1:
+                            switch (selecionado)
+                            {
+                                case 0:
+                                    visible = false;  // Torna o menu invisível
+                                    input = false;  // Desativa a entrada do menu
+
+                                    GameManager.Instancia.mapa = GamePlay.Instancia;
+                                    GameManager.Instancia.mapa.visible = true;
+                                    GameManager.Instancia.mapa.input = true;
+                                    break;  // Inicia com mapa 1
+                                case 1:
+                                    Console.Write("Fase Indefinida");
+                                    break;  // Inicia com mapa 2
+                            }
+                            break;
+                        case 2:
+                            switch (selecionado)
+                            {
+                                case 0: menu = 3; break;// Muda para o menu de seleção de mapa
+                                case 1: Console.Write("oii"); break; // Configurações
+                            }
+                            
+                            break;
+                    }
+                    
+                    break;
+                case ConsoleKey.UpArrow:
+                        selecionado = (selecionado - 1 + 2) % opcoes.Length;
+                    break;
+                // Sobe
+                case ConsoleKey.DownArrow:
+                        selecionado = (selecionado + 1) % 2;  // Desce
+                    break;
+
+                    
             }
+            
         }
 
         public void Tutorial()
@@ -202,6 +229,9 @@ namespace JogR
  |________________|________________|________________|                 
            ");
 
+            Thread.Sleep(2000);  // Pausa para o usuário ler a arte
+            menu = 0;  // Muda para o menu principal
+
         }
 
         public void MostrarMenu()  // Exibe o menu principal com arte
@@ -209,41 +239,19 @@ namespace JogR
             Console.Clear();
             string[] linhass = opcoes[selecionado].Split('\n');
 
-
-
-
             int top = 20;  // Posição vertical
             int esquerd = 10;  // Posição horizontal
 
-
-
             for (int i = 0; i < linhass.Length; i++)
             {
-
-
-
-
                 Console.SetCursorPosition(esquerd, top + i);
-
-
-
-
-
                 Console.WriteLine(linhass[i].TrimEnd());
             }
-
-
-
-
-
-
-
         }
         public void MostrarMenuConf()
-
         {
             Console.Clear();
-            string[] linhass = Conf[sist].Split('\n');
+            string[] linhass = Conf[selecionado].Split('\n');
             int top = 13;
             int esquerd = 10;
 
@@ -257,7 +265,7 @@ namespace JogR
         public void MostrarMenumap()  // Exibe o menu de seleção de mapa
         {
             Console.Clear();
-            string[] linhas = SeletorDeMapa[ativo].Split('\n');
+            string[] linhas = SeletorDeMapa[selecionado].Split('\n');
             int topo = 13;
             int esquerda = 10;
             for (int i = 0; i < linhas.Length; i++)
@@ -267,181 +275,7 @@ namespace JogR
             }
         }
 
-        public void moveset()  // Controle de seleção do menu principal
-        {
 
-
-            Console.Clear();
-            Console.CursorVisible = false;
-            MostrarMenu();
-
-            ConsoleKey tecla3;
-            do
-            {
-                tecla3 = Console.ReadKey(true).Key;
-
-                if (tecla3 == ConsoleKey.UpArrow)
-                    selecionado = (selecionado - 1 + opcoes.Length) % opcoes.Length;
-
-
-                // Sobe
-                else if (tecla3 == ConsoleKey.DownArrow)
-                    selecionado = (selecionado + 1) % opcoes.Length;  // Desce
-
-                MostrarMenu();
-
-
-            }
-            while (tecla3 != ConsoleKey.Enter);  // Aguarda confirmação
-
-            Console.Clear();
-            switch (selecionado)
-            {
-                case 0: escolhemapa(); break;  // Inicia jogo
-                case 1: Configuracao(); break;  // Configurações
-                case 2: Console.Write("credito"); break;  // Créditos
-            }
-
-
-        }
-
-        public void escolhemapa()  // Controle da escolha do mapa
-        {
-            Console.CursorVisible = false;
-            Console.Clear();
-            MostrarMenumap();
-            ConsoleKey tecla4;
-            do
-            {
-                tecla4 = Console.ReadKey(true).Key;
-
-                switch (tecla4)
-                {
-
-
-                    case ConsoleKey.LeftArrow:
-
-                        moveset(); return;
-                }
-                if (tecla4 == ConsoleKey.UpArrow)
-
-                {
-                    ativo = (ativo - 1 + SeletorDeMapa.Length) % SeletorDeMapa.Length;  // Mapa anterior
-
-                    MostrarMenumap();
-                }
-                if (tecla4 == ConsoleKey.DownArrow)
-                {
-                    ativo = (ativo + 1) % SeletorDeMapa.Length;  // Próximo mapa
-
-                    MostrarMenumap();
-                }
-
-
-
-
-
-
-
-            }
-
-
-
-
-
-
-            while (tecla4 != ConsoleKey.Enter);  // Confirma seleção
-
-            Console.Clear();
-
-
-
-            switch (ativo)
-            {
-
-
-                case 0: GamePlay.Instancia.Jogar();
-
-
-                    GameManager.Instancia.mapa = Mapas.Instancia;
-                    GameManager.Instancia.mapa.visible = true;
-                    break;  // Inicia com mapa 1
-                case 1:
-                    Console.Write("Fase Indefinida");
-
-
-                    break;  // Inicia com mapa 2
-
-
-            }
-        }
-
-        public void Configuracao()
-        {
-            Console.CursorVisible = false;
-            Console.Clear();
-            MostrarMenuConf();
-            ConsoleKey tecla5;
-            do
-            {
-                tecla5 = Console.ReadKey(true).Key;
-
-                switch (tecla5)
-                {
-
-
-                    case ConsoleKey.LeftArrow:
-
-                        moveset(); return;
-                }
-                if (tecla5 == ConsoleKey.UpArrow)
-
-                {
-                    sist = (sist - 1 + Conf.Length) % Conf.Length;  // Mapa anterior
-
-                    MostrarMenuConf();
-                }
-                if (tecla5 == ConsoleKey.DownArrow)
-                {
-                    sist = (sist + 1) % Conf.Length;  // Próximo mapa
-
-                    MostrarMenuConf();
-                }
-
-
-
-
-
-
-
-            }
-
-
-
-
-
-
-            while (tecla5 != ConsoleKey.Enter);  // Confirma seleção
-
-            Console.Clear();
-
-
-
-            switch (sist)
-            {
-
-
-                case 0:
-
-
-                    Tecle(); break;
-                case 1:
-                    Console.Write("oii");
-                    break;  // Inicia com mapa 2
-
-
-            }
-        }
         public void enteFase2()
         {
 
@@ -455,22 +289,16 @@ namespace JogR
                 Console.WriteLine("Você completou o mapa 2! Pressione Enter para continuar.");
                 tecla5 = Console.ReadKey(true).Key;
             }
-
-
-
-
         }
-        public void Tecle()
+
+        public void MostrarMenuControles()
         {
-
-
+            Console.Clear();
             string[] linhas = comande[0].Split('\n');
             string[] linhas2 = comande[1].Split('\n');
             string[] linhas3 = comande[2].Split('\n');
             string[] linhas4 = comande[3].Split('\n');
             string[] linhas5 = comande[4].Split('\n');
-
-
 
             int topo = 0;
             int topo2 = 15;
@@ -479,15 +307,10 @@ namespace JogR
             int topo5 = 29;
             int esquerda = 0;
 
-
-
-
             for (int i = 0; i < linhas.Length; i++)
             {
                 Console.SetCursorPosition(esquerda, topo + i);
-
                 Console.WriteLine(linhas[i].TrimEnd());
-
             }
             for (int i = 0; i < linhas2.Length; i++)
             {
@@ -509,25 +332,28 @@ namespace JogR
                 Console.SetCursorPosition(esquerda, topo5 + i);
                 Console.WriteLine(linhas5[i].TrimEnd());
             }
-
-            ConsoleKey tecla5;
-            tecla5 = Console.ReadKey(true).Key;
-
-            switch (tecla5)
-            {
-
-
-                case ConsoleKey.LeftArrow:
-
-                    Configuracao(); return;
-            }
-
         }
 
         public override void Draw()
         {
-            Tutorial(); visible = false;
-
+            switch (menu)
+            {
+                case -1:
+                    Tutorial();  // Exibe o tutorial
+                    break;
+                case 0:
+                    MostrarMenu();
+                    break;
+                case 1:
+                    MostrarMenumap();
+                    break;
+                case 2:
+                    MostrarMenuConf();
+                    break;
+                case 3:
+                    MostrarMenuControles();
+                    break;
+            }
         }
 
 

@@ -34,6 +34,7 @@ namespace JogR
         public Vector2 p = new Vector2(1, 1); // Usado para armazenar a posição do personagem
         public void atualizarPosicao(ConsoleKey tecla)
         {
+            GamePlay gp = GamePlay.Instancia;
             int tempX = p.x;
             int tempY = p.y;
             int x = p.x;
@@ -60,11 +61,11 @@ namespace JogR
                 p.y = tempY;
             }
 
-            foreach (Fragmento fragmento in GamePlay.Instancia.fragmentos)
+            foreach (Fragmento fragmento in gp.fragmentos)
             {
                 if (fragmento.x == x && fragmento.y == y)
                 {
-                    GamePlay.Instancia.fragmentos.Remove(fragmento);
+                    gp.fragmentos.Remove(fragmento);
                     coletados.Add(fragmento);
                     break;
                 }
@@ -75,7 +76,7 @@ namespace JogR
 
                 if (f.x == x && f.y == y)
                 {
-                    GamePlay.Instancia.fragmentos.Remove(f);
+                    gp.fragmentos.Remove(f);
                     coletados.Add(f);
                     break;
                 }
