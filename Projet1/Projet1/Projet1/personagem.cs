@@ -86,7 +86,7 @@ namespace JogR
         public override void Draw()
         {
             Console.Write(person);
-          
+
         }
     }
 }

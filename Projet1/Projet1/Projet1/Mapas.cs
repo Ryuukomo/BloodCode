@@ -30,13 +30,7 @@ namespace JogR
 
         public override void Draw()  // Renderiza o mapa e o jogador
         {
-        
-        
-        
-        
-        }
-        public void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
-        {
+
             mapa = new char[largura, altura];  // Cria nova matriz do mapa
             for (int y = 0; y < altura; y++)
                 for (int x = 0; x < largura; x++)
@@ -50,9 +44,15 @@ namespace JogR
                         mapa[x, y] = ' ';  // Espaço vazio
 
                 }
-                    Objetos.Instancia.Draw();  // Insere obstáculos após o preenchimento base
-                    Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
+            Objetos.Instancia.Draw();  // Insere obstáculos após o preenchimento base
+            Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
+
+
+
         }
+        public void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
+        {
+                   }
    
 
         public override void Start()

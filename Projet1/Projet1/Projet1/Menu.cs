@@ -362,8 +362,10 @@ namespace JogR
 
                 case 0: GamePlay.Instancia.Jogar();
 
-                    GameManager.Instancia.personagem = new Personagem();
-                    GameManager.Instancia.personagem.visible = true; break;  // Inicia com mapa 1
+
+                    GameManager.Instancia.mapa = Mapas.Instancia;
+                    GameManager.Instancia.mapa.visible = true;
+                    break;  // Inicia com mapa 1
                 case 1:
                     Console.Write("Fase Indefinida");
 
