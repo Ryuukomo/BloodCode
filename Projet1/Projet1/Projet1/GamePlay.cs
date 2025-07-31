@@ -13,16 +13,16 @@ namespace JogR
         private GamePlay()
         {
             Run();
-
         }  // Construtor privado para implementar o padrão Singleton
         public static GamePlay Instancia => instancia ??= new GamePlay();  // Getter da instância (Singleton)
 
       
         public char[,] mapa;  // Matriz que representa o cenário fixo do mapa (paredes, chão, etc.)
+        public char[,] obstaculos;  // Matriz auxiliar para armazenar obstáculos antes de aplicar no mapa
 
 
-        public int largura = 100;  // Largura do mapa (quantidade de colunas)
-        public int altura = 29;  // Altura do mapa (quantidade de linhas)
+        public static int largura = 100;  // Largura do mapa (quantidade de colunas)
+        public static int altura = 29;  // Altura do mapa (quantidade de linhas)
         public bool desenhou = false;
 
 
@@ -33,25 +33,59 @@ namespace JogR
         public List<Fragmento> fragmentos;  // Lista de fragmentos que podem ser coletados no jogo
 
 
+
+
+        public void addObjetos()  // Adiciona obstáculos para o mapa 1
+        {
+            obstaculos = new char[GamePlay.largura, GamePlay.altura];  // Inicializa matriz de obstáculos
+            for (int y = 0; y < GamePlay.altura; y++)
+                for (int x = 0; x < GamePlay.largura; x++)
+                    obstaculos[x, y] = ' ';  // Inicializa todos os espaços como vazios
+
+            for (int x = 20; x < 30; x++)
+                obstaculos[x, 15] = '#';  // Adiciona parede horizontal
+
+            for (int y = 5; y < 10; y++)
+                obstaculos[50, y] = '#';  // Adiciona parede vertical
+
+            for (int y = 0; y < GamePlay.altura; y++)  // Aplica obstáculos no mapa original
+                for (int x = 0; x < GamePlay.largura; x++)
+                    if (obstaculos[x, y] != ' ')
+                        GamePlay.Instancia.mapa[x, y] = obstaculos[x, y];
+        }
+
+
+        public void adicionarFragmentos(string resposta)  // Adiciona fragmentos coletáveis no mapa
+        {
+            GamePlay.Instancia.fragmentos = new List<Fragmento>();  // Inicializa a lista de fragmentos
+
+            for (int i = 0; i < resposta.Length; i++)  // Adiciona 5 fragmentos aleatórios
+            {
+                GamePlay.Instancia.fragmentos.Add(new Fragmento(resposta[i]));  // Cria novo fragmento com forma 'F'
+            }
+            Random random = new Random();  // Inicializa gerador de números aleatórios
+
+            for (int i = 0; i < 4; i++)
+            {
+                int a = random.Next(26);
+                char letra = (char)('a' + a);
+
+                GamePlay.Instancia.fragmentos.Add(new Fragmento(letra));  // Adiciona fragmentos extras com forma 'F'
+            }
+
+        }
+
         public override void Update()
         {
-
             if (!input) return;
-       
-
-            
             
             if (GameManager.Instancia.personagem.coletados.Count < fragmentos.Count)
             {
+                
+                var tecla = Console.ReadKey(true).Key;
+                GameManager.Instancia.personagem.atualizarPosicao(tecla);
 
-                if (Console.KeyAvailable)
-                {
-                    var tecla = Console.ReadKey(true).Key;
-                    GameManager.Instancia.personagem.atualizarPosicao(tecla);
-                }
                 aplicarGravidade();
-
-                Thread.Sleep(50);
 
                 if (VerificaV("raig"))
                 {
@@ -64,6 +98,8 @@ namespace JogR
         public override void Start()
         {
             GameManager.Instancia.personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
+            GameManager.Instancia.personagem.visible = true;  // Torna o personagem visível
+            GameManager.Instancia.personagem.input = true;  // Torna o personagem visível
             iniciarMapaEstatico();  // Inicializa o mapa estático
 
         }
@@ -85,57 +121,47 @@ namespace JogR
 
                 }
             }
-            Objetos.Instancia.addObjetos();  // Insere obstáculos após o preenchimento base
-            Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
+            addObjetos();  // Insere obstáculos após o preenchimento base
+            adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
         }
    
 
 
         public override void Draw()  // Renderiza o mapa e o jogador
         {
-
-        
-
             Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
             for (int y = 0; y < altura; y++)
             {
                 for (int x = 0; x < largura; x++)
                 {
-                    bool desenhou = false;
-
-
-                    // Se for o jogador E não desenhou fragmento, desenha o personagem
-                    foreach (var fragmento in fragmentos)  // Desenha todos os fragmentos coletáveis
-                    {
-                        if (fragmento.x == x && fragmento.y == y)
-                        {
-                            fragmento.Draw();
-                            desenhou = true;
-                            break;
-
-                        }
-
-                    }
-                    if (!desenhou && x == GameManager.Instancia.personagem.p.x && y == GameManager.Instancia.personagem.p.y)
-                    {
-                       
-                        GameManager.Instancia.personagem.Draw();
-                        desenhou = true;
-                    }
-
-                    // Se ninguém desenhou ainda, desenha o mapa normalmente
-                    else if (!desenhou)
-                    {
-                        Console.Write(GameManager.Instancia.mapa.mapa[x, y]);
-                    }
-
-
-
-
+                        Console.Write(mapa[x, y]);
                 }
 
+                Console.WriteLine();  // Pula para a próxima linha
+            }
+
+            for (int y = 0; y < altura; y++)
+            {
+                for (int x = 0; x < largura; x++)
+                {
+                    Console.Write(obstaculos[x, y]);
+                }
 
                 Console.WriteLine();  // Pula para a próxima linha
+            }
+            
+
+            // Se for o jogador E não desenhou fragmento, desenha o personagem
+            foreach (var fragmento in fragmentos)  // Desenha todos os fragmentos coletáveis
+            {
+                if(mapa[fragmento.x, fragmento.y] == ' ' && obstaculos[fragmento.x, fragmento.y] == ' ')
+                {
+                    fragmento.Draw();
+                }
+                else
+                {
+                    fragmento.x = fragmento.x - 1;
+                }
             }
 
         }
@@ -165,14 +191,12 @@ namespace JogR
 
         public void aplicarGravidade()
         {
-
-
             if (GameManager.Instancia.personagem.pulando)
             {
                 if (GameManager.Instancia.personagem.forcaDoPulo > 0)
                 {
                     int cima = GameManager.Instancia.personagem.p.Up;
-                    if (cima > 0 && GameManager.Instancia.mapa.mapa[GameManager.Instancia.personagem.p.x, cima] == ' ')
+                    if (cima > 0 && GameManager.Instancia.gameplay.mapa[GameManager.Instancia.personagem.p.x, cima] == ' ')
                     {
                         GameManager.Instancia.personagem.p.y--;
                         GameManager.Instancia.personagem.forcaDoPulo--;
@@ -193,30 +217,20 @@ namespace JogR
                 // Gravidade atuando
                 int abaixo = GameManager.Instancia.personagem.p.y;
 
-
                 // Aqui é a correção principal: verifica se o bloco abaixo é espaço
-                if (abaixo < GameManager.Instancia.mapa.altura && GameManager.Instancia.mapa.mapa[GameManager.Instancia.personagem.p.x, abaixo] == ' ')
+                if (abaixo < GamePlay.altura && GameManager.Instancia.gameplay.mapa[GameManager.Instancia.personagem.p.x, abaixo] == ' ')
                 {
                     abaixo = GameManager.Instancia.personagem.p.Down;  // Continua caindo
                 }
             }
 
             foreach (var f in fragmentos.ToList())
-
                 if (f.x == GameManager.Instancia.personagem.p.x && f.y == GameManager.Instancia.personagem.p.y)
                 {
                     fragmentos.Remove(f);
                     GameManager.Instancia.personagem.coletados.Add(f);
                     break;
                 }
-
-
         }
-
-
-
-
-
-
     }
 }

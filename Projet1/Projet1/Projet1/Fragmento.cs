@@ -12,8 +12,8 @@ namespace JogR
         {
             this.forma = forma;
             Random random = new Random();
-            this.x = random.Next(1, GameManager.Instancia.mapa.largura - 1);
-            this.y = random.Next(1, GameManager.Instancia.mapa.altura - 1);
+            this.x = random.Next(1, GamePlay.largura - 1);
+            this.y = random.Next(1, GamePlay.altura - 1);
         }
 
         public void Draw()

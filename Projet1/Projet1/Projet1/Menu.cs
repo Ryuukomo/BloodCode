@@ -173,9 +173,9 @@ namespace JogR
                                     visible = false;  // Torna o menu invisível
                                     input = false;  // Desativa a entrada do menu
 
-                                    GameManager.Instancia.mapa = GamePlay.Instancia;
-                                    GameManager.Instancia.mapa.visible = true;
-                                    GameManager.Instancia.mapa.input = true;
+                                    GameManager.Instancia.gameplay = GamePlay.Instancia;
+                                    GameManager.Instancia.gameplay.visible = true;
+                                    GameManager.Instancia.gameplay.input = true;
                                     break;  // Inicia com mapa 1
                                 case 1:
                                     Console.Write("Fase Indefinida");

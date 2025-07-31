@@ -24,9 +24,9 @@ namespace JogR
         public static GameManager Instancia => instancia ??= new GameManager();  // Getter da instância (Singleton)
 
 
-        public GamePlay mapa;
+        public GamePlay gameplay;
         public Personagem personagem;
-        public Menu layout;
+        public Menu menu;
 
 
         public override void Update()
@@ -46,16 +46,16 @@ namespace JogR
 
         public override void Start()
         {
-            layout = Menu.Instancia;
-      
-            layout.visible = true;
-            layout.input = true;
+            menu = Menu.Instancia;
+
+            menu.visible = true;
+            menu.input = true;
         }
 
         public override void Draw()
         {
-            if (layout != null && layout.visible) layout.Draw();  // Verifica se o menu está visível e o renderiza
-            if (mapa != null && mapa.visible) mapa.Draw();  // Verifica se o mapa está visível e o renderiza
+            if (menu != null && menu.visible) menu.Draw();  // Verifica se o menu está visível e o renderiza
+            if (gameplay != null && gameplay.visible) gameplay.Draw();  // Verifica se o mapa está visível e o renderiza
             if (personagem != null && personagem.visible) personagem.Draw();  // Verifica se o personagem está visível e o renderiza
         }  // Renderiza o mapa e o jogador
 
