@@ -21,13 +21,15 @@ namespace JogR
 
         public Personagem(char[,] mapa) // Construtor que recebe o mapa
         {
-            Run();
+         
             this.mapa = mapa;
             coletados = new List<Fragmento>();
         }
 
-
-
+        public Personagem()
+        {
+            Run();
+        }
 
         public Vector2 p = new Vector2(1, 1); // Usado para armazenar a posição do personagem
         public void atualizarPosicao(ConsoleKey tecla)
@@ -84,6 +86,7 @@ namespace JogR
         public override void Draw()
         {
             Console.Write(person);
+          
         }
     }
 }

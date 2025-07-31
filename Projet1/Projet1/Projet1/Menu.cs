@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -359,7 +360,10 @@ namespace JogR
             {
 
 
-                case 0: GamePlay.Instancia.Jogar(); break;  // Inicia com mapa 1
+                case 0: GamePlay.Instancia.Jogar();
+
+                    GameManager.Instancia.personagem = new Personagem();
+                    GameManager.Instancia.personagem.visible = true; break;  // Inicia com mapa 1
                 case 1:
                     Console.Write("Fase Indefinida");
 

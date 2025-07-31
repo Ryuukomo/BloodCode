@@ -49,9 +49,9 @@ namespace JogR
 
                         mapa[x, y] = ' ';  // Espaço vazio
 
+                }
                     Objetos.Instancia.Draw();  // Insere obstáculos após o preenchimento base
                     Objetos.Instancia.adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
-                }
         }
    
 

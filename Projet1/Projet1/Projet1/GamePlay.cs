@@ -29,10 +29,12 @@ namespace JogR
         public override void Update()
         {
 
-    
+            if (!input) return;
+
+
             GameManager.Instancia.personagem = new Personagem(Mapas.Instancia.mapa);  // Inicia personagem com referência ao mapa
             
-            while (GameManager.Instancia.personagem.coletados.Count < fragmentos.Count)
+            if (GameManager.Instancia.personagem.coletados.Count < fragmentos.Count)
             {
 
                 if (Console.KeyAvailable)
@@ -47,14 +49,14 @@ namespace JogR
                 if (VerificaV("raig"))
                 {
                     Console.Write("Você coletou todos os fragmentos necessários para completar o mapa!");  // Mensagem de sucesso se coletou todos os fragmentos
-                    break;  // Sai do loop se coletou todos os fragmentos
+                   
                 }
             }
         }  // Método de atualização do jogo (pode ser usado para lógica de jogo, mas não está implementado aqui)
 
         public void Jogar()
         {
-        Draw();
+           
         }
 
 
