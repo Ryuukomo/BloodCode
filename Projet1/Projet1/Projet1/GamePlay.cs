@@ -8,32 +8,24 @@ namespace JogR
 {
     public class GamePlay : MonoBehaviour
     {
-
         static private GamePlay instancia;// Instância única da classe
         private GamePlay()
         {
             Run();
         }  // Construtor privado para implementar o padrão Singleton
+
         public static GamePlay Instancia => instancia ??= new GamePlay();  // Getter da instância (Singleton)
 
-      
         public char[,] mapa;  // Matriz que representa o cenário fixo do mapa (paredes, chão, etc.)
         public char[,] obstaculos;  // Matriz auxiliar para armazenar obstáculos antes de aplicar no mapa
-
 
         public static int largura = 100;  // Largura do mapa (quantidade de colunas)
         public static int altura = 29;  // Altura do mapa (quantidade de linhas)
         public bool desenhou = false;
 
-
         public bool jogando = true;  // Indica se o jogo está em execução
 
-
-
         public List<Fragmento> fragmentos;  // Lista de fragmentos que podem ser coletados no jogo
-
-
-
 
         public void addObjetos()  // Adiciona obstáculos para o mapa 1
         {
@@ -51,17 +43,16 @@ namespace JogR
             for (int y = 0; y < GamePlay.altura; y++)  // Aplica obstáculos no mapa original
                 for (int x = 0; x < GamePlay.largura; x++)
                     if (obstaculos[x, y] != ' ')
-                        GamePlay.Instancia.mapa[x, y] = obstaculos[x, y];
+                        mapa[x, y] = obstaculos[x, y];
         }
-
 
         public void adicionarFragmentos(string resposta)  // Adiciona fragmentos coletáveis no mapa
         {
-            GamePlay.Instancia.fragmentos = new List<Fragmento>();  // Inicializa a lista de fragmentos
+            fragmentos = new List<Fragmento>();  // Inicializa a lista de fragmentos
 
             for (int i = 0; i < resposta.Length; i++)  // Adiciona 5 fragmentos aleatórios
             {
-                GamePlay.Instancia.fragmentos.Add(new Fragmento(resposta[i]));  // Cria novo fragmento com forma 'F'
+                fragmentos.Add(new Fragmento(resposta[i]));  // Cria novo fragmento com forma 'F'
             }
             Random random = new Random();  // Inicializa gerador de números aleatórios
 
@@ -70,9 +61,8 @@ namespace JogR
                 int a = random.Next(26);
                 char letra = (char)('a' + a);
 
-                GamePlay.Instancia.fragmentos.Add(new Fragmento(letra));  // Adiciona fragmentos extras com forma 'F'
+                fragmentos.Add(new Fragmento(letra));  // Adiciona fragmentos extras com forma 'F'
             }
-
         }
 
         public override void Update()
@@ -85,8 +75,6 @@ namespace JogR
                 var tecla = Console.ReadKey(true).Key;
                 GameManager.Instancia.personagem.atualizarPosicao(tecla);
 
-                aplicarGravidade();
-
                 if (VerificaV("raig"))
                 {
                     Console.Write("Você coletou todos os fragmentos necessários para completar o mapa!");  // Mensagem de sucesso se coletou todos os fragmentos
@@ -97,16 +85,12 @@ namespace JogR
 
         public override void Start()
         {
-            GameManager.Instancia.personagem = new Personagem(mapa);  // Inicia personagem com referência ao mapa
-            GameManager.Instancia.personagem.visible = true;  // Torna o personagem visível
-            GameManager.Instancia.personagem.input = true;  // Torna o personagem visível
             iniciarMapaEstatico();  // Inicializa o mapa estático
-
         }
 
         public void iniciarMapaEstatico()  // Inicializa o cenário fixo do mapa 1
         {  
-              mapa = new char[largura, altura];  // Cria nova matriz do mapa
+            mapa = new char[largura, altura];  // Cria nova matriz do mapa
             for (int y = 0; y < altura; y++)
             {
                 for (int x = 0; x < largura; x++)
@@ -124,11 +108,10 @@ namespace JogR
             addObjetos();  // Insere obstáculos após o preenchimento base
             adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
         }
-   
-
 
         public override void Draw()  // Renderiza o mapa e o jogador
         {
+            aplicarGravidade();
             Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
             for (int y = 0; y < altura; y++)
             {
@@ -140,6 +123,7 @@ namespace JogR
                 Console.WriteLine();  // Pula para a próxima linha
             }
 
+            /*Console.SetCursorPosition(0, 0);
             for (int y = 0; y < altura; y++)
             {
                 for (int x = 0; x < largura; x++)
@@ -148,7 +132,7 @@ namespace JogR
                 }
 
                 Console.WriteLine();  // Pula para a próxima linha
-            }
+            }*/
             
 
             // Se for o jogador E não desenhou fragmento, desenha o personagem

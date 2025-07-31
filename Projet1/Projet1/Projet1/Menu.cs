@@ -171,11 +171,16 @@ namespace JogR
                             {
                                 case 0:
                                     visible = false;  // Torna o menu invisível
-                                    input = false;  // Desativa a entrada do menu
+                                    input = false;    // Desativa a entrada do menu
+
+                                    GameManager.Instancia.personagem = new Personagem();  // Inicia personagem com referência ao mapa
+                                    GameManager.Instancia.personagem.visible = true;  // Torna o personagem visível
+                                    GameManager.Instancia.personagem.input = true;    // Torna o personagem visível
 
                                     GameManager.Instancia.gameplay = GamePlay.Instancia;
                                     GameManager.Instancia.gameplay.visible = true;
                                     GameManager.Instancia.gameplay.input = true;
+                                    
                                     break;  // Inicia com mapa 1
                                 case 1:
                                     Console.Write("Fase Indefinida");

@@ -11,7 +11,6 @@ namespace JogR
 
 
         public char person = '@';
-        public char[,] mapa;
 
         public bool pulando = false;
         public int forcaDoPulo = 0;
@@ -19,15 +18,9 @@ namespace JogR
         public List<Fragmento> coletados;
 
 
-        public Personagem(char[,] mapa) // Construtor que recebe o mapa
+        public Personagem() // Construtor que recebe o mapa
         {
-         
-            this.mapa = mapa;
             coletados = new List<Fragmento>();
-        }
-
-        public Personagem()
-        {
             Run();
         }
 
@@ -55,7 +48,7 @@ namespace JogR
 
             }
 
-            if (mapa[x, y] == '|')
+            if (GameManager.Instancia.gameplay.mapa[x, y] == '|')
             {
                 p.x = tempX;
                 p.y = tempY;
@@ -86,6 +79,7 @@ namespace JogR
 
         public override void Draw()
         {
+            Console.SetCursorPosition(p.x, p.y);
             Console.Write(person);
 
         }
