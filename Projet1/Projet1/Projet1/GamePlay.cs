@@ -21,9 +21,9 @@ namespace JogR
 
         public static int largura = 100;  // Largura do mapa (quantidade de colunas)
         public static int altura = 29;  // Altura do mapa (quantidade de linhas)
+        
         public bool desenhou = false;
-
-        public bool jogando = true;  // Indica se o jogo está em execução
+    public bool jogando = true;  // Indica se o jogo está em execução
 
         public List<Fragmento> fragmentos;  // Lista de fragmentos que podem ser coletados no jogo
 
@@ -35,7 +35,13 @@ namespace JogR
                     obstaculos[x, y] = ' ';  // Inicializa todos os espaços como vazios
 
             for (int x = 20; x < 30; x++)
+            {
+
+
                 obstaculos[x, 15] = '#';  // Adiciona parede horizontal
+
+                obstaculos[x, 25] = '#';  // Adiciona parede horizontal
+            }
 
             for (int y = 5; y < 10; y++)
                 obstaculos[50, y] = '#';  // Adiciona parede vertical
@@ -62,7 +68,7 @@ namespace JogR
                 char letra = (char)('a' + a);
 
                 fragmentos.Add(new Fragmento(letra));  // Adiciona fragmentos extras com forma 'F'
-            }
+            } 
         }
 
         public override void Update()
@@ -74,9 +80,11 @@ namespace JogR
                 
                 var tecla = Console.ReadKey(true).Key;
                 GameManager.Instancia.personagem.atualizarPosicao(tecla);
+              
 
                 if (VerificaV("raig"))
                 {
+                  
                     Console.Write("Você coletou todos os fragmentos necessários para completar o mapa!");  // Mensagem de sucesso se coletou todos os fragmentos
                    
                 }
@@ -104,15 +112,21 @@ namespace JogR
                         mapa[x, y] = ' ';  // Espaço vazio
 
                 }
-            }
+            }  
             addObjetos();  // Insere obstáculos após o preenchimento base
+           
             adicionarFragmentos("raig");  // Adiciona fragmentos coletáveis
         }
 
         public override void Draw()  // Renderiza o mapa e o jogador
         {
-            aplicarGravidade();
-            Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo 
+           
+            aplicarGravidade(); 
+
+            Console.SetCursorPosition(0, 0);  // Volta o cursor para o topo esquerdo
+          
+         
+           
             for (int y = 0; y < altura; y++)
             {
                 for (int x = 0; x < largura; x++)
@@ -147,9 +161,9 @@ namespace JogR
                     fragmento.x = fragmento.x - 1;
                 }
             }
-
+            
         }
-
+      
         public bool VerificaV(string certo)
         {
             if (GameManager.Instancia.personagem.coletados.Count != certo.Length)  // Verifica se o personagem coletou diferente fragmentos que o necessário
@@ -217,4 +231,6 @@ namespace JogR
                 }
         }
     }
+
+   
 }

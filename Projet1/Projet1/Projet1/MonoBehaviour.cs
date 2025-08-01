@@ -23,8 +23,9 @@ namespace JogR
                 while (ativo)
                 {
                     Update();
-                    LateUpdate();
-                    Thread.Sleep(80);  // Pausa por 100 milissegundos entre atualizações
+                      
+                        LateUpdate();
+                    Thread.Sleep(1);  // Pausa por 100 milissegundos entre atualizações
                 }
 
                 OnDestroy();

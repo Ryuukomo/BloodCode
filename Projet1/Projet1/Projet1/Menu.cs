@@ -156,17 +156,18 @@ namespace JogR
                     if (menu == 2) menu=0;
                     else menu--;
                     break;
+
                 case ConsoleKey.Enter:
                     switch (menu)
                     {
-                        case 0:
+                        case 0: // menu principal??
                             switch (selecionado)
                             {
-                                case 0: menu = 1;  break;// Muda para o menu de seleção de mapa
-                                case 1: menu = 2;  break; // Configurações
+                                case 0: menu = 1;  break;
+                                case 1: menu = 2;  break;
                             }
                             break;
-                        case 1:
+                        case 1: // fase 1 e 2
                             switch (selecionado)
                             {
                                 case 0:
@@ -190,8 +191,14 @@ namespace JogR
                         case 2:
                             switch (selecionado)
                             {
-                                case 0: menu = 3; break;// Muda para o menu de seleção de mapa
+                                case 0: menu = 3;
+                                    
+                                        
+
+                                    
+                                    break;
                                 case 1: Console.Write("oii"); break; // Configurações
+                              
                             }
                             
                             break;
@@ -199,11 +206,15 @@ namespace JogR
                     
                     break;
                 case ConsoleKey.UpArrow:
-                        selecionado = (selecionado - 1 + 2) % opcoes.Length;
+            
+                    selecionado = (selecionado - 1 + 2) % opcoes.Length;
+                   
                     break;
                 // Sobe
                 case ConsoleKey.DownArrow:
-                        selecionado = (selecionado + 1) % 2;  // Desce
+               
+                    selecionado = (selecionado + 1) % 2;  // Desce
+                   
                     break;
 
                     
@@ -213,10 +224,12 @@ namespace JogR
 
         public void Tutorial()
         {
-            Console.Clear();
-
-
-            Console.Write(@"                 
+           
+          
+            Console.Clear(); 
+          
+            Console.CursorVisible = false;
+            Console.Write(@"  
                    ________________
                   |                |
                   |      /|\       |                             >> precionar seta '\/' muda para o próximo icone abaixo dos menus
@@ -228,33 +241,57 @@ namespace JogR
  |                |                |                |            >> precionar seta '/\' muda para o próximo icone acima dos menus
  |      /         |       |        |         \      |
  |     /          |       |        |          \     |            
- |    |-------    |    \  |  /     |    -------|    |            >> precionar seta '<' move o personagem para esquerda
- |     \          |     \ | /      |          /     |
+ |    |-------    |    \  |  /     |    -------|    |            >> precionar seta '<' muda para ação anterior 
+ |     \          |     \ | /      |          /     |            (EX: selecionar START, se você pressionar '<' quiser voltar para tela anterior)
  |      \         |      \|/       |         /      |
- |________________|________________|________________|                 
+ |________________|________________|________________|  
+
+
+                   ________________
+                  |   _       ___  | 
+                  |  |_  |\ |  |   |
+                  |  |_  | \|  |   |
+                  |                |
+                  |__              |            >> Preciona 'ENTER' muda para a próxima ação
+                    |              |            ( EX: se selecionar START, e confirmar com o 'ENTER', você irá para a seleção de fase)
+                    |              |
+                    |              |
+                    |              |
+                    |              |
+                    |______________|
+
            ");
 
-            Thread.Sleep(2000);  // Pausa para o usuário ler a arte
+            Thread.Sleep(5000);  // Pausa para o usuário ler a arte
+           
             menu = 0;  // Muda para o menu principal
 
         }
 
         public void MostrarMenu()  // Exibe o menu principal com arte
         {
+           
             Console.Clear();
+             
+            
+        
             string[] linhass = opcoes[selecionado].Split('\n');
 
-            int top = 20;  // Posição vertical
+            int top = 2;  // Posição vertical
             int esquerd = 10;  // Posição horizontal
 
             for (int i = 0; i < linhass.Length; i++)
             {
                 Console.SetCursorPosition(esquerd, top + i);
+           
                 Console.WriteLine(linhass[i].TrimEnd());
             }
         }
         public void MostrarMenuConf()
         {
+
+
+
             Console.Clear();
             string[] linhass = Conf[selecionado].Split('\n');
             int top = 13;
@@ -263,19 +300,44 @@ namespace JogR
             for (int i = 0; i < linhass.Length; i++)
             {
                 Console.SetCursorPosition(esquerd, top + i);
+
                 Console.WriteLine(linhass[i].TrimEnd());
             }
 
+            Console.SetCursorPosition(10, 20);
+            Console.Write("Digite um caractere para editar o mapa: ");
+
+            var tecla = Console.ReadKey(true);
+
+           
+
+            char c = tecla.KeyChar;
+            if (c >= 32 && c <= 126) // caractere ASCII imprimível
+            {
+                // supondo que você tenha acesso à matriz do mapa, por exemplo:
+                // GamePlay.Instancia.mapa[20, 10] = c;
+                // Aqui você precisaria usar as coordenadas que quiser editar.
+
+                // Apenas exemplo:
+                GamePlay.Instancia.mapa[20, 10] = c;
+
+
+
+
+            }
         }
         public void MostrarMenumap()  // Exibe o menu de seleção de mapa
         {
-            Console.Clear();
+           
+
+            Console.Clear(); 
+           
             string[] linhas = SeletorDeMapa[selecionado].Split('\n');
             int topo = 13;
             int esquerda = 10;
             for (int i = 0; i < linhas.Length; i++)
             {
-                Console.SetCursorPosition(esquerda, topo + i);
+                Console.SetCursorPosition(esquerda, topo + i);           
                 Console.WriteLine(linhas[i].TrimEnd());
             }
         }
@@ -298,6 +360,9 @@ namespace JogR
 
         public void MostrarMenuControles()
         {
+          
+        
+
             Console.Clear();
             string[] linhas = comande[0].Split('\n');
             string[] linhas2 = comande[1].Split('\n');
@@ -339,6 +404,7 @@ namespace JogR
             }
         }
 
+
         public override void Draw()
         {
             switch (menu)
@@ -347,8 +413,9 @@ namespace JogR
                     Tutorial();  // Exibe o tutorial
                     break;
                 case 0:
+                  
                     MostrarMenu();
-                    break;
+                    break;  Thread.Sleep(5000);  // Pausa para o usuário ler a arte
                 case 1:
                     MostrarMenumap();
                     break;
@@ -359,6 +426,7 @@ namespace JogR
                     MostrarMenuControles();
                     break;
             }
+           
         }
 
 

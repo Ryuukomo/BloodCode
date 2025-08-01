@@ -55,8 +55,8 @@ namespace JogR
         public override void Draw()
         {
             if (menu != null && menu.visible) menu.Draw();  // Verifica se o menu está visível e o renderiza
-            if (gameplay != null && gameplay.visible) gameplay.Draw();  // Verifica se o mapa está visível e o renderiza
-            if (personagem != null && personagem.visible) personagem.Draw();  // Verifica se o personagem está visível e o renderiza
+            if (gameplay != null && gameplay.visible) gameplay.Draw(); Thread.Sleep(10);  // Verifica se o mapa está visível e o renderiza
+            if (personagem != null && personagem.visible) personagem.Draw();Thread.Sleep(400);   // Verifica se o personagem está visível e o renderiza
         }  // Renderiza o mapa e o jogador
 
     }
