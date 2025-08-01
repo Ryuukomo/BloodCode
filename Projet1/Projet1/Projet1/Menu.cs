@@ -141,9 +141,9 @@ namespace JogR
                      \ \______/ /   |  |    \ \     |  |_____     | |_____/ /     __|  |__       |  |       \ \______/ /     
                       \________/    |__|     \_\    |________|    |________/     |________|      |__|        \________/   
 
-", " " };
+", "Mude" };
 
-        public int sist = 0;  // Índice do mapa atualmente selecionado
+       
         public override void Update()  // Método para iniciar o menu
         {
             if (!input) return;
@@ -197,28 +197,52 @@ namespace JogR
 
                                     
                                     break;
-                                case 1: Console.Write("oii"); break; // Configurações
-                              
+                                case 1: Console.Write("oii"); break; 
+
+                                case 2:    menu = 4;     break;
+                               
                             }
                             
                             break;
                     }
                     
                     break;
+
+
                 case ConsoleKey.UpArrow:
-            
-                    selecionado = (selecionado - 1 + 2) % opcoes.Length;
-                   
+                    switch(menu) {
+
+                        case 0:  
+
+                        selecionado = (selecionado - 1 + 1) % opcoes.Length; break;
+
+                            case 1: selecionado = (selecionado - 1 + 1) % SeletorDeMapa.Length; break;
+
+                        case 2: selecionado = (selecionado - 1 + 1) % Conf.Length; break;
+                    }
                     break;
                 // Sobe
                 case ConsoleKey.DownArrow:
-               
-                    selecionado = (selecionado + 1) % 2;  // Desce
-                   
-                    break;
 
-                    
-            }
+                    switch (menu)
+                    {
+                        case 0:
+                            selecionado = (selecionado + 1) % opcoes.Length;
+
+                            break;
+                        case 1:
+                            selecionado = (selecionado + 1) % SeletorDeMapa.Length;
+
+                            break;
+
+                        case 2:
+                            selecionado = (selecionado + 1) % Conf.Length;
+
+                            break;
+
+                    } break;
+
+                    }
             
         }
 
@@ -304,12 +328,24 @@ namespace JogR
                 Console.WriteLine(linhass[i].TrimEnd());
             }
 
-            Console.SetCursorPosition(10, 20);
+
+
+
+
+
+        }
+
+        public void Mud()
+        {
+
+            Console.Clear();
+         
+            Console.SetCursorPosition(90, 20);
             Console.Write("Digite um caractere para editar o mapa: ");
 
-            var tecla = Console.ReadKey(true);
+            var tecla = Console.ReadKey();
 
-           
+
 
             char c = tecla.KeyChar;
             if (c >= 32 && c <= 126) // caractere ASCII imprimível
@@ -325,6 +361,7 @@ namespace JogR
 
 
             }
+
         }
         public void MostrarMenumap()  // Exibe o menu de seleção de mapa
         {
@@ -401,7 +438,9 @@ namespace JogR
             {
                 Console.SetCursorPosition(esquerda, topo5 + i);
                 Console.WriteLine(linhas5[i].TrimEnd());
-            }
+            } 
+            
+       
         }
 
 
@@ -414,16 +453,26 @@ namespace JogR
                     break;
                 case 0:
                   
-                    MostrarMenu();
-                    break;  Thread.Sleep(5000);  // Pausa para o usuário ler a arte
+                    MostrarMenu();Thread.Sleep(1000);
+                    break;    // Pausa para o usuário ler a arte
                 case 1:
                     MostrarMenumap();
+                    Thread.Sleep(1000);
                     break;
                 case 2:
                     MostrarMenuConf();
+                    Thread.Sleep(1000);
                     break;
                 case 3:
                     MostrarMenuControles();
+                    Thread.Sleep(1000);
+                    break;
+               
+                case 4:
+                    Console.CursorVisible = true;  // Esconde o cursor do console  
+                    Mud();
+
+                
                     break;
             }
            
